@@ -66,6 +66,17 @@
     transition: border-color 0.2s;
   }
   .nav-gh:hover { border-color: var(--accent); color: var(--accent); }
+  .lang-btn {
+    cursor: pointer;
+    display: inline-flex; align-items: center;
+    padding: 8px 16px; border-radius: 999px;
+    border: 1px solid var(--line);
+    background: transparent;
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--text); text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
 
   /* ---------- Hero ---------- */
   .hero { padding: 160px 0 120px; text-align: center; }
@@ -156,6 +167,16 @@
     text-decoration: none; transition: transform 0.2s, opacity 0.2s;
   }
   .card-dl:hover { transform: translateY(-2px); opacity: 0.88; }
+  .card-name-link { color: inherit; text-decoration: none; transition: color 0.2s; }
+  .card-name-link:hover { color: var(--accent); }
+  .card-detail {
+    display: inline-flex; align-items: center;
+    padding: 10px 20px; border-radius: 999px;
+    border: 1px solid var(--line); color: var(--text);
+    font-family: var(--font-mono); font-size: 13px; font-weight: 600;
+    text-decoration: none; transition: transform 0.2s, border-color 0.2s;
+  }
+  .card-detail:hover { transform: translateY(-2px); border-color: var(--text); }
 
   /* ---------- 游戏 ---------- */
   .games-empty {
@@ -205,8 +226,9 @@
   <nav class="container">
     <a class="brand" href="#top"><span class="brand-mark">UL</span>UnboxLumen</a>
     <div class="nav-links">
-      <a href="#software">软件</a>
-      <a href="#games">游戏</a>
+      <a href="#software" data-i18n="navSoftware">软件</a>
+      <a href="#games" data-i18n="navGames">游戏</a>
+      <button id="lang-switch" class="lang-btn" type="button" aria-label="Switch to English">EN</button>
       <a class="nav-gh" href="https://github.com/unboxlumen" target="_blank" rel="noopener">GitHub ↗</a>
     </div>
   </nav>
@@ -216,24 +238,24 @@
   <section class="hero container">
     <div class="reveal"><span class="hero-eyebrow">SOFTWARE &amp; GAME STUDIO</span></div>
     <h1 class="reveal">Unbox<span class="accent">Lumen</span></h1>
-    <p class="hero-desc reveal">独立软件与游戏开发工作室。我们拆开灵感、点亮创意，把一个个想法做成真正可用的产品。</p>
+    <p class="hero-desc reveal" data-i18n="heroDesc">独立软件与游戏开发工作室。我们拆开灵感、点亮创意，把一个个想法做成真正可用的产品。</p>
     <div class="hero-actions reveal">
-      <a class="btn btn-primary" href="#software">浏览软件 ↓</a>
-      <a class="btn btn-ghost" href="#games">游戏项目</a>
+      <a class="btn btn-primary" href="#software" data-i18n="browseSoftware">浏览软件 ↓</a>
+      <a class="btn btn-ghost" href="#games" data-i18n="gamesBtn">游戏项目</a>
     </div>
     <div class="hero-meta reveal">
-      <div class="meta-item">项目数<b>01</b></div>
-      <div class="meta-item">方向<b>软件 / 游戏</b></div>
-      <div class="meta-item">状态<b>持续开发中</b></div>
+      <div class="meta-item"><span data-i18n="metaProjectsLabel">项目数</span><b data-i18n="metaProjectsValue">01</b></div>
+      <div class="meta-item"><span data-i18n="metaFocusLabel">方向</span><b data-i18n="metaFocusValue">软件 / 游戏</b></div>
+      <div class="meta-item"><span data-i18n="metaStatusLabel">状态</span><b data-i18n="metaStatusValue">持续开发中</b></div>
     </div>
   </section>
 
   <section id="software">
     <div class="container">
       <div class="section-head reveal">
-        <div class="section-index">01 // Software</div>
-        <h2>我们的软件</h2>
-        <p class="section-note">由 UnboxLumen 开发并维护的桌面应用，可直接下载使用。</p>
+        <div class="section-index" data-i18n="softIndex">01 // Software</div>
+        <h2 data-i18n="softTitle">我们的软件</h2>
+        <p class="section-note" data-i18n="softNote">由 UnboxLumen 开发并维护的应用，可直接下载使用。</p>
       </div>
       <div id="software-grid"></div>
     </div>
@@ -242,13 +264,13 @@
   <section id="games">
     <div class="container">
       <div class="section-head reveal">
-        <div class="section-index">02 // Games</div>
-        <h2>游戏项目</h2>
-        <p class="section-note">独立游戏正在孵化中，敬请期待。</p>
+        <div class="section-index" data-i18n="gamesIndex">02 // Games</div>
+        <h2 data-i18n="gamesTitle">游戏项目</h2>
+        <p class="section-note" data-i18n="gamesNote">独立游戏正在孵化中，敬请期待。</p>
       </div>
       <div class="games-empty reveal">
-        <div class="big">正在点亮新的世界</div>
-        <p>首个游戏项目仍在开发阶段，完成后会在此展示。</p>
+        <div class="big" data-i18n="gamesEmptyBig">正在点亮新的世界</div>
+        <p data-i18n="gamesEmptyText">首个游戏项目仍在开发阶段，完成后会在此展示。</p>
         <p class="mono" style="margin-top:16px">// COMING SOON</p>
       </div>
     </div>
@@ -263,44 +285,148 @@
 </footer>
 
 <script>
+  (() => {
+  // ========== 中英双语文案 ==========
+  const I18N = {
+    zh: {
+      lang: "zh-CN",
+      title: "UnboxLumen · 软件与游戏开发工作室",
+      description: "UnboxLumen —— 独立软件与游戏开发工作室。",
+      navSoftware: "软件",
+      navGames: "游戏",
+      heroDesc: "独立软件与游戏开发工作室。我们拆开灵感、点亮创意，把一个个想法做成真正可用的产品。",
+      browseSoftware: "浏览软件 ↓",
+      gamesBtn: "游戏项目",
+      metaProjectsLabel: "项目数",
+      metaProjectsValue: "01",
+      metaFocusLabel: "方向",
+      metaFocusValue: "软件 / 游戏",
+      metaStatusLabel: "状态",
+      metaStatusValue: "持续开发中",
+      softIndex: "01 // Software",
+      softTitle: "我们的软件",
+      softNote: "由 UnboxLumen 开发并维护的应用，可直接下载使用。",
+      gamesIndex: "02 // Games",
+      gamesTitle: "游戏项目",
+      gamesNote: "独立游戏正在孵化中，敬请期待。",
+      gamesEmptyBig: "正在点亮新的世界",
+      gamesEmptyText: "首个游戏项目仍在开发阶段，完成后会在此展示。",
+      download: "下载",
+      cardDetail: "详情"
+    },
+    en: {
+      lang: "en",
+      title: "UnboxLumen · Software & Game Studio",
+      description: "UnboxLumen — an independent software and game development studio.",
+      navSoftware: "Software",
+      navGames: "Games",
+      heroDesc: "An independent software and game studio. We unpack ideas, spark creativity, and turn them into products you can actually use.",
+      browseSoftware: "Browse Software ↓",
+      gamesBtn: "Games",
+      metaProjectsLabel: "Projects",
+      metaProjectsValue: "01",
+      metaFocusLabel: "Focus",
+      metaFocusValue: "Software / Games",
+      metaStatusLabel: "Status",
+      metaStatusValue: "In Development",
+      softIndex: "01 // Software",
+      softTitle: "Our Software",
+      softNote: "Apps developed and maintained by UnboxLumen. Download and use them directly.",
+      gamesIndex: "02 // Games",
+      gamesTitle: "Games",
+      gamesNote: "Indie games are in the making. Stay tuned.",
+      gamesEmptyBig: "Lighting up new worlds",
+      gamesEmptyText: "The first game project is still in development and will be showcased here once it's ready.",
+      download: "Download",
+      cardDetail: "Details"
+    }
+  };
+
+  // 语言：本地记忆优先，其次跟随浏览器语言
+  let lang = localStorage.getItem("ul-lang") ||
+    (navigator.language && navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en");
+
   // ========== 软件列表（新增项目只需在此追加一条数据） ==========
   const software = [
     {
-      name: "n浏览器",
       en: "nBrowser",
-      desc: "UnboxLumen 出品的轻量浏览器，注重速度与简洁，为你提供清爽的上网体验。",
-      tags: ["桌面应用", "轻量"],
-      version: "v1.0",
-      download: "https://github.com/unboxlumen/nbrowser"
+      name: { zh: "n浏览器", en: "nBrowser" },
+      desc: {
+        zh: "UnboxLumen 出品的轻量安卓浏览器，注重速度与简洁，为你提供清爽的上网体验。",
+        en: "A lightweight Android browser by UnboxLumen, focused on speed and simplicity for a clean browsing experience."
+      },
+      tags: { zh: ["安卓应用", "轻量"], en: ["Android", "Lightweight"] },
+      version: "v0.0.1",
+      download: "https://github.com/unboxlumen/nbrowser/releases/download/v0.0.1/nbrowser-release.apk"
     }
   ];
 
   // ========== 游戏列表（开发中项目占位） ==========
   const games = [];
 
+  function t(key) { return I18N[lang][key]; }
+
   function cardTemplate(item) {
     return `
       <article class="card reveal">
         <div class="card-head">
-          <span class="card-name">${item.name}</span>
+          <a class="card-name-link" href="nbrowser/"><span class="card-name">${item.name[lang]}</span></a>
           <span class="card-en">${item.en}</span>
         </div>
-        <p class="card-desc">${item.desc}</p>
+        <p class="card-desc">${item.desc[lang]}</p>
         <div class="card-tags">
-          ${item.tags.map(t => `<span class="tag">${t}</span>`).join("")}
+          ${item.tags[lang].map(x => `<span class="tag">${x}</span>`).join("")}
         </div>
         <div class="card-footer">
           <span class="card-version">${item.version}</span>
           <div class="card-actions">
-            <a class="card-dl" href="${item.download}" target="_blank" rel="noopener">下载</a>
+            <a class="card-detail" href="nbrowser/">${t("cardDetail")}</a>
+            <a class="card-dl" href="${item.download}" target="_blank" rel="noopener">${t("download")}</a>
           </div>
         </div>
       </article>
     `;
   }
 
-  // 渲染软件列表
-  document.getElementById("software-grid").innerHTML = software.map(cardTemplate).join("");
+  function renderSoftware() {
+    document.getElementById("software-grid").innerHTML = software.map(cardTemplate).join("");
+  }
+
+  function applyLang() {
+    document.documentElement.lang = I18N[lang].lang;
+    document.title = t("title");
+    document.querySelector('meta[name="description"]').setAttribute("content", t("description"));
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      el.textContent = t(el.dataset.i18n);
+    });
+    const btn = document.getElementById("lang-switch");
+    btn.textContent = lang === "zh" ? "EN" : "中文";
+    btn.setAttribute("aria-label", lang === "zh" ? "Switch to English" : "切换到中文");
+    renderSoftware();
+    observeReveals();
+    localStorage.setItem("ul-lang", lang);
+  }
+
+  // 从 GitHub Releases 读取最新版本，自动刷新下载地址与版本号
+  (async () => {
+    try {
+      const res = await fetch("https://api.github.com/repos/unboxlumen/nbrowser/releases/latest");
+      if (!res.ok) return;
+      const data = await res.json();
+      const asset = data.assets && data.assets.find((a) => a.browser_download_url);
+      if (asset) {
+        software[0].version = data.tag_name || software[0].version;
+        software[0].download = asset.browser_download_url;
+        renderSoftware();
+        observeReveals();
+      }
+    } catch (e) { /* 网络不可用时保留预设版本 */ }
+  })();
+
+  document.getElementById("lang-switch").addEventListener("click", () => {
+    lang = lang === "zh" ? "en" : "zh";
+    applyLang();
+  });
 
   // 滚动入场动画
   const observer = new IntersectionObserver(
@@ -314,12 +440,18 @@
     },
     { threshold: 0.12 }
   );
-  document.querySelectorAll(".reveal").forEach((el, i) => {
-    if (!el.closest(".hero")) {
-      el.style.transitionDelay = `${(i % 3) * 0.08}s`;
-    }
-    observer.observe(el);
-  });
+
+  function observeReveals() {
+    document.querySelectorAll(".reveal").forEach((el, i) => {
+      if (!el.closest(".hero")) {
+        el.style.transitionDelay = `${(i % 3) * 0.08}s`;
+      }
+      observer.observe(el);
+    });
+  }
+
+  applyLang();
+  })();
 </script>
 </body>
 </html>

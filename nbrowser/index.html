@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>N Browser · UnboxLumen</title>
+<meta name="description" content="N 浏览器 —— 轻量、可定制的安卓浏览器。系统 WebView，不捆绑引擎。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --ink: #111111;
+    --muted: #6e6e73;
+    --line: rgba(0, 0, 0, 0.09);
+    --accent: #0071e3;
+    --dark: #0e0e10;
+    --dark-line: rgba(255, 255, 255, 0.14);
+    --font-display: "Outfit", "Noto Sans SC", sans-serif;
+    --font-body: "Noto Sans SC", -apple-system, "PingFang SC", sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 48px; }
+
+  /* ---------- 导航 ---------- */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.72);
+    border-bottom: 1px solid var(--line);
+  }
+  nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--font-display); font-weight: 600; font-size: 17px;
+    letter-spacing: -0.01em; text-decoration: none; color: var(--ink);
+  }
+  .brand-mark {
+    width: 26px; height: 26px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--ink); color: #fff;
+    font-family: var(--font-mono); font-weight: 600; font-size: 11px;
+  }
+  .nav-links { display: flex; align-items: center; gap: 28px; }
+  .nav-links a:not(.nav-gh):not(.lang-btn) { color: var(--muted); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+  .nav-links a:not(.nav-gh):not(.lang-btn):hover { color: var(--ink); }
+  .nav-gh, .lang-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 16px; border-radius: 999px;
+    border: 1px solid var(--line);
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--ink); text-decoration: none; background: transparent;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .lang-btn { cursor: pointer; }
+  .nav-gh:hover, .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ---------- Hero（深色） ---------- */
+  .hero {
+    position: relative;
+    background: var(--dark);
+    color: #fff;
+    padding: 120px 0 110px;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(600px 340px at 82% 12%, rgba(0, 113, 227, 0.28), transparent 70%),
+      radial-gradient(520px 380px at 8% 88%, rgba(0, 113, 227, 0.14), transparent 70%),
+      radial-gradient(1px 1px at 12% 22%, rgba(255,255,255,0.35) 50%, transparent 51%),
+      radial-gradient(1px 1px at 24% 68%, rgba(255,255,255,0.25) 50%, transparent 51%),
+      radial-gradient(1px 1px at 63% 34%, rgba(255,255,255,0.22) 50%, transparent 51%),
+      radial-gradient(1px 1px at 87% 58%, rgba(255,255,255,0.22) 50%, transparent 51%),
+      radial-gradient(1px 1px at 44% 12%, rgba(255,255,255,0.25) 50%, transparent 51%);
+    background-size: 100% 100%, 100% 100%, 120px 120px, 160px 160px, 140px 140px, 190px 190px, 170px 170px;
+    pointer-events: none;
+  }
+  .hero .container { position: relative; display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px; align-items: center; }
+  .hero-eyebrow {
+    font-family: var(--font-mono); font-size: 12px;
+    color: rgba(255, 255, 255, 0.55); letter-spacing: 0.22em;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-eyebrow::after { content: ""; width: 42px; height: 1px; background: var(--dark-line); }
+  .hero h1 {
+    margin-top: 24px;
+    font-family: var(--font-display);
+    font-size: clamp(52px, 7vw, 84px);
+    font-weight: 600; line-height: 1.02; letter-spacing: -0.02em;
+  }
+  .hero h1 .accent { color: var(--accent); }
+  .hero-tagline {
+    margin-top: 22px; max-width: 460px;
+    font-size: 17px; color: rgba(255, 255, 255, 0.72);
+  }
+  .hero-chips { margin-top: 28px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .chip {
+    padding: 5px 14px; border-radius: 999px;
+    border: 1px solid var(--dark-line);
+    font-family: var(--font-mono); font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  .chip.accent { border-color: rgba(0, 113, 227, 0.6); color: #7cb3f1; background: rgba(0, 113, 227, 0.12); }
+  .hero-actions { margin-top: 40px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 30px; border-radius: 999px;
+    font-family: var(--font-mono); font-size: 14px; font-weight: 600;
+    text-decoration: none; transition: transform 0.2s, opacity 0.2s, border-color 0.2s;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-white { background: #fff; color: var(--ink); }
+  .btn-white:hover { opacity: 0.9; }
+  .btn-ghost-dark { border: 1px solid var(--dark-line); color: #fff; }
+  .btn-ghost-dark:hover { border-color: #fff; }
+
+  /* ---------- 手机模拟 ---------- */
+  .hero-visual { display: flex; justify-content: center; }
+  .phone {
+    width: 236px; height: 468px;
+    border-radius: 38px;
+    background: linear-gradient(180deg, #1c1c1f, #101012);
+    border: 1px solid var(--dark-line);
+    padding: 10px;
+    box-shadow: 0 50px 90px -30px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(0,0,0,0.4);
+    transform: rotate(4deg);
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float { 0%, 100% { transform: rotate(4deg) translateY(0); } 50% { transform: rotate(4deg) translateY(-10px); } }
+  .phone-screen {
+    width: 100%; height: 100%;
+    border-radius: 30px;
+    background: #fff;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  .phone-cam { width: 70px; height: 20px; margin: 0 auto; background: #1c1c1f; border-radius: 0 0 12px 12px; }
+  .phone-status {
+    display: flex; justify-content: space-between;
+    padding: 10px 16px 2px;
+    font-family: var(--font-mono); font-size: 9px; color: #999;
+  }
+  .phone-url {
+    display: flex; align-items: center; gap: 6px;
+    margin: 8px 12px; padding: 7px 12px;
+    background: #f2f2f4; border-radius: 9px;
+    font-family: var(--font-mono); font-size: 9px; color: #444;
+  }
+  .phone-url .dot { width: 8px; height: 8px; border-radius: 50%; background: #34c759; flex: none; }
+  .phone-page { padding: 6px 14px 4px; flex: 1; }
+  .phone-page .hl { font-family: var(--font-display); font-size: 14px; font-weight: 600; color: var(--ink); margin: 8px 0 10px; }
+  .phone-page .line { height: 7px; border-radius: 4px; background: #ececee; margin-bottom: 8px; }
+  .phone-page .line.short { width: 58%; }
+  .phone-page .line.accent { background: rgba(0, 113, 227, 0.25); width: 82%; }
+  .phone-page .img { height: 46px; border-radius: 8px; background: linear-gradient(135deg, #dde7f5, #eef2f8); margin: 12px 0 10px; }
+  .phone-btns {
+    display: flex; justify-content: space-around; align-items: center;
+    padding: 9px 22px 11px; border-top: 1px solid #f0f0f0;
+  }
+  .phone-btns .i { width: 16px; height: 16px; border-radius: 5px; border: 1.5px solid #cfcfd3; }
+  .phone-btns .i.active { background: var(--accent); border-color: var(--accent); }
+
+  /* ---------- Release 条 ---------- */
+  .release-bar { border-bottom: 1px solid var(--line); background: #fafafa; }
+  .release-bar .container {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; flex-wrap: wrap;
+    padding-top: 18px; padding-bottom: 18px;
+    font-family: var(--font-mono); font-size: 12px; color: var(--muted);
+  }
+  .release-bar b { color: var(--ink); font-weight: 600; }
+  .release-bar .rel-download {
+    color: var(--accent); text-decoration: none; font-weight: 600;
+  }
+  .release-bar .rel-download:hover { text-decoration: underline; }
+
+  /* ---------- 区块 ---------- */
+  section { padding: 110px 0; }
+  .section-head { margin-bottom: 54px; }
+  .section-index {
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--muted); letter-spacing: 0.22em; text-transform: uppercase;
+  }
+  .section-head h2 {
+    margin-top: 16px;
+    font-family: var(--font-display);
+    font-size: clamp(30px, 4vw, 44px);
+    font-weight: 600; letter-spacing: -0.01em;
+  }
+  .section-note { margin-top: 14px; color: var(--muted); font-size: 16px; max-width: 560px; }
+
+  /* ---------- 功能卡片 ---------- */
+  #feature-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 20px; }
+  .fcard {
+    border: 1px solid var(--line); border-radius: 18px;
+    padding: 28px 26px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .fcard:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08); border-color: rgba(0, 0, 0, 0.16); }
+  .fcard-icon {
+    width: 42px; height: 42px; border-radius: 12px;
+    display: grid; place-items: center;
+    background: #f5f5f7; color: var(--ink);
+  }
+  .fcard-icon svg { width: 21px; height: 21px; }
+  .fcard h3 {
+    margin-top: 18px;
+    font-family: var(--font-display); font-size: 18px; font-weight: 600; letter-spacing: -0.01em;
+  }
+  .fcard p { margin-top: 8px; font-size: 14px; color: var(--muted); }
+
+  /* ---------- 原则（编辑风） ---------- */
+  #principles { background: #fafafa; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .principles-list { border-top: 1px solid var(--line); }
+  .principle {
+    display: grid; grid-template-columns: 110px 1fr;
+    gap: 32px; align-items: start;
+    padding: 44px 0; border-bottom: 1px solid var(--line);
+  }
+  .principle .num {
+    font-family: var(--font-display); font-size: 56px; font-weight: 600;
+    color: var(--accent); line-height: 1; letter-spacing: -0.02em;
+  }
+  .principle h3 { font-family: var(--font-display); font-size: 24px; font-weight: 600; letter-spacing: -0.01em; }
+  .principle p { margin-top: 12px; color: var(--muted); max-width: 620px; }
+
+  /* ---------- 技术规格条 ---------- */
+  .spec-strip {
+    border: 1px solid var(--line); border-radius: 18px;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+  }
+  .spec-item { padding: 30px 24px; border-left: 1px solid var(--line); }
+  .spec-item:first-child { border-left: none; }
+  .spec-item .k { font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; }
+  .spec-item .v { margin-top: 10px; font-family: var(--font-display); font-size: 19px; font-weight: 600; }
+
+  /* ---------- 下载 ---------- */
+  #download { text-align: center; }
+  #download .container { max-width: 720px; }
+  .dl-card {
+    border: 1px solid var(--line); border-radius: 24px;
+    padding: 56px 40px 44px;
+    background: linear-gradient(180deg, #ffffff, #fafafa);
+  }
+  .dl-icon {
+    width: 64px; height: 64px; margin: 0 auto;
+    border-radius: 18px; background: var(--ink); color: #fff;
+    display: grid; place-items: center;
+  }
+  .dl-icon svg { width: 30px; height: 30px; }
+  .dl-title {
+    margin-top: 26px;
+    font-family: var(--font-display); font-size: 30px; font-weight: 600; letter-spacing: -0.01em;
+  }
+  .dl-note { margin-top: 12px; color: var(--muted); font-size: 15px; }
+  .dl-meta {
+    margin: 32px auto 0; max-width: 520px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+  }
+  .dl-meta .m { border: 1px solid var(--line); border-radius: 14px; padding: 14px 10px; }
+  .dl-meta .k { font-family: var(--font-mono); font-size: 10px; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; }
+  .dl-meta .v { margin-top: 6px; font-family: var(--font-mono); font-size: 13px; font-weight: 600; }
+  .dl-sha {
+    margin-top: 16px; padding: 10px 14px; border-radius: 12px;
+    background: #f2f2f4;
+    font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+    word-break: break-all; text-align: left;
+  }
+  .dl-actions { margin-top: 34px; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+  .btn-primary { background: var(--ink); color: #fff; }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-ghost { border: 1px solid var(--line); color: var(--ink); }
+  .btn-ghost:hover { border-color: var(--ink); }
+  .dl-update { margin-top: 22px; font-size: 12px; color: var(--muted); }
+
+  /* ---------- 页脚 ---------- */
+  footer { border-top: 1px solid var(--line); padding: 44px 0; }
+  .footer-inner {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    font-family: var(--font-mono); font-size: 12px; color: var(--muted);
+  }
+  .footer-inner a { color: var(--muted); text-decoration: none; }
+  .footer-inner a:hover { color: var(--ink); }
+  .footer-home { color: var(--accent) !important; }
+
+  /* ---------- 动画 ---------- */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in-view { opacity: 1; transform: none; }
+  .hero .reveal { animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  .hero .reveal:nth-child(2) { animation-delay: 0.1s; }
+  .hero .reveal:nth-child(3) { animation-delay: 0.2s; }
+  .hero .reveal:nth-child(4) { animation-delay: 0.3s; }
+  .hero .reveal:nth-child(5) { animation-delay: 0.4s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal, .hero .reveal { animation: none; opacity: 1; transform: none; transition: none; }
+    .phone { animation: none; }
+  }
+  @media (max-width: 900px) {
+    .hero .container { grid-template-columns: 1fr; gap: 64px; }
+    .hero { padding: 84px 0 90px; text-align: center; }
+    .hero-tagline { margin-left: auto; margin-right: auto; }
+    .hero-actions { justify-content: center; }
+    .hero-eyebrow { justify-content: center; }
+    .hero-eyebrow::after { display: none; }
+    .phone { width: 210px; height: 420px; }
+    .principle { grid-template-columns: 76px 1fr; gap: 20px; }
+    .spec-strip { grid-template-columns: 1fr 1fr; }
+    .spec-item { border-left: none; border-top: 1px solid var(--line); }
+    .spec-item:nth-child(1), .spec-item:nth-child(2) { border-top: none; }
+    .spec-item:nth-child(even) { border-left: 1px solid var(--line); }
+    .dl-meta { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 760px) {
+    .container { padding: 0 22px; }
+    .nav-links a:not(.nav-gh):not(.lang-btn) { display: none; }
+    section { padding: 84px 0; }
+    #feature-grid { grid-template-columns: 1fr; }
+    .dl-card { padding: 44px 22px 36px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <nav class="container">
+    <a class="brand" href="../index.html"><span class="brand-mark">UL</span>UnboxLumen</a>
+    <div class="nav-links">
+      <a href="#features" data-i18n="navFeatures">功能</a>
+      <a href="#principles" data-i18n="navPrinciples">原则</a>
+      <a href="#download" data-i18n="navDownload">下载</a>
+      <button id="lang-switch" class="lang-btn" type="button" aria-label="Switch to English">EN</button>
+      <a class="nav-gh" href="https://github.com/unboxlumen/nbrowser" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <!-- ========== Hero ========== -->
+  <section class="hero">
+    <div class="container">
+      <div>
+        <div class="hero-eyebrow reveal">UNBOXLUMEN · PRODUCT 01</div>
+        <h1 class="reveal" id="hero-title">N <span class="accent">浏览器</span></h1>
+        <p class="hero-tagline reveal" data-i18n="heroTagline">轻量、可定制的安卓浏览器。系统 WebView，不捆绑引擎——装到手机上的，就是全部。</p>
+        <div class="hero-chips reveal">
+          <span class="chip accent" data-i18n="heroChipPlatform">Android</span>
+          <span class="chip" data-rel="version">v0.0.1</span>
+          <span class="chip" data-rel="size">约 1.8 MB</span>
+        </div>
+        <div class="hero-actions reveal">
+          <a class="btn btn-white" data-rel="url" href="https://github.com/unboxlumen/nbrowser/releases/download/v0.0.1/nbrowser-release.apk" data-i18n="heroCta1" target="_blank" rel="noopener">立即下载</a>
+          <a class="btn btn-ghost-dark" href="#features" data-i18n="heroCta2">了解功能</a>
+        </div>
+      </div>
+      <div class="hero-visual reveal">
+        <div class="phone" aria-hidden="true">
+          <div class="phone-screen">
+            <div class="phone-cam"></div>
+            <div class="phone-status"><span>9:41</span><span>nBrowser</span><span>●●●</span></div>
+            <div class="phone-url"><span class="dot"></span>unboxlumen.com</div>
+            <div class="phone-page">
+              <div class="hl" data-i18n="phoneTitle">N 浏览器 · 清爽上网</div>
+              <div class="img"></div>
+              <div class="line accent"></div>
+              <div class="line"></div>
+              <div class="line short"></div>
+              <div class="line"></div>
+              <div class="line short"></div>
+            </div>
+            <div class="phone-btns">
+              <span class="i"></span><span class="i active"></span><span class="i"></span><span class="i"></span><span class="i"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== Release 条 ========== -->
+  <div class="release-bar">
+    <div class="container">
+      <span><span data-i18n="relLatest">最新版本</span> <b data-rel="version">v0.0.1</b></span>
+      <span><span data-i18n="relDate">发布于</span> <b data-rel="date">2026-08-14</b></span>
+      <span><span data-i18n="relSize">大小</span> <b data-rel="size">约 1.8 MB</b></span>
+      <a class="rel-download" data-rel="url" href="https://github.com/unboxlumen/nbrowser/releases/download/v0.0.1/nbrowser-release.apk" target="_blank" rel="noopener" data-i18n="relCta">下载 APK ↓</a>
+    </div>
+  </div>
+
+  <!-- ========== 功能 ========== -->
+  <section id="features">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-index" data-i18n="feIndex">01 // Features</div>
+        <h2 data-i18n="feTitle">该有的，都有</h2>
+        <p class="section-note" data-i18n="feNote">功能够用就行——但日常用到的，一样不少。</p>
+      </div>
+      <div id="feature-grid"></div>
+    </div>
+  </section>
+
+  <!-- ========== 原则 ========== -->
+  <section id="principles">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-index" data-i18n="prIndex">02 // Principles</div>
+        <h2 data-i18n="prTitle">三条原则</h2>
+        <p class="section-note" data-i18n="prNote">N 浏览器的一切取舍，都从这里出发。</p>
+      </div>
+      <div class="principles-list" id="principles-list"></div>
+    </div>
+  </section>
+
+  <!-- ========== 技术规格 ========== -->
+  <section id="specs">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-index" data-i18n="spIndex">03 // Specs</div>
+        <h2 data-i18n="spTitle">技术栈</h2>
+      </div>
+      <div class="spec-strip reveal" id="spec-strip"></div>
+    </div>
+  </section>
+
+  <!-- ========== 下载 ========== -->
+  <section id="download">
+    <div class="container">
+      <div class="section-head reveal" style="text-align:left">
+        <div class="section-index" data-i18n="dlIndex">04 // Download</div>
+        <h2 data-i18n="dlTitle">下载 N 浏览器</h2>
+      </div>
+      <div class="dl-card reveal">
+        <div class="dl-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg>
+        </div>
+        <h3 class="dl-title" data-i18n="dlTitleText">N 浏览器 · nBrowser</h3>
+        <p class="dl-note" data-i18n="dlNote">下载 APK 后直接安装即可。如手机提示"禁止安装未知来源应用"，允许本次安装即可。</p>
+        <div class="dl-meta">
+          <div class="m"><div class="k" data-i18n="dlMetaVersion">版本</div><div class="v" data-rel="version">v0.0.1</div></div>
+          <div class="m"><div class="k" data-i18n="dlMetaSize">大小</div><div class="v" data-rel="size">约 1.8 MB</div></div>
+          <div class="m"><div class="k" data-i18n="dlMetaDate">发布</div><div class="v" data-rel="date">2026-08-14</div></div>
+        </div>
+        <div class="dl-sha"><span data-i18n="dlShaLabel">SHA-256</span> · <span data-rel="sha">c26866378596c700b862b753394f657afad710288dc00f31db86c01033c2afa6</span></div>
+        <div class="dl-actions">
+          <a class="btn btn-primary" data-rel="url" href="https://github.com/unboxlumen/nbrowser/releases/download/v0.0.1/nbrowser-release.apk" target="_blank" rel="noopener" data-i18n="dlBtn">立即下载 APK</a>
+          <a class="btn btn-ghost" href="https://github.com/unboxlumen/nbrowser/releases" target="_blank" rel="noopener" data-i18n="dlReleases">查看 GitHub Releases</a>
+        </div>
+        <p class="dl-update" data-i18n="dlUpdate">应用内自带更新检查，发布新版本后会自动从 GitHub Releases 获取。</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <span>© 2026 UnboxLumen Project</span>
+    <span><a class="footer-home" href="../index.html" data-i18n="footerHome">← 返回主页</a></span>
+    <span>Built by <a href="https://github.com/unboxlumen" target="_blank" rel="noopener">@unboxlumen</a></span>
+  </div>
+</footer>
+
+<script>
+  (() => {
+  // ========== 中英双语文案 ==========
+  const I18N = {
+    zh: {
+      title: "N 浏览器 · UnboxLumen",
+      description: "N 浏览器 —— 轻量、可定制的安卓浏览器。系统 WebView，不捆绑引擎。",
+      heroTitle: "N <span class=\"accent\">浏览器</span>",
+      phoneTitle: "N 浏览器 · 清爽上网",
+      dlTitleText: "N 浏览器 · nBrowser",
+      navFeatures: "功能",
+      navPrinciples: "原则",
+      navDownload: "下载",
+      heroTagline: "轻量、可定制的安卓浏览器。系统 WebView，不捆绑引擎——装到手机上的，就是全部。",
+      heroChipPlatform: "Android",
+      heroCta1: "立即下载",
+      heroCta2: "了解功能",
+      relLatest: "最新版本",
+      relDate: "发布于",
+      relSize: "大小",
+      relCta: "下载 APK ↓",
+      feIndex: "01 // Features",
+      feTitle: "该有的，都有",
+      feNote: "功能够用就行——但日常用到的，一样不少。",
+      prIndex: "02 // Principles",
+      prTitle: "三条原则",
+      prNote: "N 浏览器的一切取舍，都从这里出发。",
+      spIndex: "03 // Specs",
+      spTitle: "技术栈",
+      dlIndex: "04 // Download",
+      dlTitle: "下载 N 浏览器",
+      dlNote: "下载 APK 后直接安装即可。如手机提示\u201c禁止安装未知来源应用\u201d，允许本次安装即可。",
+      dlMetaVersion: "版本",
+      dlMetaSize: "大小",
+      dlMetaDate: "发布",
+      dlShaLabel: "SHA-256",
+      dlBtn: "立即下载 APK",
+      dlReleases: "查看 GitHub Releases",
+      dlUpdate: "应用内自带更新检查，发布新版本后会自动从 GitHub Releases 获取。",
+      footerHome: "← 返回主页"
+    },
+    en: {
+      title: "N Browser · UnboxLumen",
+      description: "N Browser — a lightweight, customizable Android browser built on the system WebView, with no bundled engine.",
+      heroTitle: "N <span class=\"accent\">Browser</span>",
+      phoneTitle: "N Browser · Clean browsing",
+      dlTitleText: "N Browser · nBrowser",
+      navFeatures: "Features",
+      navPrinciples: "Principles",
+      navDownload: "Download",
+      heroTagline: "A lightweight, customizable Android browser. Built on the system WebView with no bundled engine — what you install is all there is.",
+      heroChipPlatform: "Android",
+      heroCta1: "Download Now",
+      heroCta2: "Explore Features",
+      relLatest: "Latest",
+      relDate: "Released",
+      relSize: "Size",
+      relCta: "Get APK ↓",
+      feIndex: "01 // Features",
+      feTitle: "Everything you need",
+      feNote: "Enough features — but everything you use daily is here.",
+      prIndex: "02 // Principles",
+      prTitle: "Three principles",
+      prNote: "Every trade-off in N Browser starts here.",
+      spIndex: "03 // Specs",
+      spTitle: "Tech stack",
+      dlIndex: "04 // Download",
+      dlTitle: "Download N Browser",
+      dlNote: "Download the APK and install it directly. If Android asks about \u201cunknown sources\u201d, allow this install.",
+      dlMetaVersion: "Version",
+      dlMetaSize: "Size",
+      dlMetaDate: "Release",
+      dlShaLabel: "SHA-256",
+      dlBtn: "Download APK",
+      dlReleases: "View GitHub Releases",
+      dlUpdate: "The app checks for updates in-app and pulls new versions from GitHub Releases automatically.",
+      footerHome: "← Back to Home"
+    }
+  };
+
+  // 语言：本地记忆优先（与主页共用），其次跟随浏览器语言
+  let lang = localStorage.getItem("ul-lang") ||
+    (navigator.language && navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en");
+
+  // ========== 功能列表 ==========
+  const features = [
+    {
+      icon: "block",
+      name: { zh: "广告拦截", en: "Ad Blocking" },
+      desc: {
+        zh: "AdBlock + BannerBlock 双引擎，浏览更清爽。",
+        en: "Dual engines (AdBlock + BannerBlock) keep your browsing clean."
+      }
+    },
+    {
+      icon: "script",
+      name: { zh: "用户脚本", en: "User Scripts" },
+      desc: {
+        zh: "支持油猴脚本，管理页可查看版本并一键更新。",
+        en: "Tampermonkey-style userscripts with a manager page for versions and one-tap updates."
+      }
+    },
+    {
+      icon: "video",
+      name: { zh: "视频下载", en: "Video Download" },
+      desc: {
+        zh: "嗅探 M3U8 / HLS 视频流，按清晰度展平，自动以网页标题命名。",
+        en: "Sniff M3U8 / HLS streams, flatten by quality, and auto-name files from page titles."
+      }
+    },
+    {
+      icon: "reader",
+      name: { zh: "阅读模式", en: "Reader Mode" },
+      desc: {
+        zh: "Readability 提取正文，纯净排版，明 / 暗 / 护眼三套主题。",
+        en: "Pure reading via Readability extraction, with light, dark and sepia themes."
+      }
+    },
+    {
+      icon: "bookmark",
+      name: { zh: "书签管理", en: "Bookmarks" },
+      desc: {
+        zh: "带颜色标签的书签，一目了然。",
+        en: "Color-tagged bookmarks, organized at a glance."
+      }
+    },
+    {
+      icon: "tabs",
+      name: { zh: "多标签页", en: "Multi-tab" },
+      desc: {
+        zh: "多标签页与概览视图，切换流畅。",
+        en: "Multiple tabs with an overview grid, switching fluidly."
+      }
+    },
+    {
+      icon: "mode",
+      name: { zh: "浏览模式", en: "Browsing Modes" },
+      desc: {
+        zh: "夜间 / 无图 / 电脑模式，一键切换。",
+        en: "Night, no-image and desktop modes — one tap away."
+      }
+    },
+    {
+      icon: "privacy",
+      name: { zh: "隐私控制", en: "Privacy" },
+      desc: {
+        zh: "Cookie 管理与域名白名单，把例外握在自己手里。",
+        en: "Cookie management and per-domain whitelists put you in control."
+      }
+    },
+    {
+      icon: "gesture",
+      name: { zh: "手势操作", en: "Gestures" },
+      desc: {
+        zh: "手势快捷操作，用完即走。",
+        en: "Gesture shortcuts — in and out, fast."
+      }
+    },
+    {
+      icon: "backup",
+      name: { zh: "WebDAV 备份", en: "WebDAV Backup" },
+      desc: {
+        zh: "书签与设置，WebDAV 一键备份恢复。",
+        en: "Back up and restore bookmarks and settings via WebDAV."
+      }
+    },
+    {
+      icon: "home",
+      name: { zh: "主页定制", en: "Custom Home" },
+      desc: {
+        zh: "主页图标网格可排序，启动页可定制。",
+        en: "Sortable home grid and a customizable start page."
+      }
+    },
+    {
+      icon: "qr",
+      name: { zh: "二维码扫描", en: "QR Scanner" },
+      desc: {
+        zh: "内置扫码，打开链接与二维码。",
+        en: "Built-in scanner for links and QR codes."
+      }
+    }
+  ];
+
+  // ========== 原则 ==========
+  const principles = [
+    {
+      title: { zh: "追求速度，不追求功能，也不保证体积。", en: "Speed first — not features, not size." },
+      desc: {
+        zh: "功能够用就行。速度是最高优先级——加载快、响应快，用完即走。",
+        en: "Enough features, maximum speed — fast to load, fast to respond, done when you leave."
+      }
+    },
+    {
+      title: { zh: "有些浏览器安装包只有 1M，启动后再偷偷下载 100M 的引擎。N 浏览器不玩这种数字游戏。", en: "Some browsers ship a 1 MB APK, then quietly pull a 100 MB engine at launch. N Browser doesn't play that game." },
+      desc: {
+        zh: "我们用系统自带的 WebView，不捆绑任何浏览器引擎。你装到手机上的，就是全部。",
+        en: "We use the system WebView and bundle no engine. What you install is everything."
+      }
+    },
+    {
+      title: { zh: "三方库体积大、权限多、维护成本高。我们尽量不引入，但也不绝对。", en: "Third-party libraries bring size, permissions and maintenance cost. We avoid them unless the cost of not doing so is clearly higher." },
+      desc: {
+        zh: "除非不引入的成本明显大于收益，否则优先自己写。",
+        en: "We write it ourselves unless writing it clearly costs more than the library saves."
+      }
+    }
+  ];
+
+  // ========== 技术规格 ==========
+  const specs = [
+    { k: { zh: "语言", en: "Language" }, v: { zh: "纯 Java", en: "Pure Java" } },
+    { k: { zh: "渲染引擎", en: "Engine" }, v: { zh: "系统 WebView", en: "System WebView" } },
+    { k: { zh: "最低系统", en: "Min OS" }, v: { zh: "Android 7.0+", en: "Android 7.0+" } },
+    { k: { zh: "依赖", en: "Dependencies" }, v: { zh: "仅 ZXing + AndroidX", en: "ZXing + AndroidX only" } }
+  ];
+
+  // ========== 图标 ==========
+  const icons = {
+    block: '<circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/>',
+    script: '<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>',
+    video: '<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9.5l5 2.5-5 2.5z"/>',
+    reader: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
+    bookmark: '<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>',
+    tabs: '<rect x="3" y="7" width="13" height="11" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1"/>',
+    mode: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+    privacy: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>',
+    gesture: '<path d="M5 3l14 8-6.5 1L10 19z"/>',
+    backup: '<path d="M17.5 19H7a4.5 4.5 0 0 1 0-9 6 6 0 0 1 11.6 1.6 4 4 0 0 1-1.1 7.4z"/><path d="M12 12v6M12 12l-2.5 2.5M12 12l2.5 2.5"/>',
+    home: '<path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/>',
+    qr: '<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2M18 14h2M14 18h2M18 18h2"/>'
+  };
+
+  function t(key) { return I18N[lang][key]; }
+
+  // ========== Release 数据（预设 + 运行时更新） ==========
+  const FALLBACK_RELEASE = {
+    tag: "v0.0.1",
+    date: "2026-08-14",
+    size: "约 1.8 MB",
+    sha: "c26866378596c700b862b753394f657afad710288dc00f31db86c01033c2afa6",
+    url: "https://github.com/unboxlumen/nbrowser/releases/download/v0.0.1/nbrowser-release.apk"
+  };
+
+  function fmtSize(bytes) { return "约 " + (bytes / 1048576).toFixed(1) + " MB"; }
+
+  function applyRelease(r) {
+    document.querySelectorAll("[data-rel=version]").forEach(el => el.textContent = r.tag);
+    document.querySelectorAll("[data-rel=size]").forEach(el => el.textContent = r.size);
+    document.querySelectorAll("[data-rel=date]").forEach(el => el.textContent = r.date);
+    document.querySelectorAll("[data-rel=sha]").forEach(el => el.textContent = r.sha);
+    document.querySelectorAll("[data-rel=url]").forEach(el => el.href = r.url);
+  }
+
+  // ========== 渲染 ==========
+  function renderFeatures() {
+    document.getElementById("feature-grid").innerHTML = features.map(f => `
+      <article class="fcard reveal">
+        <div class="fcard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${icons[f.icon]}</svg></div>
+        <h3>${f.name[lang]}</h3>
+        <p>${f.desc[lang]}</p>
+      </article>
+    `).join("");
+  }
+
+  function renderPrinciples() {
+    document.getElementById("principles-list").innerHTML = principles.map((p, i) => `
+      <div class="principle reveal">
+        <div class="num">0${i + 1}</div>
+        <div>
+          <h3>${p.title[lang]}</h3>
+          <p>${p.desc[lang]}</p>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  function renderSpecs() {
+    document.getElementById("spec-strip").innerHTML = specs.map(s => `
+      <div class="spec-item">
+        <div class="k">${s.k[lang]}</div>
+        <div class="v">${s.v[lang]}</div>
+      </div>
+    `).join("");
+  }
+
+  function applyLang() {
+    document.documentElement.lang = I18N[lang].lang || (lang === "zh" ? "zh-CN" : "en");
+    document.title = t("title");
+    document.querySelector('meta[name="description"]').setAttribute("content", t("description"));
+    document.getElementById("hero-title").innerHTML = t("heroTitle");
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      el.textContent = t(el.dataset.i18n);
+    });
+    const btn = document.getElementById("lang-switch");
+    btn.textContent = lang === "zh" ? "EN" : "中文";
+    btn.setAttribute("aria-label", lang === "zh" ? "Switch to English" : "切换到中文");
+    renderFeatures();
+    renderPrinciples();
+    renderSpecs();
+    applyRelease(FALLBACK_RELEASE);
+    observeReveals();
+    localStorage.setItem("ul-lang", lang);
+  }
+
+  // 从 GitHub Releases 读取最新版本，自动刷新下载地址与版本信息
+  (async () => {
+    try {
+      const res = await fetch("https://api.github.com/repos/unboxlumen/nbrowser/releases/latest");
+      if (!res.ok) return;
+      const data = await res.json();
+      const asset = data.assets && data.assets.find(a => a.browser_download_url);
+      if (asset) {
+        applyRelease({
+          tag: data.tag_name || FALLBACK_RELEASE.tag,
+          date: (data.published_at || "").slice(0, 10) || FALLBACK_RELEASE.date,
+          size: asset.size ? fmtSize(asset.size) : FALLBACK_RELEASE.size,
+          sha: (asset.digest && asset.digest.replace(/^sha256:/, "")) || FALLBACK_RELEASE.sha,
+          url: asset.browser_download_url || FALLBACK_RELEASE.url
+        });
+      }
+    } catch (e) { /* 网络不可用时保留预设版本 */ }
+  })();
+
+  document.getElementById("lang-switch").addEventListener("click", () => {
+    lang = lang === "zh" ? "en" : "zh";
+    applyLang();
+  });
+
+  // 滚动入场动画
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
+
+  function observeReveals() {
+    document.querySelectorAll(".reveal").forEach((el, i) => {
+      if (!el.closest(".hero")) {
+        el.style.transitionDelay = `${(i % 3) * 0.08}s`;
+      }
+      observer.observe(el);
+    });
+  }
+
+  applyLang();
+  })();
+</script>
+</body>
+</html>
