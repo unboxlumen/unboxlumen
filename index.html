@@ -355,9 +355,15 @@
     }
   };
 
-  // 语言：本地记忆优先，其次跟随浏览器语言
-  let lang = localStorage.getItem("ul-lang") ||
-    (navigator.language && navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en");
+  // 语言：跟随系统语言，系统语言变化时页面自动切换
+  function systemLang() {
+    return navigator.language && navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en";
+  }
+  let lang = systemLang();
+  window.addEventListener("languagechange", () => {
+    lang = systemLang();
+    applyLang();
+  });
 
   // ========== 软件列表（新增项目只需在此追加一条数据） ==========
   const software = [
@@ -417,7 +423,6 @@
     btn.setAttribute("aria-label", lang === "zh" ? "Switch to English" : "切换到中文");
     renderSoftware();
     observeReveals();
-    localStorage.setItem("ul-lang", lang);
   }
 
   // 从 GitHub Releases 读取最新版本，自动刷新下载地址与版本号

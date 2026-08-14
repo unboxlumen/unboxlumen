@@ -567,9 +567,15 @@
     }
   };
 
-  // 语言：本地记忆优先（与主页共用），其次跟随浏览器语言
-  let lang = localStorage.getItem("ul-lang") ||
-    (navigator.language && navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en");
+  // 语言：跟随系统语言，系统语言变化时页面自动切换（与主页保持一致）
+  function systemLang() {
+    return navigator.language && navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en";
+  }
+  let lang = systemLang();
+  window.addEventListener("languagechange", () => {
+    lang = systemLang();
+    applyLang();
+  });
 
   // ========== 功能列表 ==========
   const features = [
@@ -757,6 +763,7 @@
     sha: "c26866378596c700b862b753394f657afad710288dc00f31db86c01033c2afa6",
     url: "https://github.com/unboxlumen/nbrowser/releases/download/v0.0.1/nbrowser-release.apk"
   };
+  let releaseInfo = FALLBACK_RELEASE;
 
   function fmtSize(bytes) { return "约 " + (bytes / 1048576).toFixed(1) + " MB"; }
 
@@ -814,9 +821,8 @@
     renderFeatures();
     renderPrinciples();
     renderSpecs();
-    applyRelease(FALLBACK_RELEASE);
+    applyRelease(releaseInfo);
     observeReveals();
-    localStorage.setItem("ul-lang", lang);
   }
 
   // 从 GitHub Releases 读取最新版本，自动刷新下载地址与版本信息
@@ -827,13 +833,14 @@
       const data = await res.json();
       const asset = data.assets && data.assets.find(a => a.browser_download_url);
       if (asset) {
-        applyRelease({
+        releaseInfo = {
           tag: data.tag_name || FALLBACK_RELEASE.tag,
           date: (data.published_at || "").slice(0, 10) || FALLBACK_RELEASE.date,
           size: asset.size ? fmtSize(asset.size) : FALLBACK_RELEASE.size,
           sha: (asset.digest && asset.digest.replace(/^sha256:/, "")) || FALLBACK_RELEASE.sha,
           url: asset.browser_download_url || FALLBACK_RELEASE.url
-        });
+        };
+        applyRelease(releaseInfo);
       }
     } catch (e) { /* 网络不可用时保留预设版本 */ }
   })();
