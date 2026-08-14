@@ -358,7 +358,7 @@
       <a href="#principles" data-i18n="navPrinciples">原则</a>
       <a href="#download" data-i18n="navDownload">下载</a>
       <button id="lang-switch" class="lang-btn" type="button" aria-label="Switch to English">EN</button>
-      <a class="nav-gh" href="https://github.com/unboxlumen/nbrowser" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="nav-gh" href="https://github.com/unboxlumen/nbrowser/issues" target="_blank" rel="noopener">BUG REPORT</a>
     </div>
   </nav>
 </header>
@@ -471,7 +471,6 @@
         <div class="dl-sha"><span data-i18n="dlShaLabel">SHA-256</span> · <span data-rel="sha">c26866378596c700b862b753394f657afad710288dc00f31db86c01033c2afa6</span></div>
         <div class="dl-actions">
           <a class="btn btn-primary" data-rel="url" href="https://github.com/unboxlumen/nbrowser/releases/download/v0.0.1/nbrowser-release.apk" target="_blank" rel="noopener" data-i18n="dlBtn">立即下载 APK</a>
-          <a class="btn btn-ghost" href="https://github.com/unboxlumen/nbrowser/releases" target="_blank" rel="noopener" data-i18n="dlReleases">查看 GitHub Releases</a>
         </div>
         <p class="dl-update" data-i18n="dlUpdate">应用内自带更新检查，发布新版本后会自动从 GitHub Releases 获取。</p>
       </div>
@@ -524,7 +523,6 @@
       dlMetaDate: "发布",
       dlShaLabel: "SHA-256",
       dlBtn: "立即下载 APK",
-      dlReleases: "查看 GitHub Releases",
       dlUpdate: "应用内自带更新检查，发布新版本后会自动从 GitHub Releases 获取。",
       footerHome: "← 返回主页"
     },
@@ -561,7 +559,6 @@
       dlMetaDate: "Release",
       dlShaLabel: "SHA-256",
       dlBtn: "Download APK",
-      dlReleases: "View GitHub Releases",
       dlUpdate: "The app checks for updates in-app and pulls new versions from GitHub Releases automatically.",
       footerHome: "← Back to Home"
     }
@@ -831,7 +828,7 @@
       const res = await fetch("https://api.github.com/repos/unboxlumen/nbrowser/releases/latest");
       if (!res.ok) return;
       const data = await res.json();
-      const asset = data.assets && data.assets.find(a => a.browser_download_url);
+      const asset = data.assets && data.assets.find(a => a.name === "nbrowser-release.apk");
       if (asset) {
         releaseInfo = {
           tag: data.tag_name || FALLBACK_RELEASE.tag,

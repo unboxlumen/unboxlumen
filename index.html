@@ -242,7 +242,6 @@
       <a href="#software" data-i18n="navSoftware">软件</a>
       <a href="#games" data-i18n="navGames">游戏</a>
       <button id="lang-switch" class="lang-btn" type="button" aria-label="Switch to English">EN</button>
-      <a class="nav-gh" href="https://github.com/unboxlumen" target="_blank" rel="noopener">GitHub ↗</a>
     </div>
   </nav>
 </header>
@@ -431,7 +430,7 @@
       const res = await fetch("https://api.github.com/repos/unboxlumen/nbrowser/releases/latest");
       if (!res.ok) return;
       const data = await res.json();
-      const asset = data.assets && data.assets.find((a) => a.browser_download_url);
+      const asset = data.assets && data.assets.find((a) => a.name === "nbrowser-release.apk");
       if (asset) {
         software[0].version = data.tag_name || software[0].version;
         software[0].download = asset.browser_download_url;
