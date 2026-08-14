@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UnboxLumen · 软件与游戏开发工作室</title>
+<meta name="description" content="UnboxLumen —— 独立软件与游戏开发工作室。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0f0d;
+    --panel: #0e1412;
+    --text: #d6f5dd;
+    --muted: #7da68a;
+    --green: #34ff6b;
+    --green-dim: rgba(52, 255, 107, 0.35);
+    --line: rgba(52, 255, 107, 0.18);
+    --font-mono: "JetBrains Mono", "Noto Sans SC", monospace;
+    --font-body: "Noto Sans SC", -apple-system, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    overflow-x: hidden;
+    position: relative;
+  }
+  /* 扫描线 + 光晕 */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(700px 500px at 50% -10%, rgba(52, 255, 107, 0.12), transparent 65%),
+      repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0 1px, transparent 1px 3px);
+    mix-blend-mode: normal;
+  }
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 40px; }
+
+  /* ---------- 导航 ---------- */
+  header { position: sticky; top: 0; z-index: 50; background: rgba(10, 15, 13, 0.9); border-bottom: 1px solid var(--line); }
+  nav { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .brand {
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--font-mono); font-weight: 700; font-size: 15px;
+    text-decoration: none; color: var(--green);
+  }
+  .brand-mark {
+    padding: 3px 8px;
+    border: 1px solid var(--green-dim);
+    background: rgba(52, 255, 107, 0.08);
+    font-size: 12px;
+  }
+  .nav-links { display: flex; align-items: center; gap: 28px; font-family: var(--font-mono); }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--green); }
+  .nav-gh {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 7px 14px; border: 1px solid var(--line);
+    font-size: 12px; color: var(--green); text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-gh:hover { background: rgba(52, 255, 107, 0.1); }
+
+  /* ---------- Hero（终端窗口） ---------- */
+  .hero { padding: 110px 0 100px; }
+  .terminal {
+    max-width: 900px;
+    margin: 0 auto;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    box-shadow: 0 0 60px rgba(52, 255, 107, 0.08), 0 30px 80px rgba(0, 0, 0, 0.5);
+  }
+  .terminal-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-mono); font-size: 12px; color: var(--muted);
+  }
+  .terminal-bar i { width: 11px; height: 11px; border-radius: 50%; background: #2c3a31; }
+  .terminal-bar i:first-child { background: #5c3a3a; }
+  .terminal-bar i:nth-child(2) { background: #5c5733; }
+  .terminal-bar i:nth-child(3) { background: #3a5c44; }
+  .terminal-bar .title { margin-left: 12px; letter-spacing: 0.05em; }
+  .terminal-body { padding: 48px 44px 40px; text-align: left; font-family: var(--font-mono); }
+  .line { font-size: 14px; color: var(--muted); }
+  .line .prompt { color: var(--green); }
+  .line .cmd { color: var(--text); }
+  .hero-title {
+    margin-top: 22px;
+    font-family: var(--font-mono);
+    font-size: clamp(34px, 6vw, 64px);
+    font-weight: 800;
+    line-height: 1.12;
+    color: var(--green);
+    text-shadow: 0 0 24px rgba(52, 255, 107, 0.4);
+  }
+  .hero-title .cursor { display: inline-block; width: 0.55em; height: 1em; background: var(--green); vertical-align: text-bottom; margin-left: 6px; animation: blink 1.1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .hero-desc {
+    margin-top: 20px;
+    font-size: 15px; color: var(--muted);
+    max-width: 560px; line-height: 2;
+  }
+  .hero-actions { margin-top: 34px; display: flex; gap: 16px; flex-wrap: wrap; font-family: var(--font-mono); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 12px 24px;
+    font-family: var(--font-mono); font-size: 13px; font-weight: 600;
+    text-decoration: none; transition: transform 0.15s, background 0.2s, color 0.2s;
+  }
+  .btn-primary { background: var(--green); color: #06130a; }
+  .btn-primary:hover { transform: translateY(-2px); background: #5aff8f; }
+  .btn-ghost { border: 1px solid var(--line); color: var(--green); }
+  .btn-ghost:hover { transform: translateY(-2px); background: rgba(52, 255, 107, 0.1); }
+  .hero-meta {
+    margin-top: 40px; padding-top: 26px; border-top: 1px dashed var(--line);
+    display: flex; gap: 40px; flex-wrap: wrap;
+    font-size: 12px; color: var(--muted);
+  }
+  .hero-meta b { display: block; margin-top: 4px; font-size: 16px; font-weight: 600; color: var(--green); }
+
+  /* ---------- 区块 ---------- */
+  section { padding: 100px 0; }
+  .section-head { margin-bottom: 44px; font-family: var(--font-mono); }
+  .section-index { font-size: 13px; color: var(--green); }
+  .section-index::before { content: "$ "; color: var(--muted); }
+  .section-head h2 {
+    margin-top: 12px;
+    font-family: var(--font-mono);
+    font-size: clamp(24px, 3.6vw, 36px);
+    font-weight: 800; color: var(--text);
+  }
+  .section-note { margin-top: 12px; font-size: 14px; color: var(--muted); }
+
+  /* ---------- 卡片 ---------- */
+  #software-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 24px; }
+  .card {
+    position: relative;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 30px 28px 26px;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+  .card:hover { transform: translateY(-4px); border-color: var(--green-dim); box-shadow: 0 0 34px rgba(52, 255, 107, 0.1); }
+  .card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .card-name { font-family: var(--font-mono); font-size: 19px; font-weight: 800; color: var(--green); }
+  .card-en { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+  .card-desc { margin-top: 12px; font-size: 13px; color: var(--muted); min-height: 3.4em; }
+  .card-tags { margin-top: 18px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag {
+    padding: 4px 12px;
+    font-family: var(--font-mono); font-size: 11px;
+    border: 1px solid var(--green-dim); color: var(--green);
+  }
+  .card-footer {
+    margin-top: 24px; padding-top: 20px; border-top: 1px dashed var(--line);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .card-version { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+  .card-dl {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 18px;
+    font-family: var(--font-mono); font-size: 13px; font-weight: 600;
+    background: var(--green); color: #06130a; text-decoration: none;
+    transition: transform 0.15s, background 0.2s;
+  }
+  .card-dl::before { content: ">"; }
+  .card-dl:hover { transform: translateY(-2px); background: #5aff8f; }
+
+  /* ---------- 游戏 ---------- */
+  .games-empty {
+    border: 1px dashed var(--green-dim);
+    padding: 70px 32px; text-align: center;
+    font-family: var(--font-mono); color: var(--muted);
+  }
+  .games-empty .big { font-size: 20px; font-weight: 800; color: var(--green); margin-bottom: 12px; }
+  .games-empty .mono { font-size: 13px; color: var(--green); }
+
+  /* ---------- 页脚 ---------- */
+  footer { border-top: 1px solid var(--line); padding: 40px 0; }
+  .footer-inner {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    font-family: var(--font-mono); font-size: 12px; color: var(--muted);
+  }
+  .footer-inner a { color: var(--muted); text-decoration: none; }
+  .footer-inner a:hover { color: var(--green); }
+
+  /* ---------- 动画 ---------- */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in-view { opacity: 1; transform: none; }
+  .hero .reveal { animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  .hero .reveal:nth-child(2) { animation-delay: 0.1s; }
+  .hero .reveal:nth-child(3) { animation-delay: 0.2s; }
+  .hero .reveal:nth-child(4) { animation-delay: 0.3s; }
+  .hero .reveal:nth-child(5) { animation-delay: 0.4s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal, .hero .reveal, .hero-title .cursor { animation: none; opacity: 1; transform: none; transition: none; }
+    .hero-title .cursor { background: transparent; }
+  }
+  @media (max-width: 760px) {
+    .container { padding: 0 20px; }
+    .terminal-body { padding: 32px 24px 28px; }
+    .hero { padding: 70px 0; }
+    .nav-links a { display: none; }
+    section { padding: 72px 0; }
+    #software-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <nav class="container">
+    <a class="brand" href="#top"><span class="brand-mark">&gt;_</span>unboxlumen</a>
+    <div class="nav-links">
+      <a href="#software">./软件</a>
+      <a href="#games">./游戏</a>
+      <a class="nav-gh" href="https://github.com/unboxlumen" target="_blank" rel="noopener">git ↗</a>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero container">
+    <div class="terminal reveal">
+      <div class="terminal-bar">
+        <i></i><i></i><i></i>
+        <span class="title">unboxlumen — zsh</span>
+      </div>
+      <div class="terminal-body">
+        <div class="line"><span class="prompt">$</span> <span class="cmd">cat studio.conf</span></div>
+        <div class="line">software &amp; game studio</div>
+        <h1 class="reveal">UnboxLumen<span class="cursor"></span></h1>
+        <p class="hero-desc reveal">独立软件与游戏开发工作室。我们拆开灵感、点亮创意，把一个个想法做成真正可用的产品。</p>
+        <div class="hero-actions reveal">
+          <a class="btn btn-primary" href="#software">浏览软件 ↓</a>
+          <a class="btn btn-ghost" href="#games">游戏项目</a>
+        </div>
+        <div class="hero-meta reveal">
+          <div>项目数<b>01</b></div>
+          <div>方向<b>软件 / 游戏</b></div>
+          <div>状态<b>持续开发中</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="software">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-index">ls ./software</div>
+        <h2>我们的软件</h2>
+        <p class="section-note">由 UnboxLumen 开发并维护的桌面应用，可直接下载使用。</p>
+      </div>
+      <div id="software-grid"></div>
+    </div>
+  </section>
+
+  <section id="games">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-index">ls ./games</div>
+        <h2>游戏项目</h2>
+        <p class="section-note">独立游戏正在孵化中，敬请期待。</p>
+      </div>
+      <div class="games-empty reveal">
+        <div class="big">[ 正在点亮新的世界 ]</div>
+        <p>首个游戏项目仍在开发阶段，完成后会在此展示。</p>
+        <p class="mono" style="margin-top:16px">$ --status=coming_soon</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <span>© 2026 UnboxLumen Project</span>
+    <span>Built by <a href="https://github.com/unboxlumen" target="_blank" rel="noopener">@unboxlumen</a></span>
+  </div>
+</footer>
+
+<script>
+  const software = [
+    {
+      name: "n浏览器", en: "nBrowser",
+      desc: "UnboxLumen 出品的轻量浏览器，注重速度与简洁，为你提供清爽的上网体验。",
+      tags: ["桌面应用", "轻量"],
+      version: "v1.0",
+      download: "https://github.com/unboxlumen/nbrowser"
+    }
+  ];
+  function cardTemplate(item) {
+    return `
+      <article class="card reveal">
+        <div class="card-head"><span class="card-name">${item.name}</span><span class="card-en">[${item.en}]</span></div>
+        <p class="card-desc">${item.desc}</p>
+        <div class="card-tags">${item.tags.map(t => `<span class="tag">${t}</span>`).join("")}</div>
+        <div class="card-footer">
+          <span class="card-version">${item.version}</span>
+          <a class="card-dl" href="${item.download}" target="_blank" rel="noopener">下载</a>
+        </div>
+      </article>`;
+  }
+  document.getElementById("software-grid").innerHTML = software.map(cardTemplate).join("");
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) { entry.target.classList.add("in-view"); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll(".reveal").forEach((el, i) => {
+    if (!el.closest(".hero")) el.style.transitionDelay = `${(i % 3) * 0.08}s`;
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
