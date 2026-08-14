@@ -18,3 +18,9 @@
 ## 3. 一般性原则
 
 - 描述 N 浏览器时遵循 `PRODUCTS.md` 与 `nbrowser/PRODUCT.md`（单一事实来源），出现冲突时以产品子文档为准并同步修正。
+
+## 4. 官网页面规则（必须遵守）
+
+- **下载按钮只指向 release 包**：官网主页与产品页运行时从 GitHub API 拉取下载地址时，只匹配 `nbrowser-release.apk` 附件，不得指向 debug 包。
+- **产品页不展示 GitHub 仓库入口**：`nbrowser/index.html` 不放置 GitHub 仓库链接、"查看 GitHub Releases"等入口；导航右上角固定为「BUG REPORT」，指向 `https://github.com/unboxlumen/nbrowser/issues`。
+- 修改官网（`index.html`、`nbrowser/index.html`）时须保持以上约定，不得擅自加回 GitHub 仓库入口或把下载按钮改为 debug 包。
