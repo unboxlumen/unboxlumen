@@ -112,7 +112,8 @@
 
 - **发布渠道**：GitHub Releases（`unboxlumen/nbrowser`，公开仓库），只放 README 与 APK 附件，不放源码。
 - **附件命名**：release 通道固定 `nbrowser-release.apk`，debug 通道 `nbrowser-debug.apk`（与应用内更新匹配，写错会导致检查不到更新）。
-- **应用内更新**：启动检查 `https://api.github.com/repos/unboxlumen/nbrowser/releases/latest`，按附件名匹配通道、比较版本号，发现更新后由内置下载器拉取安装。
+- **应用内更新**：启动检查 `https://api.github.com/repos/unboxlumen/nbrowser/releases/latest`，**release 包只匹配 release 通道、debug 包只匹配 debug 通道**，按附件名匹配通道、比较版本号，发现更新后由内置下载器拉取安装，两通道互不混用。
+- **大小统计口径**：后续发布只统计 release 包；debug 包单独说明，不计入大小统计（当前实测：v0.0.1 release ≈ 1.82 MB、v0.0.2 release ≈ 1.83 MB，v0.0.2 debug ≈ 9.15 MB 仅作说明）。
 - **版本号唯一来源**：`app/build.gradle` 的 `defaultConfig`（versionCode + versionName）。
 - **发布流程**：升级版本号 → commit → `./release.sh`（构建 + 创建 / 更新 Release + 上传附件）。
 
