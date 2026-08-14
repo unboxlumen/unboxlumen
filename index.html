@@ -5,12 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UnboxLumen · 软件与游戏开发工作室</title>
 <meta name="description" content="UnboxLumen —— 独立软件与游戏开发工作室。">
+<meta name="theme-color" content="#FAF9F6">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #ffffff;
+    --bg: #FAF9F6;
+    --header-bg: rgba(250, 249, 246, 0.72);
+    --tint: #F3F2EE;
+    --tint-2: #F0EFEB;
+    --tint-3: #ECEBE6;
     --text: #111111;
     --muted: #6e6e73;
     --line: rgba(0, 0, 0, 0.09);
@@ -38,7 +43,7 @@
     z-index: 50;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    background: rgba(255, 255, 255, 0.72);
+    background: var(--header-bg);
     border-bottom: 1px solid var(--line);
   }
   nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
@@ -151,7 +156,7 @@
   .tag {
     padding: 4px 14px; border-radius: 999px;
     font-family: var(--font-mono); font-size: 11px;
-    background: #f5f5f7; color: var(--muted);
+    background: var(--tint-2); color: var(--muted);
   }
   .card-footer {
     margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--line);
