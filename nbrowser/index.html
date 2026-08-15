@@ -373,11 +373,11 @@
         <p class="hero-tagline reveal" data-i18n="heroTagline">轻量、可定制的安卓浏览器。系统 WebView，不捆绑引擎——装到手机上的，就是全部。</p>
         <div class="hero-chips reveal">
           <span class="chip accent" data-i18n="heroChipPlatform">Android</span>
-          <span class="chip" data-rel="version">v0.0.1</span>
+          <span class="chip" data-rel="version">v0.0.3</span>
           <span class="chip" data-rel="size">约 1.8 MB</span>
         </div>
         <div class="hero-actions reveal">
-          <a class="btn btn-white" data-rel="url" href="https://github.com/unboxlumen/nbrowser/releases/download/v0.0.1/nbrowser-release.apk" data-i18n="heroCta1" target="_blank" rel="noopener">立即下载</a>
+          <a class="btn btn-white" data-rel="url" href="https://github.com/unboxlumen/nbrowser/releases/download/v0.0.3/nbrowser-release.apk" data-i18n="heroCta1" target="_blank" rel="noopener">立即下载</a>
           <a class="btn btn-ghost-dark" href="#features" data-i18n="heroCta2">了解功能</a>
         </div>
       </div>
@@ -408,10 +408,10 @@
   <!-- ========== Release 条 ========== -->
   <div class="release-bar">
     <div class="container">
-      <span><span data-i18n="relLatest">最新版本</span> <b data-rel="version">v0.0.1</b></span>
+      <span><span data-i18n="relLatest">最新版本</span> <b data-rel="version">v0.0.3</b></span>
       <span><span data-i18n="relDate">发布于</span> <b data-rel="date">2026-08-14</b></span>
       <span><span data-i18n="relSize">大小</span> <b data-rel="size">约 1.8 MB</b></span>
-      <a class="rel-download" data-rel="url" href="https://github.com/unboxlumen/nbrowser/releases/download/v0.0.1/nbrowser-release.apk" target="_blank" rel="noopener" data-i18n="relCta">下载 APK ↓</a>
+      <a class="rel-download" data-rel="url" href="https://github.com/unboxlumen/nbrowser/releases/download/v0.0.3/nbrowser-release.apk" target="_blank" rel="noopener" data-i18n="relCta">下载 APK ↓</a>
     </div>
   </div>
 
@@ -464,13 +464,13 @@
         <h3 class="dl-title" data-i18n="dlTitleText">N 浏览器 · nBrowser</h3>
         <p class="dl-note" data-i18n="dlNote">下载 APK 后直接安装即可。如手机提示"禁止安装未知来源应用"，允许本次安装即可。</p>
         <div class="dl-meta">
-          <div class="m"><div class="k" data-i18n="dlMetaVersion">版本</div><div class="v" data-rel="version">v0.0.1</div></div>
+          <div class="m"><div class="k" data-i18n="dlMetaVersion">版本</div><div class="v" data-rel="version">v0.0.3</div></div>
           <div class="m"><div class="k" data-i18n="dlMetaSize">大小</div><div class="v" data-rel="size">约 1.8 MB</div></div>
           <div class="m"><div class="k" data-i18n="dlMetaDate">发布</div><div class="v" data-rel="date">2026-08-14</div></div>
         </div>
         <div class="dl-sha"><span data-i18n="dlShaLabel">SHA-256</span> · <span data-rel="sha">c26866378596c700b862b753394f657afad710288dc00f31db86c01033c2afa6</span></div>
         <div class="dl-actions">
-          <a class="btn btn-primary" data-rel="url" href="https://github.com/unboxlumen/nbrowser/releases/download/v0.0.1/nbrowser-release.apk" target="_blank" rel="noopener" data-i18n="dlBtn">立即下载 APK</a>
+          <a class="btn btn-primary" data-rel="url" href="https://github.com/unboxlumen/nbrowser/releases/download/v0.0.3/nbrowser-release.apk" target="_blank" rel="noopener" data-i18n="dlBtn">立即下载 APK</a>
         </div>
         <p class="dl-update" data-i18n="dlUpdate">应用内自带更新检查，发布新版本后会自动从 GitHub Releases 获取。</p>
       </div>
@@ -756,19 +756,29 @@
 
   // ========== Release 数据（预设 + 运行时更新） ==========
   const FALLBACK_RELEASE = {
-    tag: "v0.0.1",
+    tag: "v0.0.3",
     date: "2026-08-14",
-    size: "约 1.8 MB",
+    size: { zh: "约 1.8 MB", en: "~1.8 MB" },
     sha: "c26866378596c700b862b753394f657afad710288dc00f31db86c01033c2afa6",
-    url: "https://github.com/unboxlumen/nbrowser/releases/download/v0.0.1/nbrowser-release.apk"
+    url: "https://github.com/unboxlumen/nbrowser/releases/download/v0.0.3/nbrowser-release.apk"
   };
   let releaseInfo = FALLBACK_RELEASE;
 
-  function fmtSize(bytes) { return "约 " + (bytes / 1048576).toFixed(1) + " MB"; }
+  function fmtSize(bytes) {
+    const mb = (bytes / 1048576).toFixed(1);
+    return lang === "zh" ? "约 " + mb + " MB" : "~" + mb + " MB";
+  }
+
+  // size 可能是数字（运行时从 GitHub 拉取的字节数）或对象（中英文兜底文案），统一按当前语言输出
+  function localizeSize(size) {
+    if (typeof size === "number") return fmtSize(size);
+    if (size && typeof size === "object") return size[lang];
+    return size;
+  }
 
   function applyRelease(r) {
     document.querySelectorAll("[data-rel=version]").forEach(el => el.textContent = r.tag);
-    document.querySelectorAll("[data-rel=size]").forEach(el => el.textContent = r.size);
+    document.querySelectorAll("[data-rel=size]").forEach(el => el.textContent = localizeSize(r.size));
     document.querySelectorAll("[data-rel=date]").forEach(el => el.textContent = r.date);
     document.querySelectorAll("[data-rel=sha]").forEach(el => el.textContent = r.sha);
     document.querySelectorAll("[data-rel=url]").forEach(el => el.href = r.url);
@@ -835,7 +845,7 @@
         releaseInfo = {
           tag: data.tag_name || FALLBACK_RELEASE.tag,
           date: (data.published_at || "").slice(0, 10) || FALLBACK_RELEASE.date,
-          size: asset.size ? fmtSize(asset.size) : FALLBACK_RELEASE.size,
+          size: asset.size || FALLBACK_RELEASE.size,
           sha: (asset.digest && asset.digest.replace(/^sha256:/, "")) || FALLBACK_RELEASE.sha,
           url: asset.browser_download_url || FALLBACK_RELEASE.url
         };

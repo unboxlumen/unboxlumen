@@ -20,7 +20,7 @@
 | 类型 | **Android 移动端浏览器（应用）** |
 | 平台 | Android |
 | 最低系统 | Android 5.0+（minSdk 21，以源码为准） |
-| 当前版本 | v0.0.1（versionCode 1 / versionName 0.0.1，见 app/build.gradle） |
+| 当前版本 | v0.0.3（versionCode 3 / versionName 0.0.3，见 app/build.gradle） |
 | 安装包大小 | 约 1.8 MB（Release APK） |
 | 渲染内核 | 系统 WebView（**无捆绑浏览器引擎**） |
 | 开发语言 | 纯 Java（无 Kotlin 依赖） |
