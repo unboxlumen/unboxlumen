@@ -12,6 +12,7 @@
 | # | 产品名 | 类型 | 平台 | 状态 | 英文代号 | 详细文档 |
 |---|--------|------|------|------|----------|----------|
 | 01 | [N 浏览器](nbrowser/PRODUCT.md) | 移动端浏览器（Android 应用） | Android | 持续开发中 | nBrowser | [nbrowser/PRODUCT.md](nbrowser/PRODUCT.md) |
+| 02 | [N 文件](filemanager/PRODUCT.md) | 文件管理器（Android 应用） | Android | 持续开发中 | nFiles | [filemanager/PRODUCT.md](filemanager/PRODUCT.md) |
 
 > 新增产品时在此表追加一行，并为产品建立子文档（参考 N 浏览器的文档结构）。
 
@@ -30,6 +31,15 @@
 - **最低系统**：Android 5.0+（minSdk 21，以源码为准）。
 - 完整描述见 [nbrowser/PRODUCT.md](nbrowser/PRODUCT.md)。
 
+### 02 · N 文件（nFiles）
+
+- **仅 Android 移动端**：手机 + 平板应用，无 Windows / macOS / Linux 桌面版。
+- **需要存储权限**：完整管理文件需 Android 11+ 授予「所有文件访问」权限；未授权时仅可访问媒体、下载等公开目录。
+- **本地优先**：全文索引与 OCR 均在本地完成，不依赖云端服务，不上传文件。
+- **闭源**：保留所有权利，不得写"开源 / 免费"。
+- **最低系统**：Android 8.0+（minSdk 26，以源码为准）。
+- 完整描述见 [filemanager/PRODUCT.md](filemanager/PRODUCT.md)。
+
 ---
 
 ## 三、维护说明
@@ -46,6 +56,9 @@ unboxlumen/
 ├── PRODUCTS.md          ← 本文档：软件产品目录（单一事实来源）
 ├── nbrowser/
 │   ├── PRODUCT.md       ← N 浏览器产品描述（详细）
+│   └── index.html       ← 官网产品页
+├── filemanager/
+│   ├── PRODUCT.md       ← N 文件产品描述（详细）
 │   └── index.html       ← 官网产品页
 └── index.html           ← 官网主页
 ```

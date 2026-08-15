@@ -310,7 +310,7 @@
       browseSoftware: "浏览软件 ↓",
       gamesBtn: "游戏项目",
       metaProjectsLabel: "项目数",
-      metaProjectsValue: "01",
+      metaProjectsValue: "02",
       metaFocusLabel: "方向",
       metaFocusValue: "软件 / 游戏",
       metaStatusLabel: "状态",
@@ -336,7 +336,7 @@
       browseSoftware: "Browse Software ↓",
       gamesBtn: "Games",
       metaProjectsLabel: "Projects",
-      metaProjectsValue: "01",
+      metaProjectsValue: "02",
       metaFocusLabel: "Focus",
       metaFocusValue: "Software / Games",
       metaStatusLabel: "Status",
@@ -368,6 +368,9 @@
   const software = [
     {
       en: "nBrowser",
+      page: "nbrowser/",
+      repo: "unboxlumen/nbrowser",
+      asset: "nbrowser-release.apk",
       name: { zh: "n浏览器", en: "nBrowser" },
       desc: {
         zh: "UnboxLumen 出品的轻量安卓浏览器，注重速度与简洁，为你提供清爽的上网体验。",
@@ -376,6 +379,20 @@
       tags: { zh: ["安卓应用", "轻量"], en: ["Android", "Lightweight"] },
       version: "v0.0.3",
       download: "https://github.com/unboxlumen/nbrowser/releases/download/v0.0.3/nbrowser-release.apk"
+    },
+    {
+      en: "nFiles",
+      page: "filemanager/",
+      repo: "unboxlumen/filemanager",
+      asset: "filemanager-release.apk",
+      name: { zh: "N 文件", en: "N Files" },
+      desc: {
+        zh: "UnboxLumen 出品的安卓文件管理器。浏览、预览、远程、分享，装到手机上的文件管家。",
+        en: "An Android file manager by UnboxLumen. Browse, preview, remote and share — your files, all in one place."
+      },
+      tags: { zh: ["安卓应用", "文件管理"], en: ["Android", "File Manager"] },
+      version: "v0.0.1",
+      download: "https://github.com/unboxlumen/filemanager/releases/download/v0.0.1/filemanager-release.apk"
     }
   ];
 
@@ -388,7 +405,7 @@
     return `
       <article class="card reveal">
         <div class="card-head">
-          <a class="card-name-link" href="nbrowser/"><span class="card-name">${item.name[lang]}</span></a>
+          <a class="card-name-link" href="${item.page}"><span class="card-name">${item.name[lang]}</span></a>
           <span class="card-en">${item.en}</span>
         </div>
         <p class="card-desc">${item.desc[lang]}</p>
@@ -398,7 +415,7 @@
         <div class="card-footer">
           <span class="card-version">${item.version}</span>
           <div class="card-actions">
-            <a class="card-detail" href="nbrowser/">${t("cardDetail")}</a>
+            <a class="card-detail" href="${item.page}">${t("cardDetail")}</a>
             <a class="card-dl" href="${item.download}" target="_blank" rel="noopener">${t("download")}</a>
           </div>
         </div>
@@ -424,20 +441,22 @@
     observeReveals();
   }
 
-  // 从 GitHub Releases 读取最新版本，自动刷新下载地址与版本号
+  // 从各产品 GitHub Releases 读取最新版本，自动刷新下载地址与版本号（失败保留预设值）
   (async () => {
-    try {
-      const res = await fetch("https://api.github.com/repos/unboxlumen/nbrowser/releases/latest");
-      if (!res.ok) return;
-      const data = await res.json();
-      const asset = data.assets && data.assets.find((a) => a.name === "nbrowser-release.apk");
-      if (asset) {
-        software[0].version = data.tag_name || software[0].version;
-        software[0].download = asset.browser_download_url;
-        renderSoftware();
-        observeReveals();
-      }
-    } catch (e) { /* 网络不可用时保留预设版本 */ }
+    for (const item of software) {
+      try {
+        const res = await fetch(`https://api.github.com/repos/${item.repo}/releases/latest`);
+        if (!res.ok) continue;
+        const data = await res.json();
+        const asset = data.assets && data.assets.find((a) => a.name === item.asset);
+        if (asset) {
+          item.version = data.tag_name || item.version;
+          item.download = asset.browser_download_url;
+        }
+      } catch (e) { /* 网络不可用时保留预设版本 */ }
+    }
+    renderSoftware();
+    observeReveals();
   })();
 
   document.getElementById("lang-switch").addEventListener("click", () => {

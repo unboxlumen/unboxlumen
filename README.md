@@ -15,6 +15,16 @@
 
 > 每次发布新版本后同步更新本表：release 包计入统计，debug 包放在单独行仅作说明。
 
+## N 文件（nFiles）安装包大小统计
+
+> 数据来源：GitHub Releases（`unboxlumen/filemanager`），以实际附件大小为准。
+
+| 版本 | 通道 | 附件 | 大小 |
+|------|------|------|------|
+| v0.0.1 | release | `filemanager-release.apk` | 46,103,411 B ≈ 43.97 MB |
+
+> 发布规则与上表一致：release 包计入统计，debug 包放在单独行仅作说明。
+
 ## 更新检查规则
 
 - release 包（`nbrowser-release.apk`）检查更新时**只匹配 release 通道**附件。

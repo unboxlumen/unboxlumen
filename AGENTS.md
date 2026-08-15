@@ -4,10 +4,10 @@
 
 ## 1. 包大小统计口径（必须遵守）
 
-- **只统计 release 包**：安装包大小统计、宣传文案中的"包大小"一律只统计 release 通道附件（`nbrowser-release.apk`）。
-- **debug 包单独说明**：debug 包（`nbrowser-debug.apk`，当前约 9.15 MB）不计入统计，需要时可单独说明，但不得混入 release 统计、不得用 debug 包大小代表产品体积。
+- **只统计 release 包**：安装包大小统计、宣传文案中的"包大小"一律只统计各产品 release 通道附件（nBrowser → `nbrowser-release.apk`；N 文件 → `filemanager-release.apk`）。
+- **debug 包单独说明**：debug 包不计入统计，需要时可单独说明，但不得混入 release 统计、不得用 debug 包大小代表产品体积。
 - **数据以 GitHub Releases 实际附件为准**：不得臆造大小；统计数据随新版本发布同步更新。
-- 参考：`README.md`（安装包大小统计表）、`nbrowser/PRODUCT.md` §7 / §8。
+- 参考：`README.md`（安装包大小统计表）、`nbrowser/PRODUCT.md` §7 / §8、`filemanager/PRODUCT.md` §7 / §8。
 
 ## 2. 应用内更新检查规则（必须遵守）
 
@@ -21,6 +21,6 @@
 
 ## 4. 官网页面规则（必须遵守）
 
-- **下载按钮只指向 release 包**：官网主页与产品页运行时从 GitHub API 拉取下载地址时，只匹配 `nbrowser-release.apk` 附件，不得指向 debug 包。
-- **产品页不展示 GitHub 仓库入口**：`nbrowser/index.html` 不放置 GitHub 仓库链接、"查看 GitHub Releases"等入口；导航右上角固定为「BUG REPORT」，指向 `https://github.com/unboxlumen/nbrowser/issues/new`。
-- 修改官网（`index.html`、`nbrowser/index.html`）时须保持以上约定，不得擅自加回 GitHub 仓库入口或把下载按钮改为 debug 包。
+- **下载按钮只指向各产品 release 附件**：官网主页与各产品页运行时从 GitHub API 拉取下载地址时，按产品各自匹配 release 附件（nBrowser → `nbrowser-release.apk`；N 文件 → `filemanager-release.apk`），不得指向 debug 包或其他产品的附件。
+- **产品页不展示 GitHub 仓库入口**：`nbrowser/index.html` 与 `filemanager/index.html` 均不放置 GitHub 仓库链接、"查看 GitHub Releases"等入口；导航右上角固定为「BUG REPORT」，分别指向 `https://github.com/unboxlumen/nbrowser/issues/new` 与 `https://github.com/unboxlumen/filemanager/issues/new`。
+- 修改官网（`index.html`、`nbrowser/index.html`、`filemanager/index.html`）时须保持以上约定，不得擅自加回 GitHub 仓库入口或把下载按钮改为 debug 包。
