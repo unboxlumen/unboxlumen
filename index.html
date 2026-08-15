@@ -3,12 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UnboxLumen · 软件与游戏开发工作室</title>
-<meta name="description" content="UnboxLumen —— 独立软件与游戏开发工作室。">
+<title>UnboxLumen · 独立软件与游戏开发工作室 · N 浏览器 &amp; N 文件</title>
+<meta name="description" content="UnboxLumen 是独立软件与游戏开发工作室，出品 N 浏览器（轻量安卓浏览器）与 N 文件（安卓文件管理器），轻量、简洁、开箱即用，可在此直接下载最新安卓应用。">
+<meta name="robots" content="index, follow">
 <meta name="theme-color" content="#F6F2E8">
+<link rel="canonical" href="https://unboxlumen.com/">
+<link rel="alternate" hreflang="zh-CN" href="https://unboxlumen.com/">
+<link rel="alternate" hreflang="en" href="https://unboxlumen.com/">
+<link rel="alternate" hreflang="x-default" href="https://unboxlumen.com/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="UnboxLumen">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:title" content="UnboxLumen · 独立软件与游戏开发工作室">
+<meta property="og:description" content="独立软件与游戏开发工作室。出品轻量安卓浏览器 N 浏览器与文件管理器 N 文件，官网直接下载。">
+<meta property="og:url" content="https://unboxlumen.com/">
+<meta property="og:image" content="https://unboxlumen.com/og-cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="UnboxLumen · 独立软件与游戏开发工作室">
+<meta name="twitter:description" content="独立软件与游戏开发工作室。出品轻量安卓浏览器 N 浏览器与文件管理器 N 文件，官网直接下载。">
+<meta name="twitter:image" content="https://unboxlumen.com/og-cover.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://unboxlumen.com/#organization",
+      "name": "UnboxLumen",
+      "url": "https://unboxlumen.com/",
+      "description": "独立软件与游戏开发工作室",
+      "logo": "https://unboxlumen.com/favicon.svg",
+      "sameAs": ["https://github.com/unboxlumen"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://unboxlumen.com/#website",
+      "url": "https://unboxlumen.com/",
+      "name": "UnboxLumen",
+      "inLanguage": ["zh-CN", "en"],
+      "publisher": { "@id": "https://unboxlumen.com/#organization" }
+    }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet"></noscript>
 <style>
   :root {
     --bg: #F6F2E8;
@@ -191,6 +234,15 @@
   }
   .card-detail:hover { transform: translateY(-2px); border-color: var(--text); }
 
+  /* ---------- 无 JS 兜底（SEO） ---------- */
+  .seo-list { list-style: none; display: grid; gap: 16px; }
+  .seo-list li { border: 1px solid var(--line); border-radius: 18px; padding: 24px 26px; }
+  .seo-list a { color: var(--text); font-weight: 600; text-decoration: none; }
+  .seo-list a:hover { color: var(--accent); }
+  .seo-list p { color: var(--muted); font-size: 14px; margin-top: 8px; }
+  .seo-list .dl { color: var(--accent); font-family: var(--font-mono); font-size: 13px; font-weight: 600; }
+  .seo-list .dl:hover { color: var(--text); }
+
   /* ---------- 游戏 ---------- */
   .games-empty {
     border: 1px dashed var(--line);
@@ -269,7 +321,22 @@
         <h2 data-i18n="softTitle">我们的软件</h2>
         <p class="section-note" data-i18n="softNote">由 UnboxLumen 开发并维护的应用，可直接下载使用。</p>
       </div>
-      <div id="software-grid"></div>
+      <div id="software-grid">
+        <noscript>
+          <ul class="seo-list">
+            <li>
+              <a href="nbrowser/">N 浏览器（nBrowser）</a>
+              <p>UnboxLumen 出品的轻量安卓浏览器，注重速度与简洁。系统 WebView，不捆绑引擎，Release 包仅约 1.9 MB。</p>
+              <a class="dl" href="https://github.com/unboxlumen/nbrowser/releases/download/v0.0.6/nbrowser-release.apk">下载 APK →</a>
+            </li>
+            <li>
+              <a href="filemanager/">N 文件（N Files）</a>
+              <p>UnboxLumen 出品的安卓文件管理器。浏览、预览、远程、分享，装到手机上的文件管家。</p>
+              <a class="dl" href="https://github.com/unboxlumen/filemanager/releases/download/v0.0.1/filemanager-release.apk">下载 APK →</a>
+            </li>
+          </ul>
+        </noscript>
+      </div>
     </div>
   </section>
 
@@ -302,8 +369,8 @@
   const I18N = {
     zh: {
       lang: "zh-CN",
-      title: "UnboxLumen · 软件与游戏开发工作室",
-      description: "UnboxLumen —— 独立软件与游戏开发工作室。",
+      title: "UnboxLumen · 独立软件与游戏开发工作室 · N 浏览器 & N 文件",
+      description: "UnboxLumen 是独立软件与游戏开发工作室，出品 N 浏览器（轻量安卓浏览器）与 N 文件（安卓文件管理器），轻量、简洁、开箱即用，可在此直接下载最新安卓应用。",
       navSoftware: "软件",
       navGames: "游戏",
       heroDesc: "独立软件与游戏开发工作室。我们拆开灵感、点亮创意，把一个个想法做成真正可用的产品。",
@@ -328,8 +395,8 @@
     },
     en: {
       lang: "en",
-      title: "UnboxLumen · Software & Game Studio",
-      description: "UnboxLumen — an independent software and game development studio.",
+      title: "UnboxLumen · Software & Game Studio · N Browser & N Files",
+      description: "UnboxLumen is an independent software and game studio behind N Browser (a lightweight Android browser) and N Files (an Android file manager) — download the latest APKs here.",
       navSoftware: "Software",
       navGames: "Games",
       heroDesc: "An independent software and game studio. We unpack ideas, spark creativity, and turn them into products you can actually use.",

@@ -3,12 +3,68 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>N Browser · UnboxLumen</title>
-<meta name="description" content="N 浏览器 —— 轻量、可定制的安卓浏览器。系统 WebView，不捆绑引擎。">
+<title>N 浏览器 (nBrowser) · 轻量安卓浏览器下载 | UnboxLumen</title>
+<meta name="description" content="N 浏览器（nBrowser）是 UnboxLumen 出品的轻量安卓浏览器：系统 WebView 不捆绑引擎，安装包仅约 1.9 MB。支持广告拦截、视频下载、阅读模式、用户脚本等，速度优先、功能够用。">
+<meta name="robots" content="index, follow">
 <meta name="theme-color" content="#F6F2E8">
+<link rel="canonical" href="https://unboxlumen.com/nbrowser/">
+<link rel="alternate" hreflang="zh-CN" href="https://unboxlumen.com/nbrowser/">
+<link rel="alternate" hreflang="en" href="https://unboxlumen.com/nbrowser/">
+<link rel="alternate" hreflang="x-default" href="https://unboxlumen.com/nbrowser/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="UnboxLumen">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:title" content="N 浏览器 (nBrowser) · 轻量安卓浏览器 | UnboxLumen">
+<meta property="og:description" content="轻量、可定制的安卓浏览器。系统 WebView，不捆绑引擎，安装包仅约 1.9 MB。支持广告拦截、视频下载、阅读模式与用户脚本。">
+<meta property="og:url" content="https://unboxlumen.com/nbrowser/">
+<meta property="og:image" content="https://unboxlumen.com/og-cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="N 浏览器 (nBrowser) · 轻量安卓浏览器 | UnboxLumen">
+<meta name="twitter:description" content="轻量、可定制的安卓浏览器。系统 WebView，不捆绑引擎，安装包仅约 1.9 MB。">
+<meta name="twitter:image" content="https://unboxlumen.com/og-cover.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://unboxlumen.com/#organization",
+      "name": "UnboxLumen",
+      "url": "https://unboxlumen.com/",
+      "logo": "https://unboxlumen.com/favicon.svg"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://unboxlumen.com/nbrowser/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "UnboxLumen", "item": "https://unboxlumen.com/" },
+        { "@type": "ListItem", "position": 2, "name": "N 浏览器", "item": "https://unboxlumen.com/nbrowser/" }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://unboxlumen.com/nbrowser/#software",
+      "name": "N 浏览器",
+      "alternateName": ["nBrowser", "N Browser"],
+      "url": "https://unboxlumen.com/nbrowser/",
+      "description": "N 浏览器是一款轻量、可定制的安卓浏览器。使用系统 WebView 渲染，不捆绑任何浏览器引擎，安装包仅约 1.9 MB。支持广告拦截、用户脚本、视频下载、阅读模式等日常功能，速度优先、功能够用。",
+      "applicationCategory": "BrowserApplication",
+      "operatingSystem": "Android 5.0+",
+      "softwareVersion": "0.0.6",
+      "fileSize": "1.9MB",
+      "downloadUrl": "https://github.com/unboxlumen/nbrowser/releases/download/v0.0.6/nbrowser-release.apk",
+      "inLanguage": ["zh-CN", "en"],
+      "publisher": { "@id": "https://unboxlumen.com/#organization" }
+    }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet"></noscript>
 <style>
   :root {
     --bg: #F6F2E8;
@@ -236,6 +292,12 @@
   }
   .fcard p { margin-top: 8px; font-size: 14px; color: var(--muted); }
 
+  /* ---------- 无 JS 兜底（SEO） ---------- */
+  .seo-list { list-style: none; display: grid; gap: 16px; }
+  .seo-list li { border: 1px solid var(--line); border-radius: 18px; padding: 22px 24px; }
+  .seo-list h3 { font-family: var(--font-display); font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+  .seo-list p { margin-top: 6px; font-size: 14px; color: var(--muted); }
+
   /* ---------- 原则（编辑风） ---------- */
   #principles { background: var(--tint); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .principles-list { border-top: 1px solid var(--line); }
@@ -423,7 +485,25 @@
         <h2 data-i18n="feTitle">该有的，都有</h2>
         <p class="section-note" data-i18n="feNote">功能够用就行——但日常用到的，一样不少。</p>
       </div>
-      <div id="feature-grid"></div>
+      <div id="feature-grid">
+        <noscript>
+          <ul class="seo-list">
+            <li><h3>广告拦截</h3><p>AdBlock + BannerBlock 双引擎，浏览更清爽。</p></li>
+            <li><h3>用户脚本</h3><p>支持油猴脚本，管理页可查看版本并一键更新。</p></li>
+            <li><h3>AI 能力</h3><p>可配置接入 DeepSeek / Kimi / OpenRouter / Ollama，页面 AI 摘要与 AI 生成脚本。</p></li>
+            <li><h3>视频下载</h3><p>嗅探 M3U8 / HLS 视频流，按清晰度展平，自动以网页标题命名。</p></li>
+            <li><h3>阅读模式</h3><p>Readability 提取正文，纯净排版，明 / 暗 / 护眼三套主题。</p></li>
+            <li><h3>网页翻译</h3><p>内置网页翻译入口。</p></li>
+            <li><h3>书签管理</h3><p>带颜色标签的书签，一目了然。</p></li>
+            <li><h3>多标签页</h3><p>多标签页与概览视图，切换流畅。</p></li>
+            <li><h3>浏览模式</h3><p>夜间 / 无图 / 电脑模式，一键切换。</p></li>
+            <li><h3>隐私控制</h3><p>Cookie 管理与域名白名单，把例外握在自己手里。</p></li>
+            <li><h3>WebDAV 备份</h3><p>书签与设置，WebDAV 一键备份恢复。</p></li>
+            <li><h3>主页定制</h3><p>主页图标网格可排序，启动页可定制。</p></li>
+            <li><h3>二维码扫描</h3><p>内置扫码，打开链接与二维码。</p></li>
+          </ul>
+        </noscript>
+      </div>
     </div>
   </section>
 
@@ -491,8 +571,8 @@
   // ========== 中英双语文案 ==========
   const I18N = {
     zh: {
-      title: "N 浏览器 · UnboxLumen",
-      description: "N 浏览器 —— 轻量、可定制的安卓浏览器。系统 WebView，不捆绑引擎。",
+      title: "N 浏览器 (nBrowser) · 轻量安卓浏览器下载 | UnboxLumen",
+      description: "N 浏览器（nBrowser）是 UnboxLumen 出品的轻量安卓浏览器：系统 WebView 不捆绑引擎，安装包仅约 1.9 MB。支持广告拦截、视频下载、阅读模式、用户脚本等，速度优先、功能够用。",
       heroTitle: "N <span class=\"accent\">浏览器</span>",
       phoneTitle: "N 浏览器 · 清爽上网",
       dlTitleText: "N 浏览器 · nBrowser",
@@ -528,8 +608,8 @@
       footerHome: "← 返回主页"
     },
     en: {
-      title: "N Browser · UnboxLumen",
-      description: "N Browser — a lightweight, customizable Android browser built on the system WebView, with no bundled engine.",
+      title: "N Browser (nBrowser) · Lightweight Android Browser | UnboxLumen",
+      description: "N Browser (nBrowser) is a lightweight Android browser by UnboxLumen: system WebView with no bundled engine, ~1.9 MB APK. Ad blocking, video download, reader mode, userscripts and more — speed first.",
       heroTitle: "N <span class=\"accent\">Browser</span>",
       phoneTitle: "N Browser · Clean browsing",
       dlTitleText: "N Browser · nBrowser",

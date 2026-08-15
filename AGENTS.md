@@ -23,6 +23,7 @@
 
 - **下载按钮只指向各产品 release 附件**：官网主页与各产品页运行时从 GitHub API 拉取下载地址时，按产品各自匹配 release 附件（nBrowser → `nbrowser-release.apk`；N 文件 → `filemanager-release.apk`），不得指向 debug 包或其他产品的附件。
 - **产品页不展示 GitHub 仓库入口**：`nbrowser/index.html` 与 `filemanager/index.html` 均不放置 GitHub 仓库链接、"查看 GitHub Releases"等入口；导航右上角固定为「BUG REPORT」，分别指向 `https://github.com/unboxlumen/nbrowser/issues/new` 与 `https://github.com/unboxlumen/filemanager/issues/new`。
+- **SEO 文件与结构化数据（必须保持同步）**：`robots.txt`、`sitemap.xml`、`404.html`、`favicon.svg`、`og-cover.png` 位于官网根目录；三个页面的 `<head>` 均含 canonical / hreflang / Open Graph / Twitter / JSON-LD。产品页 JSON-LD 中的 `softwareVersion`、`fileSize`、`downloadUrl` 必须与发布版本一致（见 §5.4），发布新版本时同步更新。
 - 修改官网（`index.html`、`nbrowser/index.html`、`filemanager/index.html`）时须保持以上约定，不得擅自加回 GitHub 仓库入口或把下载按钮改为 debug 包。
 
 ## 5. 软件发布工作流（必须遵守）
@@ -63,7 +64,7 @@
 | 文件 | 更新内容 |
 |------|----------|
 | `index.html` | software 数组中该产品条目的 `version` 与 `download` 兜底值（如 `"v0.0.6"`、`https://github.com/unboxlumen/<repo>/releases/download/v0.0.6/<产品>-release.apk`） |
-| `<产品>/index.html` | `FALLBACK_RELEASE` 对象（`tag` / `date` / `size` / `sha` / `url`）+ 页面内全部 `data-rel` 兜底值（version / size / date / sha / url 的硬编码 vX.Y.Z、日期、SHA-256、下载链接） |
+| `<产品>/index.html` | `FALLBACK_RELEASE` 对象（`tag` / `date` / `size` / `sha` / `url`）+ 页面内全部 `data-rel` 兜底值（version / size / date / sha / url 的硬编码 vX.Y.Z、日期、SHA-256、下载链接）+ `<head>` 中 JSON-LD（SoftwareApplication 的 `softwareVersion` / `fileSize` / `downloadUrl`），版本发布后若包大小变化较大还需同步 meta description |
 | `<产品>/PRODUCT.md` | 基本信息表「当前版本」与「安装包大小」、§7 技术规格「Release 包大小」、§8「大小统计口径」实测值 |
 | `PRODUCTS.md` | §二 红线速览中该产品的「轻量：Release 包约 X MB」 |
 | `README.md` | 「安装包大小统计」表：补齐新版本 release 行（debug 行单独说明不计入统计），并更新「Release 合计」 |

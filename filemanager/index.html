@@ -3,12 +3,68 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>N Files · UnboxLumen</title>
-<meta name="description" content="N 文件 —— 装到手机上的文件管家。浏览、预览、远程、分享，一站搞定。">
+<title>N 文件 (nFiles) · 安卓文件管理器下载 | UnboxLumen</title>
+<meta name="description" content="N 文件（nFiles）是 UnboxLumen 出品的安卓文件管理器：内置图片、视频、PDF、Office 预览，支持 WebDAV / SMB / FTP / S3 远程协议与局域网分享，全文搜索与离线 OCR 全部本地完成。">
+<meta name="robots" content="index, follow">
 <meta name="theme-color" content="#F6F2E8">
+<link rel="canonical" href="https://unboxlumen.com/filemanager/">
+<link rel="alternate" hreflang="zh-CN" href="https://unboxlumen.com/filemanager/">
+<link rel="alternate" hreflang="en" href="https://unboxlumen.com/filemanager/">
+<link rel="alternate" hreflang="x-default" href="https://unboxlumen.com/filemanager/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="UnboxLumen">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:title" content="N 文件 (nFiles) · 安卓文件管理器 | UnboxLumen">
+<meta property="og:description" content="装到手机上的文件管家。浏览、预览、远程、分享，一站搞定。支持全文搜索、离线 OCR 与磁盘占用分析。">
+<meta property="og:url" content="https://unboxlumen.com/filemanager/">
+<meta property="og:image" content="https://unboxlumen.com/og-cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="N 文件 (nFiles) · 安卓文件管理器 | UnboxLumen">
+<meta name="twitter:description" content="装到手机上的文件管家。浏览、预览、远程、分享，一站搞定。">
+<meta name="twitter:image" content="https://unboxlumen.com/og-cover.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://unboxlumen.com/#organization",
+      "name": "UnboxLumen",
+      "url": "https://unboxlumen.com/",
+      "logo": "https://unboxlumen.com/favicon.svg"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://unboxlumen.com/filemanager/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "UnboxLumen", "item": "https://unboxlumen.com/" },
+        { "@type": "ListItem", "position": 2, "name": "N 文件", "item": "https://unboxlumen.com/filemanager/" }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://unboxlumen.com/filemanager/#software",
+      "name": "N 文件",
+      "alternateName": ["nFiles", "N Files"],
+      "url": "https://unboxlumen.com/filemanager/",
+      "description": "N 文件是一款安卓文件管理器。目录、分类、最近与全文搜索四种方式找文件；内置图片、视频、音频、PDF、EPUB、Office、Markdown、CSV 预览；支持 WebDAV / SMB / FTP / SFTP / S3 远程协议与局域网分享；磁盘占用分析帮你快速定位空间大户——装到手机上的文件管家。",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Android 8.0+",
+      "softwareVersion": "0.0.1",
+      "fileSize": "43.97MB",
+      "downloadUrl": "https://github.com/unboxlumen/filemanager/releases/download/v0.0.1/filemanager-release.apk",
+      "inLanguage": ["zh-CN", "en"],
+      "publisher": { "@id": "https://unboxlumen.com/#organization" }
+    }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet"></noscript>
 <style>
   :root {
     --bg: #F6F2E8;
@@ -327,6 +383,12 @@
   }
   .fcard p { margin-top: 8px; font-size: 14px; color: var(--muted); }
 
+  /* ---------- 无 JS 兜底（SEO） ---------- */
+  .seo-list { list-style: none; display: grid; gap: 16px; }
+  .seo-list li { border: 1px solid var(--line); border-radius: 18px; padding: 22px 24px; }
+  .seo-list h3 { font-family: var(--font-display); font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+  .seo-list p { margin-top: 6px; font-size: 14px; color: var(--muted); }
+
   /* ---------- 原则（编辑风） ---------- */
   #principles { background: var(--tint); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .principles-list { border-top: 1px solid var(--line); }
@@ -575,7 +637,22 @@
         <h2 data-i18n="feTitle">该有的，都有</h2>
         <p class="section-note" data-i18n="feNote">功能够用就行——但日常用到的，一样不少。</p>
       </div>
-      <div id="feature-grid"></div>
+      <div id="feature-grid">
+        <noscript>
+          <ul class="seo-list">
+            <li><h3>文件浏览</h3><p>目录 / 分类 / 最近 / 搜索四种模式，面包屑与排序。</p></li>
+            <li><h3>磁盘占用分析</h3><p>矩形图、环形图、目录排行与大文件 Top100。</p></li>
+            <li><h3>内置预览</h3><p>图片、视频、音频、PDF、EPUB、Office、Markdown、CSV 直接打开。</p></li>
+            <li><h3>远程协议</h3><p>WebDAV / SMB / FTP / SFTP / S3 远程源浏览与传输。</p></li>
+            <li><h3>局域网分享</h3><p>本机开 HTTP / WebDAV 服务，扫码或网页端与电脑互传。</p></li>
+            <li><h3>回收站</h3><p>删除先进回收站，可恢复，可清空。</p></li>
+            <li><h3>压缩与加密</h3><p>压缩、解压、ZIP 加密，压缩包内直接预览。</p></li>
+            <li><h3>全文搜索 + OCR</h3><p>本地内容索引 + 离线 PaddleOCR 文字识别，不上传任何文件。</p></li>
+            <li><h3>收藏与最近</h3><p>收藏夹、最近记录、缩略图一目了然。</p></li>
+            <li><h3>文件工具</h3><p>哈希校验、元数据、重复查找、粉碎、目录同步。</p></li>
+          </ul>
+        </noscript>
+      </div>
     </div>
   </section>
 
@@ -643,8 +720,8 @@
   // ========== 中英双语文案 ==========
   const I18N = {
     zh: {
-      title: "N 文件 · UnboxLumen",
-      description: "N 文件 —— 装到手机上的文件管家。浏览、预览、远程、分享，一站搞定。",
+      title: "N 文件 (nFiles) · 安卓文件管理器下载 | UnboxLumen",
+      description: "N 文件（nFiles）是 UnboxLumen 出品的安卓文件管理器：内置图片、视频、PDF、Office 预览，支持 WebDAV / SMB / FTP / S3 远程协议与局域网分享，全文搜索与离线 OCR 全部本地完成。",
       heroTitle: "N <span class=\"accent\">文件</span>",
       phoneTitle: "N 文件 · 文件管家",
       dlTitleText: "N 文件 · nFiles",
@@ -680,8 +757,8 @@
       footerHome: "← 返回主页"
     },
     en: {
-      title: "N Files · UnboxLumen",
-      description: "N Files — a file manager for your phone. Browse, preview, remote and share — all in one.",
+      title: "N Files (nFiles) · Android File Manager | UnboxLumen",
+      description: "N Files (nFiles) is an Android file manager by UnboxLumen: built-in previews for images, video, PDF and Office; WebDAV / SMB / FTP / S3 remote sources; LAN sharing; full-text search and offline OCR, all on-device.",
       heroTitle: "N <span class=\"accent\">Files</span>",
       phoneTitle: "N Files · File manager",
       dlTitleText: "N Files · nFiles",
