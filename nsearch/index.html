@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>N 搜索 (nSearch) · 本地全文文件搜索下载 | UnboxLumen</title>
+<meta name="description" content="N 搜索（nSearch）是 UnboxLumen 出品的安卓本地全文文件搜索器：基于 Apache Lucene + ICU 多语言分词，对设备上的 txt / md / csv / pdf / xls / xlsx 做全文索引，支持与/或搜索、近实时检索、增量同步，全部在本地完成，文件不上传。">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#F6F2E8">
+<link rel="canonical" href="https://unboxlumen.com/nsearch/">
+<link rel="alternate" hreflang="zh-CN" href="https://unboxlumen.com/nsearch/">
+<link rel="alternate" hreflang="en" href="https://unboxlumen.com/nsearch/">
+<link rel="alternate" hreflang="x-default" href="https://unboxlumen.com/nsearch/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="UnboxLumen">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:title" content="N 搜索 (nSearch) · 本地全文文件搜索 | UnboxLumen">
+<meta property="og:description" content="装到手机上的本地全文搜索引擎。Apache Lucene + ICU 多语言分词，对本地文件建索引，支持与/或搜索、近实时检索，文件不出本机。">
+<meta property="og:url" content="https://unboxlumen.com/nsearch/">
+<meta property="og:image" content="https://unboxlumen.com/og-cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="N 搜索 (nSearch) · 本地全文文件搜索 | UnboxLumen">
+<meta name="twitter:description" content="装到手机上的本地全文搜索引擎。Apache Lucene + ICU 多语言分词，对本地文件建索引，文件不出本机。">
+<meta name="twitter:image" content="https://unboxlumen.com/og-cover.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://unboxlumen.com/#organization",
+      "name": "UnboxLumen",
+      "url": "https://unboxlumen.com/",
+      "logo": "https://unboxlumen.com/favicon.svg"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://unboxlumen.com/nsearch/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "UnboxLumen", "item": "https://unboxlumen.com/" },
+        { "@type": "ListItem", "position": 2, "name": "N 搜索", "item": "https://unboxlumen.com/nsearch/" }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://unboxlumen.com/nsearch/#software",
+      "name": "N 搜索",
+      "alternateName": ["nSearch", "N Search"],
+      "url": "https://unboxlumen.com/nsearch/",
+      "description": "N 搜索是一款安卓本地全文文件搜索器。基于 Apache Lucene 与 ICU 多语言分词，对设备上的 txt / md / csv / pdf / xls / xlsx 建全文索引，支持与/或搜索、近实时检索与增量同步。所有索引与搜索都在设备本地完成，文件不上传云端。",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Android 8.0+",
+      "softwareVersion": "0.0.1",
+      "fileSize": "17MB",
+      "downloadUrl": "https://github.com/unboxlumen/nsearch/releases/download/v0.0.1/nsearch-release.apk",
+      "inLanguage": ["zh-CN", "en"],
+      "publisher": { "@id": "https://unboxlumen.com/#organization" }
+    }
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet"></noscript>
+<style>
+  :root {
+    --bg: #F6F2E8;
+    --header-bg: rgba(246, 242, 232, 0.72);
+    --tint: #F0EBDE;
+    --tint-2: #EBE6D7;
+    --tint-3: #E6E0D0;
+    --ink: #111111;
+    --muted: #6e6e73;
+    --line: rgba(0, 0, 0, 0.09);
+    --accent: #0071e3;
+    --dark: #0e0e10;
+    --dark-line: rgba(255, 255, 255, 0.14);
+    --font-display: "Outfit", "Noto Sans SC", sans-serif;
+    --font-body: "Noto Sans SC", -apple-system, "PingFang SC", sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* 环境光晕：右上淡蓝呼应品牌色，左下极淡暖光 */
+  body::before {
+    content: "";
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(900px 520px at 88% -8%, rgba(0, 113, 227, 0.09), transparent 62%),
+      radial-gradient(820px 480px at -8% 108%, rgba(240, 176, 76, 0.08), transparent 60%);
+  }
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 48px; }
+
+  /* ---------- 导航 ---------- */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--line);
+  }
+  nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--font-display); font-weight: 600; font-size: 17px;
+    letter-spacing: -0.01em; text-decoration: none; color: var(--ink);
+  }
+  .brand-mark {
+    width: 26px; height: 26px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--ink); color: #fff;
+    font-family: var(--font-mono); font-weight: 600; font-size: 11px;
+  }
+  .nav-links { display: flex; align-items: center; gap: 28px; }
+  .nav-links a:not(.nav-gh):not(.lang-btn) { color: var(--muted); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+  .nav-links a:not(.nav-gh):not(.lang-btn):hover { color: var(--ink); }
+  .nav-gh, .lang-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 16px; border-radius: 999px;
+    border: 1px solid var(--line);
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--ink); text-decoration: none; background: transparent;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .lang-btn { cursor: pointer; }
+  .nav-gh:hover, .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ---------- Hero（深色） ---------- */
+  .hero {
+    position: relative;
+    background: var(--dark);
+    color: #fff;
+    padding: 120px 0 110px;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(600px 340px at 82% 12%, rgba(0, 113, 227, 0.28), transparent 70%),
+      radial-gradient(520px 380px at 8% 88%, rgba(0, 113, 227, 0.14), transparent 70%),
+      radial-gradient(1px 1px at 12% 22%, rgba(255,255,255,0.35) 50%, transparent 51%),
+      radial-gradient(1px 1px at 24% 68%, rgba(255,255,255,0.25) 50%, transparent 51%),
+      radial-gradient(1px 1px at 63% 34%, rgba(255,255,255,0.22) 50%, transparent 51%),
+      radial-gradient(1px 1px at 87% 58%, rgba(255,255,255,0.22) 50%, transparent 51%),
+      radial-gradient(1px 1px at 44% 12%, rgba(255,255,255,0.25) 50%, transparent 51%);
+    background-size: 100% 100%, 100% 100%, 120px 120px, 160px 160px, 140px 140px, 190px 190px, 170px 170px;
+    pointer-events: none;
+  }
+  .hero .container { position: relative; display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px; align-items: center; }
+  .hero-eyebrow {
+    font-family: var(--font-mono); font-size: 12px;
+    color: rgba(255, 255, 255, 0.55); letter-spacing: 0.22em;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-eyebrow::after { content: ""; width: 42px; height: 1px; background: var(--dark-line); }
+  .hero h1 {
+    margin-top: 24px;
+    font-family: var(--font-display);
+    font-size: clamp(52px, 7vw, 84px);
+    font-weight: 600; line-height: 1.02; letter-spacing: -0.02em;
+  }
+  .hero h1 .accent { color: var(--accent); }
+  .hero-tagline {
+    margin-top: 22px; max-width: 460px;
+    font-size: 17px; color: rgba(255, 255, 255, 0.72);
+  }
+  .hero-chips { margin-top: 28px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .chip {
+    padding: 5px 14px; border-radius: 999px;
+    border: 1px solid var(--dark-line);
+    font-family: var(--font-mono); font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  .chip.accent { border-color: rgba(0, 113, 227, 0.6); color: #7cb3f1; background: rgba(0, 113, 227, 0.12); }
+  .hero-actions { margin-top: 40px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 30px; border-radius: 999px;
+    font-family: var(--font-mono); font-size: 14px; font-weight: 600;
+    text-decoration: none; transition: transform 0.2s, opacity 0.2s, border-color 0.2s;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-white { background: #fff; color: var(--ink); }
+  .btn-white:hover { opacity: 0.9; }
+  .btn-ghost-dark { border: 1px solid var(--dark-line); color: #fff; }
+  .btn-ghost-dark:hover { border-color: #fff; }
+
+  /* ---------- 手机模拟 ---------- */
+  .hero-visual { display: flex; justify-content: center; }
+  .phone {
+    width: 236px; height: 468px;
+    border-radius: 38px;
+    background: linear-gradient(180deg, #1c1c1f, #101012);
+    border: 1px solid var(--dark-line);
+    padding: 10px;
+    box-shadow: 0 50px 90px -30px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(0,0,0,0.4);
+    transform: rotate(4deg);
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float { 0%, 100% { transform: rotate(4deg) translateY(0); } 50% { transform: rotate(4deg) translateY(-10px); } }
+  .phone-screen {
+    width: 100%; height: 100%;
+    border-radius: 30px;
+    background: #fff;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  .phone-cam { width: 70px; height: 20px; margin: 0 auto; background: #1c1c1f; border-radius: 0 0 12px 12px; }
+  .phone-status {
+    display: flex; justify-content: space-between;
+    padding: 10px 16px 2px;
+    font-family: var(--font-mono); font-size: 9px; color: #999;
+  }
+  .phone-search {
+    display: flex; align-items: center; gap: 6px;
+    margin: 8px 12px; padding: 8px 12px;
+    background: #f2f2f4; border-radius: 9px;
+    font-family: var(--font-mono); font-size: 9px; color: #444;
+  }
+  .phone-search .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex: none; }
+  .phone-page { padding: 6px 14px 4px; flex: 1; }
+  .phone-page .hl { font-family: var(--font-display); font-size: 13px; font-weight: 600; color: var(--ink); margin: 8px 0 10px; }
+  .phone-page .result { border: 1px solid #ececee; border-radius: 8px; padding: 7px 8px; margin-bottom: 8px; }
+  .phone-page .r-title { height: 7px; border-radius: 4px; background: #d7d7da; width: 70%; margin-bottom: 6px; }
+  .phone-page .r-line { height: 6px; border-radius: 4px; background: #ededf0; margin-bottom: 5px; }
+  .phone-page .r-line.accent { background: rgba(0, 113, 227, 0.25); width: 56%; }
+  .phone-page .r-line.short { width: 42%; }
+  .phone-btns {
+    display: flex; justify-content: space-around; align-items: center;
+    padding: 9px 22px 11px; border-top: 1px solid #f0f0f0;
+  }
+  .phone-btns .i { width: 16px; height: 16px; border-radius: 5px; border: 1.5px solid #cfcfd3; }
+  .phone-btns .i.active { background: var(--accent); border-color: var(--accent); }
+
+  /* ---------- Release 条 ---------- */
+  .release-bar { border-bottom: 1px solid var(--line); background: var(--tint); }
+  .release-bar .container {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; flex-wrap: wrap;
+    padding-top: 18px; padding-bottom: 18px;
+    font-family: var(--font-mono); font-size: 12px; color: var(--muted);
+  }
+  .release-bar b { color: var(--ink); font-weight: 600; }
+  .release-bar .rel-download {
+    color: var(--accent); text-decoration: none; font-weight: 600;
+  }
+  .release-bar .rel-download:hover { text-decoration: underline; }
+
+  /* ---------- 区块 ---------- */
+  section { padding: 110px 0; }
+  .section-head { margin-bottom: 54px; }
+  .section-index {
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--muted); letter-spacing: 0.22em; text-transform: uppercase;
+  }
+  .section-head h2 {
+    margin-top: 16px;
+    font-family: var(--font-display);
+    font-size: clamp(30px, 4vw, 44px);
+    font-weight: 600; letter-spacing: -0.01em;
+  }
+  .section-note { margin-top: 14px; color: var(--muted); font-size: 16px; max-width: 560px; }
+
+  /* ---------- 功能卡片 ---------- */
+  #feature-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 20px; }
+  .fcard {
+    border: 1px solid var(--line); border-radius: 18px;
+    padding: 28px 26px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .fcard:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08); border-color: rgba(0, 0, 0, 0.16); }
+  .fcard-icon {
+    width: 42px; height: 42px; border-radius: 12px;
+    display: grid; place-items: center;
+    background: var(--tint-2); color: var(--ink);
+  }
+  .fcard-icon svg { width: 21px; height: 21px; }
+  .fcard h3 {
+    margin-top: 18px;
+    font-family: var(--font-display); font-size: 18px; font-weight: 600; letter-spacing: -0.01em;
+  }
+  .fcard p { margin-top: 8px; font-size: 14px; color: var(--muted); }
+
+  /* ---------- 无 JS 兜底（SEO） ---------- */
+  .seo-list { list-style: none; display: grid; gap: 16px; }
+  .seo-list li { border: 1px solid var(--line); border-radius: 18px; padding: 22px 24px; }
+  .seo-list h3 { font-family: var(--font-display); font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+  .seo-list p { margin-top: 6px; font-size: 14px; color: var(--muted); }
+
+  /* ---------- 原则（编辑风） ---------- */
+  #principles { background: var(--tint); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .principles-list { border-top: 1px solid var(--line); }
+  .principle {
+    display: grid; grid-template-columns: 110px 1fr;
+    gap: 32px; align-items: start;
+    padding: 44px 0; border-bottom: 1px solid var(--line);
+  }
+  .principle .num {
+    font-family: var(--font-display); font-size: 56px; font-weight: 600;
+    color: var(--accent); line-height: 1; letter-spacing: -0.02em;
+  }
+  .principle h3 { font-family: var(--font-display); font-size: 24px; font-weight: 600; letter-spacing: -0.01em; }
+  .principle p { margin-top: 12px; color: var(--muted); max-width: 620px; }
+
+  /* ---------- 技术规格条 ---------- */
+  .spec-strip {
+    border: 1px solid var(--line); border-radius: 18px;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+  }
+  .spec-item { padding: 30px 24px; border-left: 1px solid var(--line); }
+  .spec-item:first-child { border-left: none; }
+  .spec-item .k { font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; }
+  .spec-item .v { margin-top: 10px; font-family: var(--font-display); font-size: 19px; font-weight: 600; }
+
+  /* ---------- 下载 ---------- */
+  #download { text-align: center; }
+  #download .container { max-width: 720px; }
+  .dl-card {
+    border: 1px solid var(--line); border-radius: 24px;
+    padding: 56px 40px 44px;
+    background: linear-gradient(180deg, #FBF8F0, var(--tint));
+  }
+  .dl-icon {
+    width: 64px; height: 64px; margin: 0 auto;
+    border-radius: 18px; background: var(--ink); color: #fff;
+    display: grid; place-items: center;
+  }
+  .dl-icon svg { width: 30px; height: 30px; }
+  .dl-title {
+    margin-top: 26px;
+    font-family: var(--font-display); font-size: 30px; font-weight: 600; letter-spacing: -0.01em;
+  }
+  .dl-note { margin-top: 12px; color: var(--muted); font-size: 15px; }
+  .dl-meta {
+    margin: 32px auto 0; max-width: 520px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+  }
+  .dl-meta .m { border: 1px solid var(--line); border-radius: 14px; padding: 14px 10px; }
+  .dl-meta .k { font-family: var(--font-mono); font-size: 10px; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; }
+  .dl-meta .v { margin-top: 6px; font-family: var(--font-mono); font-size: 13px; font-weight: 600; }
+  .dl-sha {
+    margin-top: 16px; padding: 10px 14px; border-radius: 12px;
+    background: var(--tint-3);
+    font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+    word-break: break-all; text-align: left;
+  }
+  .dl-actions { margin-top: 34px; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+  .btn-primary { background: var(--ink); color: #fff; }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-ghost { border: 1px solid var(--line); color: var(--ink); }
+  .btn-ghost:hover { border-color: var(--ink); }
+  .dl-update { margin-top: 22px; font-size: 12px; color: var(--muted); }
+
+  /* ---------- 页脚 ---------- */
+  footer { border-top: 1px solid var(--line); padding: 44px 0; }
+  .footer-inner {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    font-family: var(--font-mono); font-size: 12px; color: var(--muted);
+  }
+  .footer-inner a { color: var(--muted); text-decoration: none; }
+  .footer-inner a:hover { color: var(--ink); }
+  .footer-home { color: var(--accent) !important; }
+
+  /* ---------- 动画 ---------- */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in-view { opacity: 1; transform: none; }
+  .hero .reveal { animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  .hero .reveal:nth-child(2) { animation-delay: 0.1s; }
+  .hero .reveal:nth-child(3) { animation-delay: 0.2s; }
+  .hero .reveal:nth-child(4) { animation-delay: 0.3s; }
+  .hero .reveal:nth-child(5) { animation-delay: 0.4s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal, .hero .reveal { animation: none; opacity: 1; transform: none; transition: none; }
+    .phone { animation: none; }
+  }
+  @media (max-width: 900px) {
+    .hero .container { grid-template-columns: 1fr; gap: 64px; }
+    .hero { padding: 84px 0 90px; text-align: center; }
+    .hero-tagline { margin-left: auto; margin-right: auto; }
+    .hero-actions { justify-content: center; }
+    .hero-eyebrow { justify-content: center; }
+    .hero-eyebrow::after { display: none; }
+    .phone { width: 210px; height: 420px; }
+    .principle { grid-template-columns: 76px 1fr; gap: 20px; }
+    .spec-strip { grid-template-columns: 1fr 1fr; }
+    .spec-item { border-left: none; border-top: 1px solid var(--line); }
+    .spec-item:nth-child(1), .spec-item:nth-child(2) { border-top: none; }
+    .spec-item:nth-child(even) { border-left: 1px solid var(--line); }
+    .dl-meta { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 760px) {
+    .container { padding: 0 22px; }
+    .nav-links a:not(.nav-gh):not(.lang-btn) { display: none; }
+    section { padding: 84px 0; }
+    #feature-grid { grid-template-columns: 1fr; }
+    .dl-card { padding: 44px 22px 36px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <nav class="container">
+    <a class="brand" href="../index.html"><span class="brand-mark">UL</span>UnboxLumen</a>
+    <div class="nav-links">
+      <a href="#features" data-i18n="navFeatures">功能</a>
+      <a href="#principles" data-i18n="navPrinciples">原则</a>
+      <a href="#download" data-i18n="navDownload">下载</a>
+      <button id="lang-switch" class="lang-btn" type="button" aria-label="Switch to English">EN</button>
+      <a class="nav-gh" href="https://github.com/unboxlumen/nsearch/issues/new" target="_blank" rel="noopener" data-i18n="navBugReport">BUG REPORT</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <!-- ========== Hero ========== -->
+  <section class="hero">
+    <div class="container">
+      <div>
+        <div class="hero-eyebrow reveal">UNBOXLUMEN · PRODUCT 03</div>
+        <h1 class="reveal" id="hero-title">N <span class="accent">搜索</span></h1>
+        <p class="hero-tagline reveal" data-i18n="heroTagline">装到手机上的本地全文搜索引擎。基于 Apache Lucene 与 ICU 多语言分词，对设备上的文件建索引，搜索就在指尖，文件不出本机。</p>
+        <div class="hero-chips reveal">
+          <span class="chip accent" data-i18n="heroChipPlatform">Android</span>
+          <span class="chip" data-rel="version">v0.0.1</span>
+          <span class="chip" data-rel="size">约 17 MB</span>
+        </div>
+        <div class="hero-actions reveal">
+          <a class="btn btn-white" data-rel="url" href="https://github.com/unboxlumen/nsearch/releases/download/v0.0.1/nsearch-release.apk" data-i18n="heroCta1" target="_blank" rel="noopener">立即下载</a>
+          <a class="btn btn-ghost-dark" href="#features" data-i18n="heroCta2">了解功能</a>
+        </div>
+      </div>
+      <div class="hero-visual reveal">
+        <div class="phone" aria-hidden="true">
+          <div class="phone-screen">
+            <div class="phone-cam"></div>
+            <div class="phone-status"><span>9:41</span><span>nSearch</span><span>●●●</span></div>
+            <div class="phone-search"><span class="dot"></span>会议 记录</div>
+            <div class="phone-page">
+              <div class="hl" data-i18n="phoneTitle">N 搜索 · 全文检索</div>
+              <div class="result">
+                <div class="r-title"></div>
+                <div class="r-line accent"></div>
+                <div class="r-line"></div>
+                <div class="r-line short"></div>
+              </div>
+              <div class="result">
+                <div class="r-title"></div>
+                <div class="r-line"></div>
+                <div class="r-line accent"></div>
+                <div class="r-line short"></div>
+              </div>
+              <div class="result">
+                <div class="r-title"></div>
+                <div class="r-line"></div>
+                <div class="r-line short"></div>
+              </div>
+            </div>
+            <div class="phone-btns">
+              <span class="i"></span><span class="i active"></span><span class="i"></span><span class="i"></span><span class="i"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== Release 条 ========== -->
+  <div class="release-bar">
+    <div class="container">
+      <span><span data-i18n="relLatest">最新版本</span> <b data-rel="version">v0.0.1</b></span>
+      <span><span data-i18n="relDate">发布于</span> <b data-rel="date">2026-08-17</b></span>
+      <span><span data-i18n="relSize">大小</span> <b data-rel="size">约 17 MB</b></span>
+      <a class="rel-download" data-rel="url" href="https://github.com/unboxlumen/nsearch/releases/download/v0.0.1/nsearch-release.apk" target="_blank" rel="noopener" data-i18n="relCta">下载 APK ↓</a>
+    </div>
+  </div>
+
+  <!-- ========== 功能 ========== -->
+  <section id="features">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-index" data-i18n="feIndex">01 // Features</div>
+        <h2 data-i18n="feTitle">该有的，都有</h2>
+        <p class="section-note" data-i18n="feNote">本地全文搜索这件事，从索引到检索，细节都照顾到了。</p>
+      </div>
+      <div id="feature-grid">
+        <noscript>
+          <ul class="seo-list">
+            <li><h3>多语言全文索引</h3><p>Apache Lucene + ICU 分词，中 / 日 / 韩 / 英 / 欧语统一处理，搜中文也能命中英文文件名里的词。</p></li>
+            <li><h3>与 / 或 搜索模式</h3><p>严格（全部包含）/ 中等 / 宽松（任一包含），类似 Google 的「包含全部 / 任一关键词」。</p></li>
+            <li><h3>近实时搜索</h3><p>索引过程中即可搜到；索引线程写、搜索线程读，互不阻塞。</p></li>
+            <li><h3>增量同步</h3><p>记录每个文件的 size / lastModified，重开跳过未变更文件，自动清理已删除文件。</p></li>
+            <li><h3>同义词模式</h3><p>设置可开启同义词扩展，查询时叠加 SynonymGraphFilter。</p></li>
+            <li><h3>索引进度可视化</h3><p>首页进度卡片（已索引 X/Y、当前文件）+ 前台服务通知每 500ms 刷新。</p></li>
+            <li><h3>多格式支持</h3><p>对 txt / md / csv / pdf / xls / xlsx 抽取文本并建立全文索引。</p></li>
+            <li><h3>索引字数上限</h3><p>200K / 500K / 1M（默认）/ 5M / 不限制，按需设置。</p></li>
+            <li><h3>扫描历史</h3><p>记录每次扫描的文件数 / 成功 / 失败 / 跳过 / 耗时。</p></li>
+            <li><h3>本地优先 · 隐私</h3><p>全文索引与搜索全部在设备本地完成，文件不上传任何云端。</p></li>
+            <li><h3>文件类型筛选</h3><p>设置中可勾选要索引的文件类型，跳过不需要的类型。</p></li>
+            <li><h3>开放文件夹</h3><p>主外部存储全盘扫描，也可通过 SAF 添加指定文件夹。</p></li>
+          </ul>
+        </noscript>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 原则 ========== -->
+  <section id="principles">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-index" data-i18n="prIndex">02 // Principles</div>
+        <h2 data-i18n="prTitle">三条原则</h2>
+        <p class="section-note" data-i18n="prNote">N 搜索的一切取舍，都从这里出发。</p>
+      </div>
+      <div class="principles-list" id="principles-list"></div>
+    </div>
+  </section>
+
+  <!-- ========== 技术规格 ========== -->
+  <section id="specs">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-index" data-i18n="spIndex">03 // Specs</div>
+        <h2 data-i18n="spTitle">技术栈</h2>
+      </div>
+      <div class="spec-strip reveal" id="spec-strip"></div>
+    </div>
+  </section>
+
+  <!-- ========== 下载 ========== -->
+  <section id="download">
+    <div class="container">
+      <div class="section-head reveal" style="text-align:left">
+        <div class="section-index" data-i18n="dlIndex">04 // Download</div>
+        <h2 data-i18n="dlTitle">下载 N 搜索</h2>
+      </div>
+      <div class="dl-card reveal">
+        <div class="dl-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg>
+        </div>
+        <h3 class="dl-title" data-i18n="dlTitleText">N 搜索 · nSearch</h3>
+        <p class="dl-note" data-i18n="dlNote">下载 APK 后直接安装即可。如手机提示"禁止安装未知来源应用"，允许本次安装即可。</p>
+        <div class="dl-meta">
+          <div class="m"><div class="k" data-i18n="dlMetaVersion">版本</div><div class="v" data-rel="version">v0.0.1</div></div>
+          <div class="m"><div class="k" data-i18n="dlMetaSize">大小</div><div class="v" data-rel="size">约 17 MB</div></div>
+          <div class="m"><div class="k" data-i18n="dlMetaDate">发布</div><div class="v" data-rel="date">2026-08-17</div></div>
+        </div>
+        <div class="dl-sha"><span data-i18n="dlShaLabel">SHA-256</span> · <span data-rel="sha">nsearch-release.apk 待发布后由 GitHub Release 实际 SHA-256 替换</span></div>
+        <div class="dl-actions">
+          <a class="btn btn-primary" data-rel="url" href="https://github.com/unboxlumen/nsearch/releases/download/v0.0.1/nsearch-release.apk" target="_blank" rel="noopener" data-i18n="dlBtn">立即下载 APK</a>
+        </div>
+        <p class="dl-update" data-i18n="dlUpdate">应用发布新版本后，会自动从 GitHub Releases 获取最新下载地址。</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <span>© 2026 UnboxLumen Project</span>
+    <span><a class="footer-home" href="../index.html" data-i18n="footerHome">← 返回主页</a></span>
+    <span>Built by <a href="https://github.com/unboxlumen" target="_blank" rel="noopener">@unboxlumen</a></span>
+  </div>
+</footer>
+
+<script>
+  (() => {
+  // ========== 中英双语文案 ==========
+  const I18N = {
+    zh: {
+      title: "N 搜索 (nSearch) · 本地全文文件搜索下载 | UnboxLumen",
+      description: "N 搜索（nSearch）是 UnboxLumen 出品的安卓本地全文文件搜索器：基于 Apache Lucene + ICU 多语言分词，对设备上的 txt / md / csv / pdf / xls / xlsx 做全文索引，支持与/或搜索、近实时检索、增量同步，全部在本地完成。",
+      heroTitle: "N <span class=\"accent\">搜索</span>",
+      phoneTitle: "N 搜索 · 全文检索",
+      dlTitleText: "N 搜索 · nSearch",
+      navFeatures: "功能",
+      navPrinciples: "原则",
+      navDownload: "下载",
+      navBugReport: "报告问题",
+      heroTagline: "装到手机上的本地全文搜索引擎。基于 Apache Lucene 与 ICU 多语言分词，对设备上的文件建索引，搜索就在指尖，文件不出本机。",
+      heroChipPlatform: "Android",
+      heroCta1: "立即下载",
+      heroCta2: "了解功能",
+      relLatest: "最新版本",
+      relDate: "发布于",
+      relSize: "大小",
+      relCta: "下载 APK ↓",
+      feIndex: "01 // Features",
+      feTitle: "该有的，都有",
+      feNote: "本地全文搜索这件事，从索引到检索，细节都照顾到了。",
+      prIndex: "02 // Principles",
+      prTitle: "三条原则",
+      prNote: "N 搜索的一切取舍，都从这里出发。",
+      spIndex: "03 // Specs",
+      spTitle: "技术栈",
+      dlIndex: "04 // Download",
+      dlTitle: "下载 N 搜索",
+      dlNote: "下载 APK 后直接安装即可。如手机提示\u201c禁止安装未知来源应用\u201d，允许本次安装即可。",
+      dlMetaVersion: "版本",
+      dlMetaSize: "大小",
+      dlMetaDate: "发布",
+      dlShaLabel: "SHA-256",
+      dlBtn: "立即下载 APK",
+      dlUpdate: "应用发布新版本后，会自动从 GitHub Releases 获取最新下载地址。",
+      footerHome: "← 返回主页"
+    },
+    en: {
+      title: "N Search (nSearch) · Local Full-text File Search | UnboxLumen",
+      description: "N Search (nSearch) is an Android local full-text file search app by UnboxLumen: built on Apache Lucene + ICU multilingual tokenization, it indexes txt / md / csv / pdf / xls / xlsx on your device with AND/OR search, near-real-time retrieval and incremental sync — all done locally.",
+      heroTitle: "N <span class=\"accent\">Search</span>",
+      phoneTitle: "N Search · Full-text",
+      dlTitleText: "N Search · nSearch",
+      navFeatures: "Features",
+      navPrinciples: "Principles",
+      navDownload: "Download",
+      navBugReport: "BUG REPORT",
+      heroTagline: "A local full-text search engine that lives on your phone. Built on Apache Lucene with ICU tokenization, it indexes your files on-device — search at your fingertips, files never leave the device.",
+      heroChipPlatform: "Android",
+      heroCta1: "Download Now",
+      heroCta2: "Explore Features",
+      relLatest: "Latest",
+      relDate: "Released",
+      relSize: "Size",
+      relCta: "Get APK ↓",
+      feIndex: "01 // Features",
+      feTitle: "Everything you need",
+      feNote: "Local full-text search — from indexing to retrieval, the details are covered.",
+      prIndex: "02 // Principles",
+      prTitle: "Three principles",
+      prNote: "Every trade-off in N Search starts here.",
+      spIndex: "03 // Specs",
+      spTitle: "Tech stack",
+      dlIndex: "04 // Download",
+      dlTitle: "Download N Search",
+      dlNote: "Download the APK and install it directly. If Android asks about \u201cunknown sources\u201d, allow this install.",
+      dlMetaVersion: "Version",
+      dlMetaSize: "Size",
+      dlMetaDate: "Release",
+      dlShaLabel: "SHA-256",
+      dlBtn: "Download APK",
+      dlUpdate: "When a new version is published, the latest download URL is fetched from GitHub Releases automatically.",
+      footerHome: "← Back to Home"
+    }
+  };
+
+  // 语言：跟随系统语言，系统语言变化时页面自动切换（与主页保持一致）
+  function systemLang() {
+    return navigator.language && navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en";
+  }
+  let lang = systemLang();
+  window.addEventListener("languagechange", () => {
+    lang = systemLang();
+    applyLang();
+  });
+
+  // ========== 功能列表 ==========
+  const features = [
+    {
+      icon: "search",
+      name: { zh: "多语言全文索引", en: "Multilingual Index" },
+      desc: {
+        zh: "Apache Lucene + ICU 分词，中 / 日 / 韩 / 英 / 欧语统一处理，搜中文也能命中英文文件名里的词。",
+        en: "Apache Lucene + ICU tokenizer handles Chinese / Japanese / Korean / English / European text uniformly — search Chinese and still hit words inside English filenames."
+      }
+    },
+    {
+      icon: "mode",
+      name: { zh: "与 / 或 搜索模式", en: "AND / OR Search" },
+      desc: {
+        zh: "严格（全部包含）/ 中等 / 宽松（任一包含），类似 Google 的「包含全部 / 任一关键词」。",
+        en: "Strict (all terms) / Medium / Loose (any term), like Google's \"with all / any of the keywords\"."
+      }
+    },
+    {
+      icon: "cpu",
+      name: { zh: "近实时搜索", en: "Near-real-time" },
+      desc: {
+        zh: "索引过程中即可搜到；索引线程写、搜索线程读，互不阻塞。",
+        en: "Search while indexing — the indexing thread writes, the search thread reads, neither blocks the other."
+      }
+    },
+    {
+      icon: "sync",
+      name: { zh: "增量同步", en: "Incremental Sync" },
+      desc: {
+        zh: "记录每个文件的 size / lastModified，重开跳过未变更文件，自动清理已删除文件。",
+        en: "Tracks size / lastModified per file; on re-open it skips unchanged files and cleans up deleted ones."
+      }
+    },
+    {
+      icon: "ai",
+      name: { zh: "同义词模式", en: "Synonyms" },
+      desc: {
+        zh: "设置可开启同义词扩展，查询时叠加 SynonymGraphFilter。",
+        en: "Optional synonym expansion applied via SynonymGraphFilter at query time."
+      }
+    },
+    {
+      icon: "reader",
+      name: { zh: "索引进度可视化", en: "Visible Progress" },
+      desc: {
+        zh: "首页进度卡片（已索引 X/Y、当前文件）+ 前台服务通知每 500ms 刷新。",
+        en: "Home progress card (indexed X/Y, current file) plus a foreground-service notification refreshing every 500ms."
+      }
+    },
+    {
+      icon: "file",
+      name: { zh: "多格式支持", en: "Many Formats" },
+      desc: {
+        zh: "对 txt / md / csv / pdf / xls / xlsx 抽取文本并建立全文索引。",
+        en: "Extracts text from txt / md / csv / pdf / xls / xlsx and builds a full-text index."
+      }
+    },
+    {
+      icon: "filter",
+      name: { zh: "索引字数上限", en: "Char Limit" },
+      desc: {
+        zh: "200K / 500K / 1M（默认）/ 5M / 不限制，按需设置。",
+        en: "200K / 500K / 1M (default) / 5M / unlimited — set per your needs."
+      }
+    },
+    {
+      icon: "bookmark",
+      name: { zh: "扫描历史", en: "Scan History" },
+      desc: {
+        zh: "记录每次扫描的文件数 / 成功 / 失败 / 跳过 / 耗时。",
+        en: "Records file count / success / failure / skipped / duration for every scan."
+      }
+    },
+    {
+      icon: "privacy",
+      name: { zh: "本地优先 · 隐私", en: "Local-first · Private" },
+      desc: {
+        zh: "全文索引与搜索全部在设备本地完成，文件不上传任何云端。",
+        en: "Indexing and search happen entirely on-device — files never leave the phone."
+      }
+    },
+    {
+      icon: "layers",
+      name: { zh: "文件类型筛选", en: "Type Filter" },
+      desc: {
+        zh: "设置中可勾选要索引的文件类型，跳过不需要的类型。",
+        en: "Pick which file types to index in settings; skip the rest."
+      }
+    },
+    {
+      icon: "home",
+      name: { zh: "开放文件夹", en: "Open Folders" },
+      desc: {
+        zh: "主外部存储全盘扫描，也可通过 SAF 添加指定文件夹。",
+        en: "Scans primary storage, or add specific folders via SAF."
+      }
+    }
+  ];
+
+  // ========== 原则 ==========
+  const principles = [
+    {
+      title: { zh: "本地优先，文件不出本机。", en: "Local-first — files never leave the device." },
+      desc: {
+        zh: "全文索引与检索全部在设备本地完成，不依赖云端服务，不上传任何文件。你的内容，只属于你。",
+        en: "Indexing and search run entirely on-device, with no cloud dependency and no file uploads. Your content stays yours."
+      }
+    },
+    {
+      title: { zh: "多语言不是加分项，是基本功。", en: "Multilingual isn't a bonus — it's the baseline." },
+      desc: {
+        zh: "用 ICU 分词统一处理中 / 日 / 韩 / 英 / 欧，搜中文也能匹配英文文件名里的词，跨语言检索不再各搜各的。",
+        en: "ICU tokenization unifies Chinese / Japanese / Korean / English / European text, so a Chinese query still matches words inside English filenames."
+      }
+    },
+    {
+      title: { zh: "索引不该打断使用。", en: "Indexing shouldn't get in the way." },
+      desc: {
+        zh: "近实时（NRT）让边索引边搜索成为可能；增量同步让重开只补变化，不重来。搜索体验始终顺滑。",
+        en: "Near-real-time search lets you query while indexing; incremental sync only patches what changed on re-open — the experience stays smooth."
+      }
+    }
+  ];
+
+  // ========== 技术规格 ==========
+  const specs = [
+    { k: { zh: "语言", en: "Language" }, v: { zh: "Java 11", en: "Java 11" } },
+    { k: { zh: "索引引擎", en: "Engine" }, v: { zh: "Lucene 8 + ICU", en: "Lucene 8 + ICU" } },
+    { k: { zh: "最低系统", en: "Min OS" }, v: { zh: "Android 8.0+", en: "Android 8.0+" } },
+    { k: { zh: "依赖", en: "Dependencies" }, v: { zh: "Lucene + PDFBox + jxl", en: "Lucene + PDFBox + jxl" } }
+  ];
+
+  // ========== 图标 ==========
+  const icons = {
+    search: '<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>',
+    mode: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+    cpu: '<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/>',
+    sync: '<path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5M3 21v-5h5"/>',
+    ai: '<path d="M12 3l2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5z"/>',
+    reader: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
+    file: '<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/>',
+    filter: '<path d="M3 4h18l-7 8v6l-4 2v-8z"/>',
+    bookmark: '<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>',
+    privacy: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>',
+    layers: '<path d="M12 3 2 8l10 5 10-5z"/><path d="M2 13l10 5 10-5M2 18l10 5 10-5"/>',
+    home: '<path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/>'
+  };
+
+  function t(key) { return I18N[lang][key]; }
+
+  // ========== Release 数据（预设 + 运行时更新） ==========
+  // 注：nSearch 尚未在 GitHub Releases 发布，以下为离线兜底值，发布后运行时自动从
+  // https://api.github.com/repos/unboxlumen/nsearch/releases/latest 同步并覆盖。
+  const FALLBACK_RELEASE = {
+    tag: "v0.0.1",
+    date: "2026-08-17",
+    size: { zh: "约 17 MB", en: "~17 MB" },
+    sha: "nsearch-release.apk 待发布后由 GitHub Release 实际 SHA-256 替换",
+    url: "https://github.com/unboxlumen/nsearch/releases/download/v0.0.1/nsearch-release.apk"
+  };
+  let releaseInfo = FALLBACK_RELEASE;
+
+  function fmtSize(bytes) {
+    const mb = (bytes / 1048576).toFixed(1);
+    return lang === "zh" ? "约 " + mb + " MB" : "~" + mb + " MB";
+  }
+
+  // size 可能是数字（运行时从 GitHub 拉取的字节数）或对象（中英文兜底文案），统一按当前语言输出
+  function localizeSize(size) {
+    if (typeof size === "number") return fmtSize(size);
+    if (size && typeof size === "object") return size[lang];
+    return size;
+  }
+
+  function applyRelease(r) {
+    document.querySelectorAll("[data-rel=version]").forEach(el => el.textContent = r.tag);
+    document.querySelectorAll("[data-rel=size]").forEach(el => el.textContent = localizeSize(r.size));
+    document.querySelectorAll("[data-rel=date]").forEach(el => el.textContent = r.date);
+    document.querySelectorAll("[data-rel=sha]").forEach(el => el.textContent = r.sha);
+    document.querySelectorAll("[data-rel=url]").forEach(el => el.href = r.url);
+  }
+
+  // ========== 渲染 ==========
+  function renderFeatures() {
+    document.getElementById("feature-grid").innerHTML = features.map(f => `
+      <article class="fcard reveal">
+        <div class="fcard-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${icons[f.icon]}</svg></div>
+        <h3>${f.name[lang]}</h3>
+        <p>${f.desc[lang]}</p>
+      </article>
+    `).join("");
+  }
+
+  function renderPrinciples() {
+    document.getElementById("principles-list").innerHTML = principles.map((p, i) => `
+      <div class="principle reveal">
+        <div class="num">0${i + 1}</div>
+        <div>
+          <h3>${p.title[lang]}</h3>
+          <p>${p.desc[lang]}</p>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  function renderSpecs() {
+    document.getElementById("spec-strip").innerHTML = specs.map(s => `
+      <div class="spec-item">
+        <div class="k">${s.k[lang]}</div>
+        <div class="v">${s.v[lang]}</div>
+      </div>
+    `).join("");
+  }
+
+  function applyLang() {
+    document.documentElement.lang = I18N[lang].lang || (lang === "zh" ? "zh-CN" : "en");
+    document.title = t("title");
+    document.querySelector('meta[name="description"]').setAttribute("content", t("description"));
+    document.getElementById("hero-title").innerHTML = t("heroTitle");
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      el.textContent = t(el.dataset.i18n);
+    });
+    const btn = document.getElementById("lang-switch");
+    btn.textContent = lang === "zh" ? "EN" : "中文";
+    btn.setAttribute("aria-label", lang === "zh" ? "Switch to English" : "切换到中文");
+    renderFeatures();
+    renderPrinciples();
+    renderSpecs();
+    applyRelease(releaseInfo);
+    observeReveals();
+  }
+
+  // 从 GitHub Releases 读取最新版本，自动刷新下载地址与版本信息
+  (async () => {
+    try {
+      const res = await fetch("https://api.github.com/repos/unboxlumen/nsearch/releases/latest");
+      if (!res.ok) return;
+      const data = await res.json();
+      const asset = data.assets && data.assets.find(a => a.name === "nsearch-release.apk");
+      if (asset) {
+        releaseInfo = {
+          tag: data.tag_name || FALLBACK_RELEASE.tag,
+          date: (data.published_at || "").slice(0, 10) || FALLBACK_RELEASE.date,
+          size: asset.size || FALLBACK_RELEASE.size,
+          sha: (asset.digest && asset.digest.replace(/^sha256:/, "")) || FALLBACK_RELEASE.sha,
+          url: asset.browser_download_url || FALLBACK_RELEASE.url
+        };
+        applyRelease(releaseInfo);
+      }
+    } catch (e) { /* 网络不可用时保留预设版本 */ }
+  })();
+
+  document.getElementById("lang-switch").addEventListener("click", () => {
+    lang = lang === "zh" ? "en" : "zh";
+    applyLang();
+  });
+
+  // 滚动入场动画
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
+
+  function observeReveals() {
+    document.querySelectorAll(".reveal").forEach((el, i) => {
+      if (!el.closest(".hero")) {
+        el.style.transitionDelay = `${(i % 3) * 0.08}s`;
+      }
+      observer.observe(el);
+    });
+  }
+
+  applyLang();
+  })();
+</script>
+</body>
+</html>
