@@ -34,11 +34,12 @@
 ## N 搜索（nSearch）安装包大小统计
 
 > 数据来源：GitHub Releases（`unboxlumen/nsearch`），以实际附件大小为准。
-> 当前尚未发布，以下为构建产物预估，正式发布后核对实际字节数并同步更新。
+> 已发布：release 包计入统计，debug 包放在单独行仅作说明。
 
 | 版本 | 通道 | 附件 | 大小 |
 |------|------|------|------|
-| v0.0.1 | release | `nsearch-release.apk` | 约 17 MB（构建产物预估，待发布后核对实际字节数） |
+| v0.0.1 | release | `nsearch-release.apk` | 22,465,255 B ≈ 21.4 MB |
+| v0.0.1 | debug | `nsearch-debug.apk` | 30,671,868 B ≈ 29.3 MB（不计入统计，仅单独说明） |
 
 > 发布规则与上面一致：release 包计入统计，debug 包放在单独行仅作说明。
 

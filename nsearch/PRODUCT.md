@@ -21,7 +21,7 @@
 | 平台 | Android |
 | 最低系统 | Android 8.0+（minSdk 26，以源码为准） |
 | 当前版本 | v0.0.1（versionCode 1 / versionName 0.0.1，见 app/build.gradle） |
-| 安装包大小 | 约 17 MB（Release APK，含 Lucene 索引引擎） |
+| 安装包大小 | 约 21.4 MB（Release APK，含 Lucene 索引引擎） |
 | 索引引擎 | Apache Lucene 8.11.3 + ICUTokenizer（多语言分词） |
 | 开发语言 | Java 11 + desugaring |
 | 第三方依赖 | Apache Lucene、PDFBox（PDF 抽取）、jxl（xls 抽取） |
@@ -99,14 +99,14 @@
 | 第三方依赖 | Apache Lucene、PDFBox（PDF 抽取，临时方案）、jxl（xls 抽取）、自研 XLSX 解析 |
 | 索引目录 | 应用私有存储 `getDir("lucene_index")`，随应用卸载清除；重开自动增量同步 |
 | Release 优化 | R8 混淆（已配 proguard 规则） |
-| Release 包大小 | 约 17 MB（含 Lucene 索引引擎） |
+| Release 包大小 | 约 21.4 MB（含 Lucene 索引引擎） |
 | 构建 | Gradle + AGP；`./gradlew :app:assembleRelease` |
 
 ## 8. 发布与更新
 
 - **发布渠道**：GitHub Releases（`unboxlumen/nsearch`，公开仓库），只放 README 与 APK 附件，不放源码。
 - **附件命名**：release 通道固定 `nsearch-release.apk`，debug 通道 `nsearch-debug.apk`（命名与各产品更新检查规则一致；nSearch 当前未实现应用内更新，将来实现时须保持附件名一致）。
-- **大小统计口径**：后续发布只统计 release 包；debug 包单独说明，不计入大小统计（当前实测：未发布，Release 约 17 MB 为构建产物预估）。
+- **大小统计口径**：后续发布只统计 release 包；debug 包单独说明，不计入大小统计（当前实测：Release 21.4 MB（v0.0.1），数据以 GitHub Release 实际附件为准）。
 - **版本号唯一来源**：`app/build.gradle` 的 `defaultConfig`（versionCode + versionName）。
 - **发布流程（拟）**：升级版本号 → commit → 用 gh 或 REST API 创建 `unboxlumen/nsearch` 的 Release（tag `v<X>`，上传 `nsearch-release.apk`），再同步官网（主页 + 本产品页 + PRODUCTS.md / README.md）。
 
