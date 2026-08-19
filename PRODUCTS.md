@@ -37,6 +37,7 @@
 - **仅 Android 移动端**：手机 + 平板应用，无 Windows / macOS / Linux 桌面版。
 - **需要存储权限**：完整管理文件需 Android 11+ 授予「所有文件访问」权限；未授权时仅可访问媒体、下载等公开目录。
 - **本地优先**：全文索引与 OCR 均在本地完成，不依赖云端服务，不上传文件。
+- **轻量**：Release 包约 43.8 MB（v0.0.3 release：45,942,616 B ≈ 43.81 MB，见 GitHub Release 实际附件）。
 - **闭源**：保留所有权利，不得写"开源 / 免费"。
 - **最低系统**：Android 8.0+（minSdk 26，以源码为准）。
 - 完整描述见 [filemanager/PRODUCT.md](filemanager/PRODUCT.md)。
