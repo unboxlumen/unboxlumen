@@ -20,8 +20,8 @@
 | 类型 | **Android 移动端浏览器（应用）** |
 | 平台 | Android |
 | 最低系统 | Android 5.0+（minSdk 21，以源码为准） |
-| 当前版本 | v0.0.9（versionCode 9 / versionName 0.0.9，见 app/build.gradle） |
-| 安装包大小 | 约 1.9 MB（v0.0.9 release：1,982,198 B ≈ 1.89 MB，见 GitHub Release 实际附件） |
+| 当前版本 | v0.0.12（versionCode 12 / versionName 0.0.12，见 app/build.gradle） |
+| 安装包大小 | 约 2.0 MB（v0.0.12 release：2,050,966 B ≈ 1.96 MB，见 GitHub Release 实际附件） |
 | 渲染内核 | 系统 WebView（**无捆绑浏览器引擎**） |
 | 开发语言 | 纯 Java（无 Kotlin 依赖） |
 | 第三方依赖 | 仅 ZXing core + AndroidX 官方库 |
@@ -33,7 +33,7 @@
 
 1. **不是桌面应用**：N 浏览器是 Android 移动端应用，没有 Windows / macOS / Linux 桌面版本，描述时不得写成"桌面浏览器"。
 2. **不捆绑浏览器引擎**：使用系统自带的 WebView，安装包内不携带 Chromium / Gecko 等引擎，也不会启动后再联网下载引擎。
-3. **追求轻量**：Release 包约 1.9 MB，功能取舍以"速度优先、功能够用"为准。
+3. **追求轻量**：Release 包约 2.0 MB，功能取舍以"速度优先、功能够用"为准。
 4. **闭源**：项目保留所有权利，不是开源软件，不得写"开源/免费开源"。
 5. **版本与大小以 GitHub Release 实际数据为准**：官网（unboxlumen 主页与 nbrowser 产品页）运行时自动从 GitHub API 同步版本号、大小、SHA-256，预设值仅作离线兜底。
 
@@ -56,8 +56,8 @@
 - en：N Browser is a lightweight, customizable Android browser. It runs on the system WebView and bundles no engine — what you install is everything. Ad blocking, userscripts, video download, reader mode and other everyday features come built-in, with speed as the top priority.
 
 ### 4.5 长描述（约 250 字，详情页 / 应用商店用）
-- zh：N 浏览器是 UnboxLumen 开发的一款轻量、可定制的安卓浏览器，追求速度与简洁。它直接使用系统 WebView 渲染，不捆绑任何浏览器引擎，也不会在启动后偷偷下载引擎，安装包仅约 1.9 MB——装到手机上的，就是全部。功能上，N 浏览器覆盖日常所需：双引擎广告拦截（AdBlock + BannerBlock）、油猴用户脚本支持、M3U8 / HLS 视频下载、Readability 阅读模式（明 / 暗 / 护眼三套主题）、带颜色标签的书签管理、多标签页与概览、夜间 / 无图 / 电脑三种浏览模式、Cookie 管理与域名白名单、手势快捷操作、WebDAV 备份恢复、二维码扫描等。所有功能以速度优先为取舍标准，功能够用就行。技术栈保持极简：纯 Java 开发，仅依赖 ZXing 与 AndroidX 官方库。N 浏览器为闭源项目，保留所有权利。
-- en：N Browser is a lightweight, customizable Android browser by UnboxLumen, built for speed and simplicity. It renders with the system WebView and bundles no browser engine — no hidden 100 MB engine downloads at launch, just a ~1.9 MB APK. What you install is everything. It covers daily browsing needs: dual-engine ad blocking (AdBlock + BannerBlock), Tampermonkey-style userscripts, M3U8 / HLS video download, Readability-based reader mode with light / dark / sepia themes, color-tagged bookmarks, multi-tab with an overview grid, night / no-image / desktop browsing modes, cookie management and per-domain whitelists, gesture shortcuts, WebDAV backup and restore, and a built-in QR scanner. Every trade-off is measured against speed — enough features, maximum speed. The tech stack stays minimal: pure Java with only ZXing and AndroidX. N Browser is closed-source, all rights reserved.
+- zh：N 浏览器是 UnboxLumen 开发的一款轻量、可定制的安卓浏览器，追求速度与简洁。它直接使用系统 WebView 渲染，不捆绑任何浏览器引擎，也不会在启动后偷偷下载引擎，安装包仅约 2.0 MB——装到手机上的，就是全部。功能上，N 浏览器覆盖日常所需：双引擎广告拦截（AdBlock + BannerBlock）、油猴用户脚本支持、M3U8 / HLS 视频下载、Readability 阅读模式（明 / 暗 / 护眼三套主题）、带颜色标签的书签管理、多标签页与概览、夜间 / 无图 / 电脑三种浏览模式、Cookie 管理与域名白名单、手势快捷操作、WebDAV 备份恢复、二维码扫描等。所有功能以速度优先为取舍标准，功能够用就行。技术栈保持极简：纯 Java 开发，仅依赖 ZXing 与 AndroidX 官方库。N 浏览器为闭源项目，保留所有权利。
+- en：N Browser is a lightweight, customizable Android browser by UnboxLumen, built for speed and simplicity. It renders with the system WebView and bundles no browser engine — no hidden 100 MB engine downloads at launch, just a ~2.0 MB APK. What you install is everything. It covers daily browsing needs: dual-engine ad blocking (AdBlock + BannerBlock), Tampermonkey-style userscripts, M3U8 / HLS video download, Readability-based reader mode with light / dark / sepia themes, color-tagged bookmarks, multi-tab with an overview grid, night / no-image / desktop browsing modes, cookie management and per-domain whitelists, gesture shortcuts, WebDAV backup and restore, and a built-in QR scanner. Every trade-off is measured against speed — enough features, maximum speed. The tech stack stays minimal: pure Java with only ZXing and AndroidX. N Browser is closed-source, all rights reserved.
 
 ## 5. 核心功能清单
 
@@ -105,7 +105,7 @@
 | 编译 / 目标 | compileSdk 36 / targetSdk 36 |
 | 第三方依赖 | 仅 ZXing core 3.5.4 + AndroidX（appcompat / webkit / browser 等） |
 | Release 优化 | ProGuard（minifyEnabled）+ 资源压缩 |
-| Release 包大小 | 约 1.9 MB |
+| Release 包大小 | 约 2.0 MB |
 | 构建 | Gradle 8.5.2 + AGP 8.5.2；构建需 JDK 23 |
 
 ## 8. 发布与更新
@@ -113,7 +113,7 @@
 - **发布渠道**：GitHub Releases（`unboxlumen/nbrowser`，公开仓库），只放 README 与 APK 附件，不放源码。
 - **附件命名**：release 通道固定 `nbrowser-release.apk`，debug 通道 `nbrowser-debug.apk`（与应用内更新匹配，写错会导致检查不到更新）。
 - **应用内更新**：启动检查 `https://api.github.com/repos/unboxlumen/nbrowser/releases/latest`，**release 包只匹配 release 通道、debug 包只匹配 debug 通道**，按附件名匹配通道、比较版本号，发现更新后由内置下载器拉取安装，两通道互不混用。
-- **大小统计口径**：后续发布只统计 release 包；debug 包单独说明，不计入大小统计（当前实测：v0.0.9 release ≈ 1.89 MB，v0.0.9 debug ≈ 11.00 MB 仅作说明）。
+- **大小统计口径**：后续发布只统计 release 包；debug 包单独说明，不计入大小统计（当前实测：v0.0.12 release ≈ 1.96 MB，v0.0.12 debug ≈ 9.54 MB 仅作说明）。
 - **版本号唯一来源**：`app/build.gradle` 的 `defaultConfig`（versionCode + versionName）。
 - **发布流程**：升级版本号 → commit → `./release.sh`（构建 + 创建 / 更新 Release + 上传附件）。
 
