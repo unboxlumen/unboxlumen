@@ -305,7 +305,7 @@
     <p class="hero-desc reveal" data-i18n="heroDesc">独立软件与游戏开发工作室。我们拆开灵感、点亮创意，把一个个想法做成真正可用的产品。</p>
     <div class="hero-actions reveal">
       <a class="btn btn-primary" href="#software" data-i18n="browseSoftware">浏览软件 ↓</a>
-      <a class="btn btn-ghost" href="#games" data-i18n="gamesBtn">游戏项目</a>
+      <a class="btn btn-ghost" href="#components" data-i18n="browseComponents">开源组件</a>
     </div>
     <div class="hero-meta reveal">
       <div class="meta-item"><span data-i18n="metaProjectsLabel">项目数</span><b data-i18n="metaProjectsValue">03</b></div>
@@ -345,10 +345,31 @@
     </div>
   </section>
 
+  <section id="components">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-index" data-i18n="compIndex">02 // Components</div>
+        <h2 data-i18n="compTitle">开源组件</h2>
+        <p class="section-note" data-i18n="compNote">UnboxLumen 自研并对外开源的 Android 工具组件，可自由集成到自己的项目中。</p>
+      </div>
+      <div id="components-grid">
+        <noscript>
+          <ul class="seo-list">
+            <li>
+              <a href="ndebugbar/">nDebugBar（ndebugbar）</a>
+              <p>开源 Android 应用内调试面板组件，摇一摇唤出悬浮窗，日志 / 网络 / 沙盒 / 视图层级一站搞定。Apache License 2.0。</p>
+              <a class="dl" href="https://github.com/unboxlumen/ndebugbar" target="_blank" rel="noopener">前往 GitHub →</a>
+            </li>
+          </ul>
+        </noscript>
+      </div>
+    </div>
+  </section>
+
   <section id="games">
     <div class="container">
       <div class="section-head reveal">
-        <div class="section-index" data-i18n="gamesIndex">02 // Games</div>
+        <div class="section-index" data-i18n="gamesIndex">03 // Games</div>
         <h2 data-i18n="gamesTitle">游戏项目</h2>
         <p class="section-note" data-i18n="gamesNote">独立游戏正在孵化中，敬请期待。</p>
       </div>
@@ -382,7 +403,7 @@
       browseSoftware: "浏览软件 ↓",
       gamesBtn: "游戏项目",
       metaProjectsLabel: "项目数",
-      metaProjectsValue: "03",
+      metaProjectsValue: "04",
       metaFocusLabel: "方向",
       metaFocusValue: "软件 / 游戏",
       metaStatusLabel: "状态",
@@ -416,13 +437,19 @@
       softIndex: "01 // Software",
       softTitle: "Our Software",
       softNote: "Apps developed and maintained by UnboxLumen. Download and use them directly.",
-      gamesIndex: "02 // Games",
+      compIndex: "02 // Components",
+      compTitle: "Open Source",
+      compNote: "Open-source Android libraries by UnboxLumen. Integrate freely into your own projects.",
+      gamesIndex: "03 // Games",
       gamesTitle: "Games",
       gamesNote: "Indie games are in the making. Stay tuned.",
       gamesEmptyBig: "Lighting up new worlds",
       gamesEmptyText: "The first game project is still in development and will be showcased here once it's ready.",
       download: "Download",
-      cardDetail: "Details"
+      cardDetail: "Details",
+      navComponents: "Components",
+      browseComponents: "Open Source",
+      repoLink: "Open on GitHub →"
     }
   };
 
@@ -524,6 +551,7 @@
     btn.textContent = lang === "zh" ? "EN" : "中文";
     btn.setAttribute("aria-label", lang === "zh" ? "Switch to English" : "切换到中文");
     renderSoftware();
+    renderComponents();
     observeReveals();
   }
 

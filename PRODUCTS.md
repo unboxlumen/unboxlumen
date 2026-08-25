@@ -65,7 +65,7 @@
 
 ```
 unboxlumen/
-├── PRODUCTS.md          ← 本文档：软件产品目录（单一事实来源）
+├── PRODUCTS.md          ← 本文档：软件产品 + 组件目录（单一事实来源）
 ├── nbrowser/
 │   ├── PRODUCT.md       ← N 浏览器产品描述（详细）
 │   └── index.html       ← 官网产品页
@@ -75,5 +75,8 @@ unboxlumen/
 ├── nsearch/
 │   ├── PRODUCT.md       ← N 搜索产品描述（详细）
 │   └── index.html       ← 官网产品页
+├── ndebugbar/           ← 【组件】开源 Android Library
+│   ├── PRODUCT.md       ← nDebugBar 组件描述（详细）
+│   └── index.html       ← 官网组件页
 └── index.html           ← 官网主页
 ```
