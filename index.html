@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UnboxLumen · 独立软件与游戏开发工作室 · N 浏览器 &amp; N 文件 &amp; N 搜索</title>
-<meta name="description" content="UnboxLumen 是独立软件与游戏开发工作室，出品 N 浏览器（轻量安卓浏览器）、N 文件（安卓文件管理器）与 N 搜索（本地全文文件搜索），轻量、简洁、开箱即用，可在此直接下载最新安卓应用。">
+<title>UnboxLumen · 独立软件与游戏开发工作室 · N 浏览器</title>
+<meta name="description" content="UnboxLumen 是独立软件与游戏开发工作室，主力出品 N 浏览器（轻量安卓浏览器），轻量、简洁、开箱即用，可在此直接下载最新安卓应用。">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#F6F2E8">
 <link rel="canonical" href="https://unboxlumen.com/">
@@ -17,12 +17,12 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:locale:alternate" content="en_US">
 <meta property="og:title" content="UnboxLumen · 独立软件与游戏开发工作室">
-<meta property="og:description" content="独立软件与游戏开发工作室。出品轻量安卓浏览器 N 浏览器、文件管理器 N 文件与本地全文搜索 N 搜索，官网直接下载。">
+<meta property="og:description" content="独立软件与游戏开发工作室。主力出品轻量安卓浏览器 N 浏览器，官网直接下载。">
 <meta property="og:url" content="https://unboxlumen.com/">
 <meta property="og:image" content="https://unboxlumen.com/og-cover.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="UnboxLumen · 独立软件与游戏开发工作室">
-<meta name="twitter:description" content="独立软件与游戏开发工作室。出品轻量安卓浏览器 N 浏览器、文件管理器 N 文件与本地全文搜索 N 搜索，官网直接下载。">
+<meta name="twitter:description" content="独立软件与游戏开发工作室。主力出品轻量安卓浏览器 N 浏览器，官网直接下载。">
 <meta name="twitter:image" content="https://unboxlumen.com/og-cover.png">
 <script type="application/ld+json">
 {
@@ -305,10 +305,11 @@
     <p class="hero-desc reveal" data-i18n="heroDesc">独立软件与游戏开发工作室。我们拆开灵感、点亮创意，把一个个想法做成真正可用的产品。</p>
     <div class="hero-actions reveal">
       <a class="btn btn-primary" href="#software" data-i18n="browseSoftware">浏览软件 ↓</a>
-      <a class="btn btn-ghost" href="#components" data-i18n="browseComponents">开源组件</a>
+      <a class="btn btn-ghost" href="#components" data-i18n="browseComponents">浏览组件</a>
+      <a class="btn btn-ghost" href="#games" data-i18n="gamesBtn">浏览游戏</a>
     </div>
     <div class="hero-meta reveal">
-      <div class="meta-item"><span data-i18n="metaProjectsLabel">项目数</span><b data-i18n="metaProjectsValue">03</b></div>
+      <div class="meta-item"><span data-i18n="metaProjectsLabel">项目数</span><b data-i18n="metaProjectsValue">01</b></div>
       <div class="meta-item"><span data-i18n="metaFocusLabel">方向</span><b data-i18n="metaFocusValue">软件 / 游戏</b></div>
       <div class="meta-item"><span data-i18n="metaStatusLabel">状态</span><b data-i18n="metaStatusValue">持续开发中</b></div>
     </div>
@@ -328,16 +329,6 @@
               <a href="nbrowser/">N 浏览器（nBrowser）</a>
               <p>UnboxLumen 出品的轻量安卓浏览器，注重速度与简洁。系统 WebView，不捆绑引擎，Release 包仅约 2.0 MB。</p>
               <a class="dl" href="https://github.com/unboxlumen/nbrowser/releases/download/v0.0.12/nbrowser-release.apk">下载 APK →</a>
-            </li>
-            <li>
-              <a href="filemanager/">N 文件（N Files）</a>
-              <p>UnboxLumen 出品的安卓文件管理器。浏览、预览、远程、分享，装到手机上的文件管家。</p>
-              <a class="dl" href="https://github.com/unboxlumen/filemanager/releases/download/v0.0.3/filemanager-release.apk">下载 APK →</a>
-            </li>
-            <li>
-              <a href="nsearch/">N 搜索（nSearch）</a>
-              <p>UnboxLumen 出品的本地全文文件搜索器，用 Apache Lucene 与 ICU 多语言分词对设备上的文件建索引，支持与/或搜索、近实时检索，文件不出本机。</p>
-              <a class="dl" href="https://github.com/unboxlumen/nsearch/releases/download/v0.0.1/nsearch-release.apk">下载 APK →</a>
             </li>
           </ul>
         </noscript>
@@ -395,15 +386,16 @@
   const I18N = {
     zh: {
       lang: "zh-CN",
-      title: "UnboxLumen · 独立软件与游戏开发工作室 · N 浏览器 & N 文件 & N 搜索",
-      description: "UnboxLumen 是独立软件与游戏开发工作室，出品 N 浏览器（轻量安卓浏览器）、N 文件（安卓文件管理器）与 N 搜索（本地全文文件搜索），轻量、简洁、开箱即用，可在此直接下载最新安卓应用。",
+      title: "UnboxLumen · 独立软件与游戏开发工作室 · N 浏览器",
+      description: "UnboxLumen 是独立软件与游戏开发工作室，主力出品 N 浏览器（轻量安卓浏览器），轻量、简洁、开箱即用，可在此直接下载最新安卓应用。",
       navSoftware: "软件",
       navGames: "游戏",
       heroDesc: "独立软件与游戏开发工作室。我们拆开灵感、点亮创意，把一个个想法做成真正可用的产品。",
       browseSoftware: "浏览软件 ↓",
-      gamesBtn: "游戏项目",
+      browseComponents: "浏览组件",
+      gamesBtn: "浏览游戏",
       metaProjectsLabel: "项目数",
-      metaProjectsValue: "04",
+      metaProjectsValue: "01",
       metaFocusLabel: "方向",
       metaFocusValue: "软件 / 游戏",
       metaStatusLabel: "状态",
@@ -421,15 +413,16 @@
     },
     en: {
       lang: "en",
-      title: "UnboxLumen · Software & Game Studio · N Browser & N Files & N Search",
-      description: "UnboxLumen is an independent software and game studio behind N Browser (a lightweight Android browser), N Files (an Android file manager) and N Search (an on-device full-text file search) — download the latest APKs here.",
+      title: "UnboxLumen · Software & Game Studio · N Browser",
+      description: "UnboxLumen is an independent software and game studio behind N Browser (a lightweight Android browser) — download the latest APK here.",
       navSoftware: "Software",
       navGames: "Games",
       heroDesc: "An independent software and game studio. We unpack ideas, spark creativity, and turn them into products you can actually use.",
       browseSoftware: "Browse Software ↓",
-      gamesBtn: "Games",
+      browseComponents: "Browse Components",
+      gamesBtn: "Browse Games",
       metaProjectsLabel: "Projects",
-      metaProjectsValue: "03",
+      metaProjectsValue: "01",
       metaFocusLabel: "Focus",
       metaFocusValue: "Software / Games",
       metaStatusLabel: "Status",
@@ -446,10 +439,7 @@
       gamesEmptyBig: "Lighting up new worlds",
       gamesEmptyText: "The first game project is still in development and will be showcased here once it's ready.",
       download: "Download",
-      cardDetail: "Details",
-      navComponents: "Components",
-      browseComponents: "Open Source",
-      repoLink: "Open on GitHub →"
+      cardDetail: "Details"
     }
   };
 
@@ -464,6 +454,7 @@
   });
 
   // ========== 软件列表（新增项目只需在此追加一条数据） ==========
+  // 临时撤下：N 文件（nFiles）与 N 搜索（nSearch）暂时不在主页展示，产品页保留可访问。
   const software = [
     {
       en: "nBrowser",
@@ -478,34 +469,6 @@
       tags: { zh: ["安卓应用", "轻量"], en: ["Android", "Lightweight"] },
       version: "v0.0.12",
       download: "https://github.com/unboxlumen/nbrowser/releases/download/v0.0.12/nbrowser-release.apk"
-    },
-    {
-      en: "nFiles",
-      page: "filemanager/",
-      repo: "unboxlumen/filemanager",
-      asset: "filemanager-release.apk",
-      name: { zh: "N 文件", en: "N Files" },
-      desc: {
-        zh: "UnboxLumen 出品的安卓文件管理器。浏览、预览、远程、分享，装到手机上的文件管家。",
-        en: "An Android file manager by UnboxLumen. Browse, preview, remote and share — your files, all in one place."
-      },
-      tags: { zh: ["安卓应用", "文件管理"], en: ["Android", "File Manager"] },
-      version: "v0.0.3",
-      download: "https://github.com/unboxlumen/filemanager/releases/download/v0.0.3/filemanager-release.apk"
-    },
-    {
-      en: "nSearch",
-      page: "nsearch/",
-      repo: "unboxlumen/nsearch",
-      asset: "nsearch-release.apk",
-      name: { zh: "N 搜索", en: "nSearch" },
-      desc: {
-        zh: "UnboxLumen 出品的本地全文文件搜索器，基于 Apache Lucene 与 ICU 多语言分词，对设备上的文件建索引，文件不出本机。",
-        en: "An on-device full-text file search app by UnboxLumen, built on Apache Lucene with ICU tokenization — indexes your files locally, nothing leaves the device."
-      },
-      tags: { zh: ["安卓应用", "本地搜索"], en: ["Android", "Local Search"] },
-      version: "v0.0.1",
-      download: "https://github.com/unboxlumen/nsearch/releases/download/v0.0.1/nsearch-release.apk"
     }
   ];
 
