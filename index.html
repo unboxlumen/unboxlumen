@@ -174,7 +174,7 @@
   .hero-meta b { display: block; margin-top: 6px; font-size: 20px; font-weight: 600; color: var(--text); }
 
   /* ---------- 区块 ---------- */
-  section { padding: 120px 0; }
+  section { padding: 20px 0; }
   .section-head { margin-bottom: 56px; }
   .section-index {
     font-family: var(--font-mono); font-size: 12px;
@@ -191,6 +191,8 @@
 
   /* ---------- 卡片 ---------- */
   #software-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 28px; }
+  #components-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 28px; max-width: 50%; }
+  #components-grid .card { width: 100%; }
   .card {
     background: var(--bg);
     border: 1px solid var(--line);
@@ -283,6 +285,7 @@
     .nav-links a { display: none; }
     section { padding: 90px 0; }
     #software-grid { grid-template-columns: 1fr; }
+    #components-grid { max-width: 100%; }
   }
 </style>
 </head>
@@ -475,6 +478,21 @@
   // ========== 游戏列表（开发中项目占位） ==========
   const games = [];
 
+  // ========== 开源组件列表 ==========
+  const components = [
+    {
+      page: "ndebugbar/",
+      repo: "unboxlumen/ndebugbar",
+      name: { zh: "调试面板", en: "nDebugBar" },
+      desc: {
+        zh: "开源 Android 应用内调试面板组件，摇一摇唤出悬浮窗，日志 / 网络 / 沙盒 / 视图层级一站搞定。GPL 2.0 许可证。",
+        en: "An open-source Android in-app debug overlay. Shake to summon a floating panel with logs, network, sandbox and view hierarchy. Licensed under GPL 2.0."
+      },
+      tags: { zh: ["Android", "开源"], en: ["Android", "Open Source"] },
+      link: "https://github.com/unboxlumen/ndebugbar"
+    }
+  ];
+
   function t(key) { return I18N[lang][key]; }
 
   function cardTemplate(item) {
@@ -501,6 +519,31 @@
 
   function renderSoftware() {
     document.getElementById("software-grid").innerHTML = software.map(cardTemplate).join("");
+  }
+
+  function componentTemplate(item) {
+    return `
+      <article class="card reveal">
+        <div class="card-head">
+          <a class="card-name-link" href="${item.page}"><span class="card-name">${item.name[lang]}</span></a>
+          <span class="card-en">${item.name.en}</span>
+        </div>
+        <p class="card-desc">${item.desc[lang]}</p>
+        <div class="card-tags">
+          ${item.tags[lang].map(x => `<span class="tag">${x}</span>`).join("")}
+        </div>
+        <div class="card-footer">
+          <span class="card-version">GPL 3.0</span>
+          <div class="card-actions">
+            <a class="card-detail" href="${item.link}" target="_blank" rel="noopener">GitHub →</a>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  function renderComponents() {
+    document.getElementById("components-grid").innerHTML = components.map(componentTemplate).join("");
   }
 
   function applyLang() {
