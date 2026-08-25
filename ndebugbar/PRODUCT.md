@@ -26,7 +26,7 @@
 | 安装包大小 | 不适用（作为 Library 嵌入宿主 App，宿主 debug 包实测约多 5–8 MB） |
 | 开发语言 | 纯 Java（无 Kotlin 依赖） |
 | 源码仓库 | https://github.com/unboxlumen/ndebugbar（公开仓库） |
-| 许可 | **Apache License 2.0**（详见 [LICENSE](https://github.com/unboxlumen/ndebugbar/blob/main/LICENSE)） |
+| 许可 | **GNU General Public License v3.0**（详见 [LICENSE](https://github.com/unboxlumen/ndebugbar/blob/main/LICENSE)） |
 
 ## 3. 关键事实（红线，写文案时必须先确认）
 
@@ -120,7 +120,7 @@ if (BuildConfig.DEBUG) {
 | 第三方依赖 | OkHttp 4.12.0 + Okio 3.9.0 + Material Components 1.12.0 + AndroidX（appcompat / recyclerview / coordinatorlayout）|
 | 宿主集成 | `debugImplementation`（Release 包 R8 自动剥离）|
 | 入口 API | `DebugBar.get().open() / .close() / .isOpen()` |
-| 许可 | Apache License 2.0 |
+| 许可 | **GNU General Public License v3.0**（强 copyleft，闭源商用整合不兼容）|
 
 ## 8. 发布与更新
 

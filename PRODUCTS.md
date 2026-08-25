@@ -14,6 +14,7 @@
 | 01 | [N 浏览器](nbrowser/PRODUCT.md) | 移动端浏览器（Android 应用） | Android | 持续开发中 | nBrowser | [nbrowser/PRODUCT.md](nbrowser/PRODUCT.md) |
 | 02 | [N 文件](filemanager/PRODUCT.md) | 文件管理器（Android 应用） | Android | 持续开发中 | nFiles | [filemanager/PRODUCT.md](filemanager/PRODUCT.md) |
 | 03 | [N 搜索](nsearch/PRODUCT.md) | 本地全文文件搜索器（Android 应用） | Android | 持续开发中 | nSearch | [nsearch/PRODUCT.md](nsearch/PRODUCT.md) |
+| C01 | [nDebugBar](ndebugbar/PRODUCT.md) | 开源组件 / Android Library（GPL-3.0） | Android | v1.0.0 待发布 | nDebugBar / ndebugbar | [ndebugbar/PRODUCT.md](ndebugbar/PRODUCT.md) |
 
 > 新增产品时在此表追加一行，并为产品建立子文档（参考 N 浏览器的文档结构）。
 
