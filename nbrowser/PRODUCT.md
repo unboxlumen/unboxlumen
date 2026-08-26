@@ -20,8 +20,8 @@
 | 类型 | **Android 移动端浏览器（应用）** |
 | 平台 | Android |
 | 最低系统 | Android 5.0+（minSdk 21，以源码为准） |
-| 当前版本 | v0.0.13（versionCode 13 / versionName 0.0.13，见 app/build.gradle） |
-| 安装包大小 | 约 2.0 MB（v0.0.13 release：2,089,581 B ≈ 1.99 MB，见 GitHub Release 实际附件） |
+| 当前版本 | v0.0.14（versionCode 14 / versionName 0.0.14，见 app/build.gradle） |
+| 安装包大小 | 约 2.0 MB（v0.0.14 release：2,092,043 B ≈ 2.00 MB，见 GitHub Release 实际附件） |
 | 渲染内核 | 系统 WebView（**无捆绑浏览器引擎**） |
 | 开发语言 | 纯 Java（无 Kotlin 依赖） |
 | 第三方依赖 | 仅 ZXing core + AndroidX 官方库 |
@@ -113,7 +113,7 @@
 - **发布渠道**：GitHub Releases（`unboxlumen/nbrowser`，公开仓库），只放 README 与 APK 附件，不放源码。
 - **附件命名**：release 通道固定 `nbrowser-release.apk`，debug 通道 `nbrowser-debug.apk`（与应用内更新匹配，写错会导致检查不到更新）。
 - **应用内更新**：启动检查 `https://api.github.com/repos/unboxlumen/nbrowser/releases/latest`，**release 包只匹配 release 通道、debug 包只匹配 debug 通道**，按附件名匹配通道、比较版本号，发现更新后由内置下载器拉取安装，两通道互不混用。
-- **大小统计口径**：后续发布只统计 release 包；debug 包单独说明，不计入大小统计（当前实测：v0.0.13 release ≈ 1.99 MB，v0.0.13 debug ≈ 9.62 MB 仅作说明）。
+- **大小统计口径**：后续发布只统计 release 包；debug 包单独说明，不计入大小统计（当前实测：v0.0.14 release ≈ 2.00 MB，v0.0.14 debug ≈ 9.62 MB 仅作说明）。
 - **版本号唯一来源**：`app/build.gradle` 的 `defaultConfig`（versionCode + versionName）。
 - **发布流程**：升级版本号 → commit → `./release.sh`（构建 + 创建 / 更新 Release + 上传附件）。
 
