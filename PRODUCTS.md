@@ -28,7 +28,7 @@
 
 - **不是桌面应用**：Android 移动端应用，无 Windows / macOS / Linux 桌面版。
 - **不捆绑浏览器引擎**：使用系统 WebView，无 Chromium / Gecko 等引擎，也不会启动后偷下引擎。
-- **轻量**：Release 包约 2.0 MB，速度优先、功能够用。
+- **轻量**：Release 包约 2.1 MB，速度优先、功能够用。
 - **闭源**：保留所有权利，不得写"开源 / 免费"。
 - **最低系统**：Android 5.0+（minSdk 21，以源码为准）。
 - 完整描述见 [nbrowser/PRODUCT.md](nbrowser/PRODUCT.md)。
