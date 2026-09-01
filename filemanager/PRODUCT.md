@@ -20,8 +20,8 @@
 | 类型 | **Android 文件管理器（应用）** |
 | 平台 | Android（手机 + 平板） |
 | 最低系统 | Android 8.0+（minSdk 26，以源码为准） |
-| 当前版本 | v0.0.3（versionCode 3 / versionName 0.0.3，见 app/build.gradle.kts） |
-| 安装包大小 | 约 43.8 MB（v0.0.3 release：45,942,616 B ≈ 43.81 MB，见 GitHub Release 实际附件） |
+| 当前版本 | v0.0.4（versionCode 4 / versionName 0.0.4，见 app/build.gradle.kts） |
+| 安装包大小 | 约 45.1 MB（v0.0.4 release：47,263,726 B ≈ 45.07 MB，见 GitHub Release 实际附件） |
 | 开发语言 | Java 为主 + Kotlin（仅 OCR 引擎，PaddleOCR + ONNX Runtime） |
 | 分发渠道 | GitHub Releases：https://github.com/unboxlumen/filemanager |
 | 源码仓库 | 内网 GitLab（GitHub 仓库只放 README 与 Release 附件，不放源码） |
