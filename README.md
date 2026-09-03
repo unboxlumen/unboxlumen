@@ -34,8 +34,10 @@
 | v0.0.16 | debug | `nbrowser-debug.apk` | 10,432,033 B ≈ 9.95 MB（不计入统计，仅单独说明） |
 | v0.0.17 | release | `nbrowser-release.apk` | 2,185,985 B ≈ 2.08 MB |
 | v0.0.17 | debug | `nbrowser-debug.apk` | 10,233,720 B ≈ 9.76 MB（不计入统计，仅单独说明） |
+| v0.0.18 | release | `nbrowser-release.apk` | 2,189,727 B ≈ 2.09 MB |
+| v0.0.18 | debug | `nbrowser-debug.apk` | 10,254,090 B ≈ 9.78 MB（不计入统计，仅单独说明） |
 
-**Release 合计**：16 个版本，共 32,229,929 B ≈ 30.74 MB，平均 ≈ 1.92 MB；最大 2.08 MB（v0.0.16 / v0.0.17），最小 1.82 MB（v0.0.1）。
+**Release 合计**：17 个版本，共 34,419,656 B ≈ 32.83 MB，平均 ≈ 1.93 MB；最大 2.09 MB（v0.0.18），最小 1.82 MB（v0.0.1）。
 
 > 每次发布新版本后同步更新本表：release 包计入统计，debug 包放在单独行仅作说明。
 
