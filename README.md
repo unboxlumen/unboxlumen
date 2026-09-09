@@ -1,76 +1,76 @@
-# unboxlemon
+# UnboxLumen
 
-## 安装包大小统计（仅统计 Release 包）
+> 独立软件与游戏开发工作室 · Independent Software & Development Studio
+>
+> 主力出品 Android 应用：轻量浏览器、文件管理器、本地搜索。
 
-> **统计口径**：后续发布只统计 release 包；debug 包单独说明，不计入大小统计。
-> 数据来源：GitHub Releases（`unboxlumen/nbrowser`），以实际附件大小为准。
+---
 
-| 版本 | 通道 | 附件 | 大小 |
-|------|------|------|------|
-| v0.0.1 | release | `nbrowser-release.apk` | 1,909,733 B ≈ 1.82 MB |
-| v0.0.2 | release | `nbrowser-release.apk` | 1,917,276 B ≈ 1.83 MB |
-| v0.0.3 | release | `nbrowser-release.apk` | 1,917,666 B ≈ 1.83 MB |
-| v0.0.4 | release | `nbrowser-release.apk` | 1,937,421 B ≈ 1.85 MB |
-| v0.0.5 | release | `nbrowser-release.apk` | 1,947,956 B ≈ 1.86 MB |
-| v0.0.6 | release | `nbrowser-release.apk` | 1,981,030 B ≈ 1.89 MB |
-| v0.0.6 | debug | `nbrowser-debug.apk` | 9,667,584 B ≈ 9.22 MB（不计入统计，仅单独说明） |
-| v0.0.7 | release | `nbrowser-release.apk` | 1,989,417 B ≈ 1.90 MB |
-| v0.0.7 | debug | `nbrowser-debug.apk` | 9,678,336 B ≈ 9.23 MB（不计入统计，仅单独说明） |
-| v0.0.8 | release | `nbrowser-release.apk` | 1,954,849 B ≈ 1.86 MB |
-| v0.0.8 | debug | `nbrowser-debug.apk` | 9,839,949 B ≈ 9.38 MB（不计入统计，仅单独说明） |
-| v0.0.9 | release | `nbrowser-release.apk` | 1,982,198 B ≈ 1.89 MB |
-| v0.0.9 | debug | `nbrowser-debug.apk` | 11,536,219 B ≈ 11.00 MB（不计入统计，仅单独说明） |
-| v0.0.10 | release | `nbrowser-release.apk` | 2,044,205 B ≈ 1.95 MB |
-| v0.0.10 | debug | `nbrowser-debug.apk` | 11,609,407 B ≈ 11.07 MB（不计入统计，仅单独说明） |
-| v0.0.11 | release | `nbrowser-release.apk` | 2,044,617 B ≈ 1.95 MB |
-| v0.0.11 | debug | `nbrowser-debug.apk` | 9,994,670 B ≈ 9.53 MB（不计入统计，仅单独说明） |
-| v0.0.12 | release | `nbrowser-release.apk` | 2,050,966 B ≈ 1.96 MB |
-| v0.0.12 | debug | `nbrowser-debug.apk` | 10,006,109 B ≈ 9.54 MB（不计入统计，仅单独说明） |
-| v0.0.13 | release | `nbrowser-release.apk` | 2,089,581 B ≈ 1.99 MB |
-| v0.0.13 | debug | `nbrowser-debug.apk` | 10,087,156 B ≈ 9.62 MB（不计入统计，仅单独说明） |
-| v0.0.14 | release | `nbrowser-release.apk` | 2,092,043 B ≈ 2.00 MB |
-| v0.0.14 | debug | `nbrowser-debug.apk` | 10,086,474 B ≈ 9.62 MB（不计入统计，仅单独说明） |
-| v0.0.16 | release | `nbrowser-release.apk` | 2,184,986 B ≈ 2.08 MB |
-| v0.0.16 | debug | `nbrowser-debug.apk` | 10,432,033 B ≈ 9.95 MB（不计入统计，仅单独说明） |
-| v0.0.17 | release | `nbrowser-release.apk` | 2,185,985 B ≈ 2.08 MB |
-| v0.0.17 | debug | `nbrowser-debug.apk` | 10,233,720 B ≈ 9.76 MB（不计入统计，仅单独说明） |
-| v0.0.18 | release | `nbrowser-release.apk` | 2,189,727 B ≈ 2.09 MB |
-| v0.0.18 | debug | `nbrowser-debug.apk` | 10,254,090 B ≈ 9.78 MB（不计入统计，仅单独说明） |
+## 产品 · Products
 
-**Release 合计**：17 个版本，共 34,419,656 B ≈ 32.83 MB，平均 ≈ 1.93 MB；最大 2.09 MB（v0.0.18），最小 1.82 MB（v0.0.1）。
+| 产品 | 一句话 | 最新 Release | 大小 |
+|------|--------|-------------|------|
+| **N 浏览器**（nBrowser） | 轻量、可定制的安卓浏览器。系统 WebView，不捆绑引擎。 | [v0.0.18](https://github.com/unboxlumen/nbrowser/releases/tag/v0.0.18) | ~2.1 MB |
+| **N 文件**（nFiles） | 装到手机上的文件管家。浏览、预览、远程、分享，一站搞定。 | [v0.0.4](https://github.com/unboxlumen/filemanager/releases/tag/v0.0.4) | ~45.1 MB |
+| **N 搜索**（nSearch） | 本地全文文件搜索器。多语言分词，隐私优先。 | [v0.0.1](https://github.com/unboxlumen/nsearch/releases/tag/v0.0.1) | ~21.4 MB |
+| **nDebugBar** | 开源 Android Library（MIT），调试工具栏组件。 | v1.0.0 待发布 | — |
 
-> 每次发布新版本后同步更新本表：release 包计入统计，debug 包放在单独行仅作说明。
+> 完整产品目录与红线见 [PRODUCTS.md](PRODUCTS.md)；各产品详细描述见子目录 `PRODUCT.md`。
 
-## N 文件（nFiles）安装包大小统计
+---
 
-> 数据来源：GitHub Releases（`unboxlumen/filemanager`），以实际附件大小为准。
+## 安装包大小统计 · Package Size Stats
 
-| 版本 | 通道 | 附件 | 大小 |
-|------|------|------|------|
-| v0.0.1 | release | `filemanager-release.apk` | 46,103,411 B ≈ 43.97 MB |
-| v0.0.2 | release | `filemanager-release.apk` | 46,079,351 B ≈ 43.94 MB |
-| v0.0.2 | debug | `filemanager-debug.apk` | 58,317,713 B ≈ 55.62 MB（不计入统计，仅单独说明） |
-| v0.0.3 | release | `filemanager-release.apk` | 45,942,616 B ≈ 43.81 MB |
-| v0.0.3 | debug | `filemanager-debug.apk` | 59,907,498 B ≈ 57.13 MB（不计入统计，仅单独说明） |
-| v0.0.4 | release | `filemanager-release.apk` | 47,263,726 B ≈ 45.07 MB |
-| v0.0.4 | debug | `filemanager-debug.apk` | 67,147,958 B ≈ 64.05 MB（不计入统计，仅单独说明） |
+> **统计口径**：只统计 release 包；debug 包单独说明，不计入统计。数据以 GitHub Releases 实际附件大小为准。
 
-> 发布规则与上表一致：release 包计入统计，debug 包放在单独行仅作说明。
+### N 浏览器
 
-## N 搜索（nSearch）安装包大小统计
+| 版本 | Release 大小 | Debug 大小 |
+|------|-------------|-----------|
+| v0.0.18 | 2,189,727 B ≈ 2.09 MB | 10,254,090 B ≈ 9.78 MB |
+| v0.0.17 | 2,185,985 B ≈ 2.08 MB | 10,233,720 B ≈ 9.76 MB |
+| v0.0.16 | 2,184,986 B ≈ 2.08 MB | 10,432,033 B ≈ 9.95 MB |
+| v0.0.14 | 2,092,043 B ≈ 2.00 MB | 10,086,474 B ≈ 9.62 MB |
+| v0.0.13 | 2,089,581 B ≈ 1.99 MB | 10,087,156 B ≈ 9.62 MB |
+| v0.0.12 | 2,050,966 B ≈ 1.96 MB | 10,006,109 B ≈ 9.54 MB |
+| v0.0.11 | 2,044,617 B ≈ 1.95 MB | 9,994,670 B ≈ 9.53 MB |
+| v0.0.10 | 2,044,205 B ≈ 1.95 MB | 11,609,407 B ≈ 11.07 MB |
+| v0.0.9 | 1,982,198 B ≈ 1.89 MB | 11,536,219 B ≈ 11.00 MB |
+| v0.0.8 | 1,954,849 B ≈ 1.86 MB | 9,839,949 B ≈ 9.38 MB |
+| v0.0.7 | 1,989,417 B ≈ 1.90 MB | 9,678,336 B ≈ 9.23 MB |
+| v0.0.6 | 1,981,030 B ≈ 1.89 MB | 9,667,584 B ≈ 9.22 MB |
+| v0.0.5 | 1,947,956 B ≈ 1.86 MB | — |
+| v0.0.4 | 1,937,421 B ≈ 1.85 MB | — |
+| v0.0.3 | 1,917,666 B ≈ 1.83 MB | — |
+| v0.0.2 | 1,917,276 B ≈ 1.83 MB | — |
+| v0.0.1 | 1,909,733 B ≈ 1.82 MB | — |
 
-> 数据来源：GitHub Releases（`unboxlumen/nsearch`），以实际附件大小为准。
-> 已发布：release 包计入统计，debug 包放在单独行仅作说明。
+Release 合计：17 个版本，共 34,419,656 B ≈ 32.83 MB，平均 ≈ 1.93 MB。
 
-| 版本 | 通道 | 附件 | 大小 |
-|------|------|------|------|
-| v0.0.1 | release | `nsearch-release.apk` | 22,465,255 B ≈ 21.4 MB |
-| v0.0.1 | debug | `nsearch-debug.apk` | 30,671,868 B ≈ 29.3 MB（不计入统计，仅单独说明） |
+### N 文件
 
-> 发布规则与上面一致：release 包计入统计，debug 包放在单独行仅作说明。
+| 版本 | Release 大小 | Debug 大小 |
+|------|-------------|-----------|
+| v0.0.4 | 47,263,726 B ≈ 45.07 MB | 67,147,958 B ≈ 64.05 MB |
+| v0.0.3 | 45,942,616 B ≈ 43.81 MB | 59,907,498 B ≈ 57.13 MB |
+| v0.0.2 | 46,079,351 B ≈ 43.94 MB | 58,317,713 B ≈ 55.62 MB |
+| v0.0.1 | 46,103,411 B ≈ 43.97 MB | — |
 
-## 更新检查规则
+### N 搜索
 
-- release 包（`nbrowser-release.apk`）检查更新时**只匹配 release 通道**附件。
-- debug 包（`nbrowser-debug.apk`）检查更新时**只匹配 debug 通道**附件。
-- 两通道互不混用，按附件名匹配通道后比较版本号，发现更新才提示。
+| 版本 | Release 大小 | Debug 大小 |
+|------|-------------|-----------|
+| v0.0.1 | 22,465,255 B ≈ 21.4 MB | 30,671,868 B ≈ 29.3 MB |
+
+---
+
+## 官网 · Website
+
+**https://unboxlumen.com** — 产品页、下载入口、文档。
+
+---
+
+## 更新检查规则 · Update Check Rules
+
+- release 包只检查 release 通道，debug 包只检查 debug 通道，两通道互不混用。
+- 按附件名匹配通道后比较版本号，发现更新才提示。
