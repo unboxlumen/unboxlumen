@@ -38,7 +38,7 @@
 4. **自托管、数据在本机**：配置、路由表、API Key、请求日志都存放在本机 SQLite；除转发到你配置的上游之外，不向任何第三方发送数据（无云端账号、无遥测回传）。
 5. **只承诺 OpenAI 协议**：上游需兼容 OpenAI API（`/v1/chat/completions`、`/v1/embeddings`、`/v1/models` 等）。不要宣称支持 Anthropic / Gemini 等原生协议的转换。
 6. **运行时可变、无需重启**：供应商（provider）/ 模型（model）/ 路由（router）/ 客户端密钥都存在数据库里，Web UI、托盘菜单、CLI 任意一处修改都**立即生效**（内部走 `POST /api/reload` 重建路由表），不需要改配置文件、不需要重启进程。
-7. **源码已公开、尚未发布版本（现状）**：GitHub 公开仓库已有 `main` 分支源码与 MIT `LICENSE`，但**没有版本 tag、没有 Release、没有预编译产物**。官网**不开设 ntokengo 下载入口**，主页暂不加卡片，产品页待正式发版后再建。
+7. **源码已公开、尚未发布版本（现状）**：GitHub 公开仓库已有 `main` 分支源码与 MIT `LICENSE`，但**没有版本 tag、没有 Release、没有预编译产物**。官网首页已在「开源项目」区展示 ntokengo 卡片（**只跳 GitHub，无下载按钮**）；独立产品页 `ntokengo/index.html` 待正式发版后再建。
 
 ## 4. 可复用描述模板（按篇幅选用，中英双语）
 
@@ -150,7 +150,7 @@ curl -X POST http://127.0.0.1:7842/v1/chat/completions \
 | Go module | `github.com/unboxlumen/ntokengo`（仓库名与 module 路径一致） |
 | 开发主线 | 内网 GitLab（开发主线），GitHub 作为开源公开仓库 |
 | 版本发布 | **尚未发布**：无 tag、无 Release、无预编译产物；官网不开下载入口 |
-| 官网页面 | **尚未建立**（本目录只有本文档；`index.html` 待产品正式发版后再建） |
+| 官网页面 | **主页卡片已上线**（`index.html`「开源项目」区，跳 GitHub）；本目录产品页 `ntokengo/index.html` 待正式发版后再建 |
 | 许可 | **MIT License**（仓库根 `LICENSE`，Copyright (c) 2026 UnboxLumen） |
 
 ## 9. 文案红线（写作时强制遵守）
