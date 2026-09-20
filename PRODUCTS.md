@@ -14,6 +14,7 @@
 | 01 | [N 浏览器](nbrowser/PRODUCT.md) | 移动端浏览器（Android 应用） | Android | 持续开发中 | nBrowser | [nbrowser/PRODUCT.md](nbrowser/PRODUCT.md) |
 | 02 | [N 文件](filemanager/PRODUCT.md) | 文件管理器（Android 应用） | Android | 持续开发中 | nFiles | [filemanager/PRODUCT.md](filemanager/PRODUCT.md) |
 | 03 | [N 搜索](nsearch/PRODUCT.md) | 本地全文文件搜索器（Android 应用） | Android | 持续开发中 | nSearch | [nsearch/PRODUCT.md](nsearch/PRODUCT.md) |
+| 04 | [ntokengo](ntokengo/PRODUCT.md) | 本地 AI 网关（**开源**开发者工具，Go 服务，MIT） | macOS / Linux / Windows | 源码已公开，未发版 | ntokengo | [ntokengo/PRODUCT.md](ntokengo/PRODUCT.md) |
 | C01 | [nDebugBar](ndebugbar/PRODUCT.md) | 开源组件 / Android Library（MIT） | Android | v1.0.0 待发布 | nDebugBar / ndebugbar | [ndebugbar/PRODUCT.md](ndebugbar/PRODUCT.md) |
 
 > 新增产品时在此表追加一行，并为产品建立子文档（参考 N 浏览器的文档结构）。
@@ -53,6 +54,16 @@
 - **轻量**：Release 包约 21.4 MB。
 - 完整描述见 [nsearch/PRODUCT.md](nsearch/PRODUCT.md)。
 
+### 04 · ntokengo
+
+- **开源项目（MIT）**：与主线闭源产品不同，ntokengo 按开源项目对待，公开仓库为 https://github.com/unboxlumen/ntokengo （Go module 路径同名），采用 **MIT 许可**。
+- **许可证只写 MIT（硬约束）**：仓库根已提交 `LICENSE`（MIT，Copyright (c) 2026 UnboxLumen）；不得写成其他许可证名称，也不得暗示商用需额外授权。
+- **是网关，不是模型**：自托管的 OpenAI 协议反向代理，把多个上游聚合成一个地址；不提供模型、不卖 token，上游需自己配置且兼容 OpenAI 协议。
+- **数据在本机**：配置、路由表、密钥与请求日志都在本机 SQLite（`~/.ntokengo/`），无云端账号、无遥测。
+- **平台**：macOS / Linux / Windows（含 WSL）；常驻服务 + Web 管理面板 + 托盘菜单 + CLI。
+- **源码已公开、未发布版本**：GitHub 仓库已有 `main` 源码与 MIT `LICENSE`，但没有 tag / Release / 预编译产物；官网暂不设下载入口与主页卡片。
+- 完整描述见 [ntokengo/PRODUCT.md](ntokengo/PRODUCT.md)。
+
 ---
 
 ## 三、维护说明
@@ -76,6 +87,8 @@ unboxlumen/
 ├── nsearch/
 │   ├── PRODUCT.md       ← N 搜索产品描述（详细）
 │   └── index.html       ← 官网产品页
+├── ntokengo/            ← 【开源】本地 AI 网关（开发者工具，跨平台）
+│   └── PRODUCT.md       ← ntokengo 产品描述（详细；官网页面待正式发版后建立）
 ├── ndebugbar/           ← 【组件】开源 Android Library
 │   ├── PRODUCT.md       ← nDebugBar 组件描述（详细）
 │   └── index.html       ← 官网组件页
