@@ -308,7 +308,7 @@
     <p class="hero-desc reveal" data-i18n="heroDesc">独立软件与游戏开发工作室。我们拆开灵感、点亮创意，把一个个想法做成真正可用的产品。</p>
     <div class="hero-actions reveal">
       <a class="btn btn-primary" href="#software" data-i18n="browseSoftware">浏览软件 ↓</a>
-      <a class="btn btn-ghost" href="#components" data-i18n="browseComponents">浏览开源</a>
+      <a class="btn btn-ghost" href="#components" data-i18n="browseComponents">浏览组件</a>
       <a class="btn btn-ghost" href="#games" data-i18n="gamesBtn">浏览游戏</a>
     </div>
     <div class="hero-meta reveal">
@@ -333,6 +333,11 @@
               <p>UnboxLumen 出品的轻量安卓浏览器，注重速度与简洁。系统 WebView，不捆绑引擎，Release 包仅约 2.1 MB。</p>
               <a class="dl" href="https://github.com/unboxlumen/nbrowser/releases/download/v0.0.18/nbrowser-release.apk">下载 APK →</a>
             </li>
+            <li>
+              <a href="https://github.com/unboxlumen/ntokengo" target="_blank" rel="noopener">ntokengo</a>
+              <p>开源的本地 AI 网关：一个进程把多个上游模型服务聚合成一个 OpenAI 协议地址，模型路由、密钥、请求日志与用量统计都在本机。MIT 开源，可从源码构建。</p>
+              <a class="dl" href="https://github.com/unboxlumen/ntokengo" target="_blank" rel="noopener">前往 GitHub →</a>
+            </li>
           </ul>
         </noscript>
       </div>
@@ -353,11 +358,6 @@
               <a href="ndebugbar/">nDebugBar（ndebugbar）</a>
               <p>开源 Android 应用内调试面板组件，摇一摇唤出悬浮窗，日志 / 网络 / 沙盒 / 视图层级一站搞定。MIT 开源，可商用集成。</p>
               <a class="dl" href="https://github.com/unboxlumen/ndebugbar" target="_blank" rel="noopener">前往 GitHub →</a>
-            </li>
-            <li>
-              <a href="https://github.com/unboxlumen/ntokengo" target="_blank" rel="noopener">ntokengo</a>
-              <p>开源的本地 AI 网关：一个进程把多个上游模型服务聚合成一个 OpenAI 协议地址，模型路由、密钥、请求日志与用量统计都在本机。MIT 开源。</p>
-              <a class="dl" href="https://github.com/unboxlumen/ntokengo" target="_blank" rel="noopener">前往 GitHub →</a>
             </li>
           </ul>
         </noscript>
@@ -400,7 +400,7 @@
       navGames: "游戏",
       heroDesc: "独立软件与游戏开发工作室。我们拆开灵感、点亮创意，把一个个想法做成真正可用的产品。",
       browseSoftware: "浏览软件 ↓",
-      browseComponents: "浏览开源",
+      browseComponents: "浏览组件",
       gamesBtn: "浏览游戏",
       metaProjectsLabel: "项目数",
       metaProjectsValue: "01",
@@ -410,10 +410,10 @@
       metaStatusValue: "持续开发中",
       softIndex: "01 // Software",
       softTitle: "我们的软件",
-      softNote: "由 UnboxLumen 开发并维护的应用，可直接下载使用。",
-      compIndex: "02 // Open Source",
-      compTitle: "开源项目",
-      compNote: "UnboxLumen 自研并对外开源的项目：Android 调试组件与自托管 AI 网关，均可自由使用与集成。",
+      softNote: "由 UnboxLumen 开发并维护的软件：应用可直接下载，开源项目可从源码构建。",
+      compIndex: "02 // Components",
+      compTitle: "开源组件",
+      compNote: "UnboxLumen 自研并对外开源的 Android 工具组件，可自由集成到自己的项目中。",
       gamesIndex: "03 // Games",
       gamesTitle: "游戏项目",
       gamesNote: "独立游戏正在孵化中，敬请期待。",
@@ -430,7 +430,7 @@
       navGames: "Games",
       heroDesc: "An independent software and game studio. We unpack ideas, spark creativity, and turn them into products you can actually use.",
       browseSoftware: "Browse Software ↓",
-      browseComponents: "Browse Open Source",
+      browseComponents: "Browse Components",
       gamesBtn: "Browse Games",
       metaProjectsLabel: "Projects",
       metaProjectsValue: "01",
@@ -440,10 +440,10 @@
       metaStatusValue: "In Development",
       softIndex: "01 // Software",
       softTitle: "Our Software",
-      softNote: "Apps developed and maintained by UnboxLumen. Download and use them directly.",
-      compIndex: "02 // Open Source",
+      softNote: "Software developed and maintained by UnboxLumen — apps to download, open-source projects to build from source.",
+      compIndex: "02 // Components",
       compTitle: "Open Source",
-      compNote: "Open-source projects by UnboxLumen — an Android in-app debug library and a self-hosted AI gateway. Free to use and integrate.",
+      compNote: "Open-source Android libraries by UnboxLumen. Integrate freely into your own projects.",
       gamesIndex: "03 // Games",
       gamesTitle: "Games",
       gamesNote: "Indie games are in the making. Stay tuned.",
@@ -480,14 +480,26 @@
       tags: { zh: ["安卓应用", "轻量"], en: ["Android", "Lightweight"] },
       version: "v0.0.18",
       download: "https://github.com/unboxlumen/nbrowser/releases/download/v0.0.18/nbrowser-release.apk"
+    },
+    {
+      // 开源软件：尚无 Release 与产品页，卡片与按钮均指向 GitHub 仓库
+      repo: "unboxlumen/ntokengo",
+      en: "AI Gateway",
+      name: { zh: "ntokengo", en: "ntokengo" },
+      desc: {
+        zh: "开源的本地 AI 网关：一个进程把多个上游模型服务聚合成一个 OpenAI 协议地址，模型路由、密钥、请求日志与用量统计都在本机，改配置不用重启。",
+        en: "An open-source self-hosted AI gateway: pool multiple upstream model services behind one OpenAI-protocol endpoint, with model routing, keys, request logs and usage metrics — all on your machine, no restart needed."
+      },
+      tags: { zh: ["Go", "自托管", "开源"], en: ["Go", "Self-hosted", "Open Source"] },
+      license: "MIT",
+      link: "https://github.com/unboxlumen/ntokengo"
     }
   ];
 
   // ========== 游戏列表（开发中项目占位） ==========
   const games = [];
 
-  // ========== 开源项目列表 ==========
-  // page 可选：没有独立产品页的项目直接指向 link（GitHub）。
+  // ========== 开源组件列表 ==========
   const components = [
     {
       page: "ndebugbar/",
@@ -500,28 +512,23 @@
       tags: { zh: ["Android", "开源"], en: ["Android", "Open Source"] },
       license: "MIT",
       link: "https://github.com/unboxlumen/ndebugbar"
-    },
-    {
-      repo: "unboxlumen/ntokengo",
-      en: "AI Gateway", // 单名产品：副标签用类型说明，避免与卡片标题重复
-      name: { zh: "ntokengo", en: "ntokengo" },
-      desc: {
-        zh: "开源的本地 AI 网关：一个进程把多个上游模型服务聚合成一个 OpenAI 协议地址，模型路由、密钥、请求日志与用量统计都在本机，改配置不用重启。",
-        en: "An open-source self-hosted AI gateway: pool multiple upstream model services behind one OpenAI-protocol endpoint, with model routing, keys, request logs and usage metrics — all on your machine, no restart needed."
-      },
-      tags: { zh: ["Go", "自托管", "开源"], en: ["Go", "Self-hosted", "Open Source"] },
-      license: "MIT",
-      link: "https://github.com/unboxlumen/ntokengo"
     }
   ];
 
   function t(key) { return I18N[lang][key]; }
 
+  // page / download / version 均可选：无 Release 的开源软件走 GitHub 链接，版本位显示许可证。
   function cardTemplate(item) {
+    const href = item.page || item.link;
+    const target = item.page ? "" : ' target="_blank" rel="noopener"';
+    const actions = item.download
+      ? `<a class="card-detail" href="${item.page}">${t("cardDetail")}</a>
+            <a class="card-dl" href="${item.download}" target="_blank" rel="noopener">${t("download")}</a>`
+      : `<a class="card-detail" href="${item.link}" target="_blank" rel="noopener">GitHub →</a>`;
     return `
       <article class="card reveal">
         <div class="card-head">
-          <a class="card-name-link" href="${item.page}"><span class="card-name">${item.name[lang]}</span></a>
+          <a class="card-name-link" href="${href}"${target}><span class="card-name">${item.name[lang]}</span></a>
           <span class="card-en">${item.en}</span>
         </div>
         <p class="card-desc">${item.desc[lang]}</p>
@@ -529,10 +536,9 @@
           ${item.tags[lang].map(x => `<span class="tag">${x}</span>`).join("")}
         </div>
         <div class="card-footer">
-          <span class="card-version">${item.version}</span>
+          <span class="card-version">${item.version || item.license || ""}</span>
           <div class="card-actions">
-            <a class="card-detail" href="${item.page}">${t("cardDetail")}</a>
-            <a class="card-dl" href="${item.download}" target="_blank" rel="noopener">${t("download")}</a>
+            ${actions}
           </div>
         </div>
       </article>
@@ -588,6 +594,7 @@
   // 从各产品 GitHub Releases 读取最新版本，自动刷新下载地址与版本号（失败保留预设值）
   (async () => {
     for (const item of software) {
+      if (!item.asset) continue; // 无 Release 附件的开源软件（ntokengo）不需要查版本
       try {
         const res = await fetch(`https://api.github.com/repos/${item.repo}/releases/latest`);
         if (!res.ok) continue;

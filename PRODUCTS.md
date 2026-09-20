@@ -61,7 +61,8 @@
 - **是网关，不是模型**：自托管的 OpenAI 协议反向代理，把多个上游聚合成一个地址；不提供模型、不卖 token，上游需自己配置且兼容 OpenAI 协议。
 - **数据在本机**：配置、路由表、密钥与请求日志都在本机 SQLite（`~/.ntokengo/`），无云端账号、无遥测。
 - **平台**：macOS / Linux / Windows（含 WSL）；常驻服务 + Web 管理面板 + 托盘菜单 + CLI。
-- **源码已公开、未发布版本**：GitHub 仓库已有 `main` 源码与 MIT `LICENSE`，但没有 tag / Release / 预编译产物；官网主页「开源项目」区已展示卡片（只跳 GitHub），仍不设下载入口。
+- **是软件、不是组件**：官网首页把它放在「我们的软件」区（与 N 浏览器同区），**不要**放进「开源组件」区（那一区是 nDebugBar 这类需嵌入宿主 App 的库）。
+- **源码已公开、未发布版本**：GitHub 仓库已有 `main` 源码与 MIT `LICENSE`，但没有 tag / Release / 预编译产物；官网主页软件区已展示卡片（只跳 GitHub），仍不设下载入口。
 - 完整描述见 [ntokengo/PRODUCT.md](ntokengo/PRODUCT.md)。
 
 ---
