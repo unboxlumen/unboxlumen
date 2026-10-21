@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UnboxLumen · 独立软件与游戏开发工作室 · N 浏览器</title>
+<meta name="description" content="UnboxLumen 是独立软件与游戏开发工作室，主力出品 N 浏览器（轻量安卓浏览器），轻量、简洁、开箱即用，可在此直接下载最新安卓应用。">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#F6F2E8">
+<link rel="canonical" href="https://unboxlumen.com/">
+<link rel="alternate" hreflang="zh-CN" href="https://unboxlumen.com/">
+<link rel="alternate" hreflang="en" href="https://unboxlumen.com/">
+<link rel="alternate" hreflang="x-default" href="https://unboxlumen.com/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="UnboxLumen">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:title" content="UnboxLumen · 独立软件与游戏开发工作室">
+<meta property="og:description" content="独立软件与游戏开发工作室。主力出品轻量安卓浏览器 N 浏览器，官网直接下载。">
+<meta property="og:url" content="https://unboxlumen.com/">
+<meta property="og:image" content="https://unboxlumen.com/og-cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="UnboxLumen · 独立软件与游戏开发工作室">
+<meta name="twitter:description" content="独立软件与游戏开发工作室。主力出品轻量安卓浏览器 N 浏览器，官网直接下载。">
+<meta name="twitter:image" content="https://unboxlumen.com/og-cover.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://unboxlumen.com/#organization",
+      "name": "UnboxLumen",
+      "url": "https://unboxlumen.com/",
+      "description": "独立软件与游戏开发工作室",
+      "logo": "https://unboxlumen.com/favicon.svg",
+      "sameAs": ["https://github.com/unboxlumen"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://unboxlumen.com/#website",
+      "url": "https://unboxlumen.com/",
+      "name": "UnboxLumen",
+      "inLanguage": ["zh-CN", "en"],
+      "publisher": { "@id": "https://unboxlumen.com/#organization" }
+    }
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet"></noscript>
+<style>
+  :root {
+    --bg: #F6F2E8;
+    --header-bg: rgba(246, 242, 232, 0.72);
+    --tint: #F0EBDE;
+    --tint-2: #EBE6D7;
+    --tint-3: #E6E0D0;
+    --text: #111111;
+    --muted: #6e6e73;
+    --line: rgba(0, 0, 0, 0.09);
+    --accent: #0071e3;
+    --font-display: "Outfit", "Noto Sans SC", sans-serif;
+    --font-body: "Noto Sans SC", -apple-system, "PingFang SC", sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* 环境光晕：右上淡蓝呼应品牌色，左下极淡暖光 */
+  body::before {
+    content: "";
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(900px 520px at 88% -8%, rgba(0, 113, 227, 0.09), transparent 62%),
+      radial-gradient(820px 480px at -8% 108%, rgba(240, 176, 76, 0.08), transparent 60%);
+  }
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 48px; }
+
+  /* ---------- 导航 ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--line);
+  }
+  nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--font-display);
+    font-weight: 600; font-size: 17px; letter-spacing: -0.01em;
+    text-decoration: none; color: var(--text);
+  }
+  .brand-mark {
+    width: 26px; height: 26px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--text); color: #fff;
+    font-family: var(--font-mono); font-weight: 600; font-size: 11px;
+  }
+  .nav-links { display: flex; align-items: center; gap: 30px; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-gh {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 18px; border-radius: 999px;
+    border: 1px solid var(--line);
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--text); text-decoration: none;
+    transition: border-color 0.2s;
+  }
+  .nav-gh:hover { border-color: var(--accent); color: var(--accent); }
+  .lang-btn {
+    cursor: pointer;
+    display: inline-flex; align-items: center;
+    padding: 8px 16px; border-radius: 999px;
+    border: 1px solid var(--line);
+    background: transparent;
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--text); text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 160px 0 120px; text-align: center; }
+  .hero-eyebrow {
+    font-family: var(--font-mono); font-size: 13px;
+    color: var(--muted); letter-spacing: 0.22em;
+  }
+  .hero h1 {
+    margin-top: 30px;
+    font-family: var(--font-display);
+    font-size: clamp(46px, 8vw, 92px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 .accent { color: var(--accent); }
+  .hero-desc {
+    margin: 30px auto 0;
+    max-width: 520px;
+    font-size: 18px; color: var(--muted);
+  }
+  .hero-actions { margin-top: 46px; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 32px; border-radius: 999px;
+    font-family: var(--font-mono); font-size: 14px; font-weight: 600;
+    text-decoration: none; transition: transform 0.2s, opacity 0.2s;
+  }
+  .btn-primary { background: var(--text); color: #fff; }
+  .btn-primary:hover { transform: translateY(-2px); opacity: 0.88; }
+  .btn-ghost { border: 1px solid var(--line); color: var(--text); background: transparent; }
+  .btn-ghost:hover { transform: translateY(-2px); border-color: var(--text); }
+  .hero-meta {
+    margin-top: 80px; display: flex; justify-content: center; gap: 0;
+    font-family: var(--font-mono); font-size: 12px; color: var(--muted);
+  }
+  .hero-meta .meta-item { padding: 0 44px; border-left: 1px solid var(--line); }
+  .hero-meta .meta-item:first-child { border-left: none; }
+  .hero-meta b { display: block; margin-top: 6px; font-size: 20px; font-weight: 600; color: var(--text); }
+
+  /* ---------- 区块 ---------- */
+  section { padding: 20px 0; }
+  .section-head { margin-bottom: 56px; }
+  .section-index {
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--muted); letter-spacing: 0.22em; text-transform: uppercase;
+  }
+  .section-head h2 {
+    margin-top: 16px;
+    font-family: var(--font-display);
+    font-size: clamp(30px, 4vw, 44px);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .section-note { margin-top: 14px; color: var(--muted); font-size: 16px; }
+
+  /* ---------- 卡片 ---------- */
+  #software-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 28px; }
+  #components-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 28px; }
+  #components-grid .card { width: 100%; }
+  .card {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 34px 32px 30px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08); border-color: rgba(0, 0, 0, 0.16); }
+  .card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .card-name { font-family: var(--font-display); font-size: 22px; font-weight: 600; }
+  .card-en { font-family: var(--font-mono); font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .card-desc { margin-top: 12px; font-size: 15px; color: var(--muted); min-height: 3em; }
+  .card-tags { margin-top: 22px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag {
+    padding: 4px 14px; border-radius: 999px;
+    font-family: var(--font-mono); font-size: 11px;
+    background: var(--tint-2); color: var(--muted);
+  }
+  .card-footer {
+    margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .card-version { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+  .card-actions { display: flex; gap: 10px; }
+  .card-dl {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 24px; border-radius: 999px;
+    background: var(--text); color: #fff;
+    font-family: var(--font-mono); font-size: 13px; font-weight: 600;
+    text-decoration: none; transition: transform 0.2s, opacity 0.2s;
+  }
+  .card-dl:hover { transform: translateY(-2px); opacity: 0.88; }
+  .card-name-link { color: inherit; text-decoration: none; transition: color 0.2s; }
+  .card-name-link:hover { color: var(--accent); }
+  .card-detail {
+    display: inline-flex; align-items: center;
+    padding: 10px 20px; border-radius: 999px;
+    border: 1px solid var(--line); color: var(--text);
+    font-family: var(--font-mono); font-size: 13px; font-weight: 600;
+    text-decoration: none; transition: transform 0.2s, border-color 0.2s;
+  }
+  .card-detail:hover { transform: translateY(-2px); border-color: var(--text); }
+
+  /* ---------- 无 JS 兜底（SEO） ---------- */
+  .seo-list { list-style: none; display: grid; gap: 16px; }
+  .seo-list li { border: 1px solid var(--line); border-radius: 18px; padding: 24px 26px; }
+  .seo-list a { color: var(--text); font-weight: 600; text-decoration: none; }
+  .seo-list a:hover { color: var(--accent); }
+  .seo-list p { color: var(--muted); font-size: 14px; margin-top: 8px; }
+  .seo-list .dl { color: var(--accent); font-family: var(--font-mono); font-size: 13px; font-weight: 600; }
+  .seo-list .dl:hover { color: var(--text); }
+
+  /* ---------- 游戏 ---------- */
+  .games-empty {
+    border: 1px dashed var(--line);
+    border-radius: 18px;
+    padding: 80px 32px; text-align: center; color: var(--muted);
+  }
+  .games-empty .big { font-family: var(--font-display); font-size: 24px; font-weight: 600; color: var(--text); margin-bottom: 12px; }
+  .games-empty .mono { font-family: var(--font-mono); font-size: 13px; color: var(--accent); }
+
+  /* ---------- 页脚 ---------- */
+  footer { border-top: 1px solid var(--line); padding: 48px 0; }
+  .footer-inner {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    font-family: var(--font-mono); font-size: 12px; color: var(--muted);
+  }
+  .footer-inner a { color: var(--muted); text-decoration: none; }
+  .footer-inner a:hover { color: var(--text); }
+
+  /* ---------- 动画 ---------- */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in-view { opacity: 1; transform: none; }
+  .hero .reveal { animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  .hero .reveal:nth-child(2) { animation-delay: 0.08s; }
+  .hero .reveal:nth-child(3) { animation-delay: 0.18s; }
+  .hero .reveal:nth-child(4) { animation-delay: 0.28s; }
+  .hero .reveal:nth-child(5) { animation-delay: 0.38s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal, .hero .reveal { animation: none; opacity: 1; transform: none; transition: none; }
+  }
+  @media (max-width: 760px) {
+    .container { padding: 0 22px; }
+    .hero { padding: 110px 0 90px; }
+    .hero-meta { flex-wrap: wrap; row-gap: 20px; }
+    .hero-meta .meta-item { padding: 0 24px; }
+    .nav-links a { display: none; }
+    section { padding: 90px 0; }
+    #software-grid { grid-template-columns: 1fr; }
+    #components-grid { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <nav class="container">
+    <a class="brand" href="#top"><span class="brand-mark">UL</span>UnboxLumen</a>
+    <div class="nav-links">
+      <a href="#software" data-i18n="navSoftware">软件</a>
+      <a href="#games" data-i18n="navGames">游戏</a>
+      <button id="lang-switch" class="lang-btn" type="button" aria-label="Switch to English">EN</button>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero container">
+    <div class="reveal"><span class="hero-eyebrow">SOFTWARE &amp; GAME STUDIO</span></div>
+    <h1 class="reveal">Unbox<span class="accent">Lumen</span></h1>
+    <p class="hero-desc reveal" data-i18n="heroDesc">独立软件与游戏开发工作室。我们拆开灵感、点亮创意，把一个个想法做成真正可用的产品。</p>
+    <div class="hero-actions reveal">
+      <a class="btn btn-primary" href="#software" data-i18n="browseSoftware">浏览软件 ↓</a>
+      <a class="btn btn-ghost" href="#components" data-i18n="browseComponents">浏览组件</a>
+      <a class="btn btn-ghost" href="#games" data-i18n="gamesBtn">浏览游戏</a>
+    </div>
+    <div class="hero-meta reveal">
+      <div class="meta-item"><span data-i18n="metaProjectsLabel">项目数</span><b data-i18n="metaProjectsValue">01</b></div>
+      <div class="meta-item"><span data-i18n="metaFocusLabel">方向</span><b data-i18n="metaFocusValue">软件 / 游戏</b></div>
+      <div class="meta-item"><span data-i18n="metaStatusLabel">状态</span><b data-i18n="metaStatusValue">持续开发中</b></div>
+    </div>
+  </section>
+
+  <section id="software">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-index" data-i18n="softIndex">01 // Software</div>
+        <h2 data-i18n="softTitle">我们的软件</h2>
+        <p class="section-note" data-i18n="softNote">由 UnboxLumen 开发并维护的应用，可直接下载使用。</p>
+      </div>
+      <div id="software-grid">
+        <noscript>
+          <ul class="seo-list">
+            <li>
+              <a href="nbrowser/">N 浏览器（nBrowser）</a>
+              <p>UnboxLumen 出品的轻量安卓浏览器，注重速度与简洁。系统 WebView，不捆绑引擎，Release 包仅约 2.1 MB。</p>
+              <a class="dl" href="https://github.com/unboxlumen/nbrowser/releases/download/v0.0.18/nbrowser-release.apk">下载 APK →</a>
+            </li>
+            <li>
+              <a href="https://github.com/unboxlumen/ntokengo" target="_blank" rel="noopener">ntokengo</a>
+              <p>开源的本地 AI 网关：一个进程把多个上游模型服务聚合成一个 OpenAI 协议地址，模型路由、密钥、请求日志与用量统计都在本机。MIT 开源，可从源码构建。</p>
+              <a class="dl" href="https://github.com/unboxlumen/ntokengo" target="_blank" rel="noopener">前往 GitHub →</a>
+            </li>
+          </ul>
+        </noscript>
+      </div>
+    </div>
+  </section>
+
+  <section id="components">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-index" data-i18n="compIndex">02 // Components</div>
+        <h2 data-i18n="compTitle">开源组件</h2>
+        <p class="section-note" data-i18n="compNote">UnboxLumen 自研并对外开源的 Android 工具组件，可自由集成到自己的项目中。</p>
+      </div>
+      <div id="components-grid">
+        <noscript>
+          <ul class="seo-list">
+            <li>
+              <a href="ndebugbar/">nDebugBar（ndebugbar）</a>
+              <p>开源 Android 应用内调试面板组件，摇一摇唤出悬浮窗，日志 / 网络 / 沙盒 / 视图层级一站搞定。MIT 开源，可商用集成。</p>
+              <a class="dl" href="https://github.com/unboxlumen/ndebugbar" target="_blank" rel="noopener">前往 GitHub →</a>
+            </li>
+          </ul>
+        </noscript>
+      </div>
+    </div>
+  </section>
+
+  <section id="games">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-index" data-i18n="gamesIndex">03 // Games</div>
+        <h2 data-i18n="gamesTitle">游戏项目</h2>
+        <p class="section-note" data-i18n="gamesNote">独立游戏正在孵化中，敬请期待。</p>
+      </div>
+      <div class="games-empty reveal">
+        <div class="big" data-i18n="gamesEmptyBig">正在点亮新的世界</div>
+        <p data-i18n="gamesEmptyText">首个游戏项目仍在开发阶段，完成后会在此展示。</p>
+        <p class="mono" style="margin-top:16px">// COMING SOON</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <span>© 2026 UnboxLumen Project</span>
+    <span>Built by <a href="https://github.com/unboxlumen" target="_blank" rel="noopener">@unboxlumen</a></span>
+  </div>
+</footer>
+
+<script>
+  (() => {
+  // ========== 中英双语文案 ==========
+  const I18N = {
+    zh: {
+      lang: "zh-CN",
+      title: "UnboxLumen · 独立软件与游戏开发工作室 · N 浏览器",
+      description: "UnboxLumen 是独立软件与游戏开发工作室，主力出品 N 浏览器（轻量安卓浏览器），轻量、简洁、开箱即用，可在此直接下载最新安卓应用。",
+      navSoftware: "软件",
+      navGames: "游戏",
+      heroDesc: "独立软件与游戏开发工作室。我们拆开灵感、点亮创意，把一个个想法做成真正可用的产品。",
+      browseSoftware: "浏览软件 ↓",
+      browseComponents: "浏览组件",
+      gamesBtn: "浏览游戏",
+      metaProjectsLabel: "项目数",
+      metaProjectsValue: "01",
+      metaFocusLabel: "方向",
+      metaFocusValue: "软件 / 游戏",
+      metaStatusLabel: "状态",
+      metaStatusValue: "持续开发中",
+      softIndex: "01 // Software",
+      softTitle: "我们的软件",
+      softNote: "由 UnboxLumen 开发并维护的软件：应用可直接下载，开源项目可从源码构建。",
+      compIndex: "02 // Components",
+      compTitle: "开源组件",
+      compNote: "UnboxLumen 自研并对外开源的 Android 工具组件，可自由集成到自己的项目中。",
+      gamesIndex: "03 // Games",
+      gamesTitle: "游戏项目",
+      gamesNote: "独立游戏正在孵化中，敬请期待。",
+      gamesEmptyBig: "正在点亮新的世界",
+      gamesEmptyText: "首个游戏项目仍在开发阶段，完成后会在此展示。",
+      download: "下载",
+      cardDetail: "详情"
+    },
+    en: {
+      lang: "en",
+      title: "UnboxLumen · Software & Game Studio · N Browser",
+      description: "UnboxLumen is an independent software and game studio behind N Browser (a lightweight Android browser) — download the latest APK here.",
+      navSoftware: "Software",
+      navGames: "Games",
+      heroDesc: "An independent software and game studio. We unpack ideas, spark creativity, and turn them into products you can actually use.",
+      browseSoftware: "Browse Software ↓",
+      browseComponents: "Browse Components",
+      gamesBtn: "Browse Games",
+      metaProjectsLabel: "Projects",
+      metaProjectsValue: "01",
+      metaFocusLabel: "Focus",
+      metaFocusValue: "Software / Games",
+      metaStatusLabel: "Status",
+      metaStatusValue: "In Development",
+      softIndex: "01 // Software",
+      softTitle: "Our Software",
+      softNote: "Software developed and maintained by UnboxLumen — apps to download, open-source projects to build from source.",
+      compIndex: "02 // Components",
+      compTitle: "Open Source",
+      compNote: "Open-source Android libraries by UnboxLumen. Integrate freely into your own projects.",
+      gamesIndex: "03 // Games",
+      gamesTitle: "Games",
+      gamesNote: "Indie games are in the making. Stay tuned.",
+      gamesEmptyBig: "Lighting up new worlds",
+      gamesEmptyText: "The first game project is still in development and will be showcased here once it's ready.",
+      download: "Download",
+      cardDetail: "Details"
+    }
+  };
+
+  // 语言：跟随系统语言，系统语言变化时页面自动切换
+  function systemLang() {
+    return navigator.language && navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en";
+  }
+  let lang = systemLang();
+  window.addEventListener("languagechange", () => {
+    lang = systemLang();
+    applyLang();
+  });
+
+  // ========== 软件列表（新增项目只需在此追加一条数据） ==========
+  // 临时撤下：N 文件（nFiles）与 N 搜索（nSearch）暂时不在主页展示，产品页保留可访问。
+  const software = [
+    {
+      en: "nBrowser",
+      page: "nbrowser/",
+      repo: "unboxlumen/nbrowser",
+      asset: "nbrowser-release.apk",
+      name: { zh: "N 浏览器", en: "nBrowser" },
+      desc: {
+        zh: "UnboxLumen 出品的轻量安卓浏览器，注重速度与简洁，为你提供清爽的上网体验。",
+        en: "A lightweight Android browser by UnboxLumen, focused on speed and simplicity for a clean browsing experience."
+      },
+      tags: { zh: ["安卓应用", "轻量"], en: ["Android", "Lightweight"] },
+      version: "v0.0.18",
+      download: "https://github.com/unboxlumen/nbrowser/releases/download/v0.0.18/nbrowser-release.apk"
+    },
+    {
+      // 开源软件：尚无 Release 与产品页，卡片与按钮均指向 GitHub 仓库
+      repo: "unboxlumen/ntokengo",
+      en: "AI Gateway",
+      name: { zh: "ntokengo", en: "ntokengo" },
+      desc: {
+        zh: "开源的本地 AI 网关：一个进程把多个上游模型服务聚合成一个 OpenAI 协议地址，模型路由、密钥、请求日志与用量统计都在本机，改配置不用重启。",
+        en: "An open-source self-hosted AI gateway: pool multiple upstream model services behind one OpenAI-protocol endpoint, with model routing, keys, request logs and usage metrics — all on your machine, no restart needed."
+      },
+      tags: { zh: ["Go", "自托管", "开源"], en: ["Go", "Self-hosted", "Open Source"] },
+      license: "MIT",
+      link: "https://github.com/unboxlumen/ntokengo"
+    }
+  ];
+
+  // ========== 游戏列表（开发中项目占位） ==========
+  const games = [];
+
+  // ========== 开源组件列表 ==========
+  const components = [
+    {
+      page: "ndebugbar/",
+      repo: "unboxlumen/ndebugbar",
+      name: { zh: "调试面板", en: "nDebugBar" },
+      desc: {
+        zh: "开源 Android 应用内调试面板组件，摇一摇唤出悬浮窗，日志 / 网络 / 沙盒 / 视图层级一站搞定。MIT 许可证，可商用集成。",
+        en: "An open-source Android in-app debug overlay. Shake to summon a floating panel with logs, network, sandbox and view hierarchy. Licensed under MIT."
+      },
+      tags: { zh: ["Android", "开源"], en: ["Android", "Open Source"] },
+      license: "MIT",
+      link: "https://github.com/unboxlumen/ndebugbar"
+    }
+  ];
+
+  function t(key) { return I18N[lang][key]; }
+
+  // page / download / version 均可选：无 Release 的开源软件走 GitHub 链接，版本位显示许可证。
+  function cardTemplate(item) {
+    const href = item.page || item.link;
+    const target = item.page ? "" : ' target="_blank" rel="noopener"';
+    const actions = item.download
+      ? `<a class="card-detail" href="${item.page}">${t("cardDetail")}</a>
+            <a class="card-dl" href="${item.download}" target="_blank" rel="noopener">${t("download")}</a>`
+      : `<a class="card-detail" href="${item.link}" target="_blank" rel="noopener">GitHub →</a>`;
+    return `
+      <article class="card reveal">
+        <div class="card-head">
+          <a class="card-name-link" href="${href}"${target}><span class="card-name">${item.name[lang]}</span></a>
+          <span class="card-en">${item.en}</span>
+        </div>
+        <p class="card-desc">${item.desc[lang]}</p>
+        <div class="card-tags">
+          ${item.tags[lang].map(x => `<span class="tag">${x}</span>`).join("")}
+        </div>
+        <div class="card-footer">
+          <span class="card-version">${item.version || item.license || ""}</span>
+          <div class="card-actions">
+            ${actions}
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  function renderSoftware() {
+    document.getElementById("software-grid").innerHTML = software.map(cardTemplate).join("");
+  }
+
+  function componentTemplate(item) {
+    const href = item.page || item.link;
+    const target = item.page ? "" : ' target="_blank" rel="noopener"';
+    return `
+      <article class="card reveal">
+        <div class="card-head">
+          <a class="card-name-link" href="${href}"${target}><span class="card-name">${item.name[lang]}</span></a>
+          <span class="card-en">${item.en || item.name.en}</span>
+        </div>
+        <p class="card-desc">${item.desc[lang]}</p>
+        <div class="card-tags">
+          ${item.tags[lang].map(x => `<span class="tag">${x}</span>`).join("")}
+        </div>
+        <div class="card-footer">
+          <span class="card-version">${item.license || "MIT"}</span>
+          <div class="card-actions">
+            <a class="card-detail" href="${item.link}" target="_blank" rel="noopener">GitHub →</a>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  function renderComponents() {
+    document.getElementById("components-grid").innerHTML = components.map(componentTemplate).join("");
+  }
+
+  function applyLang() {
+    document.documentElement.lang = I18N[lang].lang;
+    document.title = t("title");
+    document.querySelector('meta[name="description"]').setAttribute("content", t("description"));
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      el.textContent = t(el.dataset.i18n);
+    });
+    const btn = document.getElementById("lang-switch");
+    btn.textContent = lang === "zh" ? "EN" : "中文";
+    btn.setAttribute("aria-label", lang === "zh" ? "Switch to English" : "切换到中文");
+    renderSoftware();
+    renderComponents();
+    observeReveals();
+  }
+
+  // 从各产品 GitHub Releases 读取最新版本，自动刷新下载地址与版本号（失败保留预设值）
+  (async () => {
+    for (const item of software) {
+      if (!item.asset) continue; // 无 Release 附件的开源软件（ntokengo）不需要查版本
+      try {
+        const res = await fetch(`https://api.github.com/repos/${item.repo}/releases/latest`);
+        if (!res.ok) continue;
+        const data = await res.json();
+        const asset = data.assets && data.assets.find((a) => a.name === item.asset);
+        if (asset) {
+          item.version = data.tag_name || item.version;
+          item.download = asset.browser_download_url;
+        }
+      } catch (e) { /* 网络不可用时保留预设版本 */ }
+    }
+    renderSoftware();
+    observeReveals();
+  })();
+
+  document.getElementById("lang-switch").addEventListener("click", () => {
+    lang = lang === "zh" ? "en" : "zh";
+    applyLang();
+  });
+
+  // 滚动入场动画
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
+
+  function observeReveals() {
+    document.querySelectorAll(".reveal").forEach((el, i) => {
+      if (!el.closest(".hero")) {
+        el.style.transitionDelay = `${(i % 3) * 0.08}s`;
+      }
+      observer.observe(el);
+    });
+  }
+
+  applyLang();
+  })();
+</script>
+</body>
+</html>
