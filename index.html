@@ -122,17 +122,20 @@
     transition: border-color 0.2s;
   }
   .nav-gh:hover { border-color: var(--accent); color: var(--accent); }
-  .lang-btn {
-    cursor: pointer;
-    display: inline-flex; align-items: center;
-    padding: 8px 16px; border-radius: 999px;
+  .lang-switch {
+    display: inline-flex; align-items: center; gap: 2px;
+    padding: 3px; border-radius: 999px;
     border: 1px solid var(--line);
-    background: transparent;
-    font-family: var(--font-mono); font-size: 12px;
-    color: var(--text); text-decoration: none;
-    transition: border-color 0.2s, color 0.2s;
   }
-  .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .lang-opt {
+    cursor: pointer;
+    padding: 5px 13px; border-radius: 999px; border: none;
+    background: transparent; color: var(--muted);
+    font-family: var(--font-mono); font-size: 12px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .lang-opt:hover { color: var(--text); }
+  .lang-opt[aria-pressed="true"] { background: var(--text); color: #fff; }
 
   /* ---------- Hero ---------- */
   .hero { padding: 160px 0 120px; text-align: center; }
@@ -235,6 +238,9 @@
     text-decoration: none; transition: transform 0.2s, border-color 0.2s;
   }
   .card-detail:hover { transform: translateY(-2px); border-color: var(--text); }
+  .card-upstream { margin-top: 14px; font-size: 13px; color: var(--muted); }
+  .card-upstream a { color: var(--accent); text-decoration: none; }
+  .card-upstream a:hover { text-decoration: underline; }
 
   /* ---------- 无 JS 兜底（SEO） ---------- */
   .seo-list { list-style: none; display: grid; gap: 16px; }
@@ -296,7 +302,10 @@
     <div class="nav-links">
       <a href="#software" data-i18n="navSoftware">软件</a>
       <a href="#games" data-i18n="navGames">游戏</a>
-      <button id="lang-switch" class="lang-btn" type="button" aria-label="Switch to English">EN</button>
+      <div class="lang-switch" role="group" aria-label="语言 / Language">
+        <button class="lang-opt" type="button" data-lang="zh" aria-pressed="false">中文</button>
+        <button class="lang-opt" type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
     </div>
   </nav>
 </header>
@@ -333,11 +342,6 @@
               <p>UnboxLumen 出品的轻量安卓浏览器，注重速度与简洁。系统 WebView，不捆绑引擎，Release 包仅约 2.1 MB。</p>
               <a class="dl" href="https://github.com/unboxlumen/nbrowser/releases/download/v0.0.18/nbrowser-release.apk">下载 APK →</a>
             </li>
-            <li>
-              <a href="https://github.com/unboxlumen/ntokengo" target="_blank" rel="noopener">ntokengo</a>
-              <p>开源的本地 AI 网关：一个进程把多个上游模型服务聚合成一个 OpenAI 协议地址，模型路由、密钥、请求日志与用量统计都在本机。MIT 开源，可从源码构建。</p>
-              <a class="dl" href="https://github.com/unboxlumen/ntokengo" target="_blank" rel="noopener">前往 GitHub →</a>
-            </li>
           </ul>
         </noscript>
       </div>
@@ -349,15 +353,15 @@
       <div class="section-head reveal">
         <div class="section-index" data-i18n="compIndex">02 // Components</div>
         <h2 data-i18n="compTitle">开源组件</h2>
-        <p class="section-note" data-i18n="compNote">UnboxLumen 自研并对外开源的 Android 工具组件，可自由集成到自己的项目中。</p>
+        <p class="section-note" data-i18n="compNote">UnboxLumen 自研并对外开源的工具组件（Go），可自由集成到自己的项目中。</p>
       </div>
       <div id="components-grid">
         <noscript>
           <ul class="seo-list">
             <li>
-              <a href="ndebugbar/">nDebugBar（ndebugbar）</a>
-              <p>开源 Android 应用内调试面板组件，摇一摇唤出悬浮窗，日志 / 网络 / 沙盒 / 视图层级一站搞定。MIT 开源，可商用集成。</p>
-              <a class="dl" href="https://github.com/unboxlumen/ndebugbar" target="_blank" rel="noopener">前往 GitHub →</a>
+              <a href="https://github.com/unboxlumen/libcaca-go" target="_blank" rel="noopener">libcaca-go（nfilesart）</a>
+              <p>纯 Go 的彩色 ASCII Art 工具库，移植自 libcaca 的 caca/ 核心（libcaca 0.99.beta20），采用 WTFPL v2 许可证。无 cgo，支持画布与绘制变换、图像抖动、caca / ANSI / UTF-8 / HTML / SVG / PostScript 等格式编解码、位图字体与 FIGfont，以及 tcell 终端后端。</p>
+              <a class="dl" href="https://github.com/unboxlumen/libcaca-go" target="_blank" rel="noopener">前往 GitHub →</a>
             </li>
           </ul>
         </noscript>
@@ -410,10 +414,10 @@
       metaStatusValue: "持续开发中",
       softIndex: "01 // Software",
       softTitle: "我们的软件",
-      softNote: "由 UnboxLumen 开发并维护的软件：应用可直接下载，开源项目可从源码构建。",
+      softNote: "由 UnboxLumen 开发并维护的应用，可直接下载使用。",
       compIndex: "02 // Components",
       compTitle: "开源组件",
-      compNote: "UnboxLumen 自研并对外开源的 Android 工具组件，可自由集成到自己的项目中。",
+      compNote: "UnboxLumen 自研并对外开源的工具组件（Go），可自由集成到自己的项目中。",
       gamesIndex: "03 // Games",
       gamesTitle: "游戏项目",
       gamesNote: "独立游戏正在孵化中，敬请期待。",
@@ -440,10 +444,10 @@
       metaStatusValue: "In Development",
       softIndex: "01 // Software",
       softTitle: "Our Software",
-      softNote: "Software developed and maintained by UnboxLumen — apps to download, open-source projects to build from source.",
+      softNote: "Apps developed and maintained by UnboxLumen — ready to download.",
       compIndex: "02 // Components",
       compTitle: "Open Source",
-      compNote: "Open-source Android libraries by UnboxLumen. Integrate freely into your own projects.",
+      compNote: "Open-source tooling by UnboxLumen (Go). Integrate freely into your own projects.",
       gamesIndex: "03 // Games",
       gamesTitle: "Games",
       gamesNote: "Indie games are in the making. Stay tuned.",
@@ -465,7 +469,7 @@
   });
 
   // ========== 软件列表（新增项目只需在此追加一条数据） ==========
-  // 临时撤下：N 文件（nFiles）与 N 搜索（nSearch）暂时不在主页展示，产品页保留可访问。
+  // 临时撤下：N 文件（nFiles）暂时不在主页展示，产品页保留可访问。
   const software = [
     {
       en: "nBrowser",
@@ -480,19 +484,6 @@
       tags: { zh: ["安卓应用", "轻量"], en: ["Android", "Lightweight"] },
       version: "v0.0.18",
       download: "https://github.com/unboxlumen/nbrowser/releases/download/v0.0.18/nbrowser-release.apk"
-    },
-    {
-      // 开源软件：尚无 Release 与产品页，卡片与按钮均指向 GitHub 仓库
-      repo: "unboxlumen/ntokengo",
-      en: "AI Gateway",
-      name: { zh: "ntokengo", en: "ntokengo" },
-      desc: {
-        zh: "开源的本地 AI 网关：一个进程把多个上游模型服务聚合成一个 OpenAI 协议地址，模型路由、密钥、请求日志与用量统计都在本机，改配置不用重启。",
-        en: "An open-source self-hosted AI gateway: pool multiple upstream model services behind one OpenAI-protocol endpoint, with model routing, keys, request logs and usage metrics — all on your machine, no restart needed."
-      },
-      tags: { zh: ["Go", "自托管", "开源"], en: ["Go", "Self-hosted", "Open Source"] },
-      license: "MIT",
-      link: "https://github.com/unboxlumen/ntokengo"
     }
   ];
 
@@ -502,16 +493,20 @@
   // ========== 开源组件列表 ==========
   const components = [
     {
-      page: "ndebugbar/",
-      repo: "unboxlumen/ndebugbar",
-      name: { zh: "调试面板", en: "nDebugBar" },
+      en: "nfilesart",
+      name: { zh: "libcaca-go", en: "libcaca-go" },
       desc: {
-        zh: "开源 Android 应用内调试面板组件，摇一摇唤出悬浮窗，日志 / 网络 / 沙盒 / 视图层级一站搞定。MIT 许可证，可商用集成。",
-        en: "An open-source Android in-app debug overlay. Shake to summon a floating panel with logs, network, sandbox and view hierarchy. Licensed under MIT."
+        zh: "纯 Go 的彩色 ASCII Art 工具库，移植自 libcaca 的 caca/ 核心（对齐 libcaca 0.99.beta20）。无 cgo；支持画布 / 多帧 / 绘制变换、六种抖动算法、caca / ANSI / UTF-8 / HTML / SVG / PostScript 等格式编解码、位图字体与 FIGfont，以及 tcell 终端后端。",
+        en: "A pure-Go colour ASCII-art toolkit ported from the core of libcaca (aligned with libcaca 0.99.beta20). No cgo: canvas, frames and drawing transforms, six dither algorithms, caca / ANSI / UTF-8 / HTML / SVG / PostScript codecs, bitmap fonts and FIGfonts, plus a tcell terminal backend."
       },
-      tags: { zh: ["Android", "开源"], en: ["Android", "Open Source"] },
-      license: "MIT",
-      link: "https://github.com/unboxlumen/ndebugbar"
+      tags: { zh: ["Go", "开源"], en: ["Go", "Open Source"] },
+      license: "WTFPL v2",
+      link: "https://github.com/unboxlumen/libcaca-go",
+      upstream: "https://github.com/cacalabs/libcaca",
+      upstreamNote: {
+        zh: "WTFPL 许可，移植自 libcaca",
+        en: "WTFPL-licensed, ported from libcaca"
+      }
     }
   ];
 
@@ -562,6 +557,7 @@
         <div class="card-tags">
           ${item.tags[lang].map(x => `<span class="tag">${x}</span>`).join("")}
         </div>
+        ${item.upstream ? `<p class="card-upstream">${item.upstreamNote[lang]} · <a href="${item.upstream}" target="_blank" rel="noopener">${item.upstream.replace(/^https?:\/\/(www\.)?/, "")}</a></p>` : ""}
         <div class="card-footer">
           <span class="card-version">${item.license || "MIT"}</span>
           <div class="card-actions">
@@ -583,9 +579,9 @@
     document.querySelectorAll("[data-i18n]").forEach((el) => {
       el.textContent = t(el.dataset.i18n);
     });
-    const btn = document.getElementById("lang-switch");
-    btn.textContent = lang === "zh" ? "EN" : "中文";
-    btn.setAttribute("aria-label", lang === "zh" ? "Switch to English" : "切换到中文");
+    document.querySelectorAll(".lang-opt").forEach((el) => {
+      el.setAttribute("aria-pressed", String(el.dataset.lang === lang));
+    });
     renderSoftware();
     renderComponents();
     observeReveals();
@@ -594,7 +590,7 @@
   // 从各产品 GitHub Releases 读取最新版本，自动刷新下载地址与版本号（失败保留预设值）
   (async () => {
     for (const item of software) {
-      if (!item.asset) continue; // 无 Release 附件的开源软件（ntokengo）不需要查版本
+      if (!item.asset) continue; // 无 Release 附件的条目不需要查版本
       try {
         const res = await fetch(`https://api.github.com/repos/${item.repo}/releases/latest`);
         if (!res.ok) continue;
@@ -610,9 +606,12 @@
     observeReveals();
   })();
 
-  document.getElementById("lang-switch").addEventListener("click", () => {
-    lang = lang === "zh" ? "en" : "zh";
-    applyLang();
+  document.querySelectorAll(".lang-opt").forEach((el) => {
+    el.addEventListener("click", () => {
+      if (lang === el.dataset.lang) return;
+      lang = el.dataset.lang;
+      applyLang();
+    });
   });
 
   // 滚动入场动画
